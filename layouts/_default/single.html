@@ -1,0 +1,12 @@
+{{ define "main" }}
+
+<h2>{{.Title}}</h2>
+
+<p>
+  {{ partial "breadcrumb.html" . }}
+  {{ partial "tag-list.html" . }}
+</p>
+
+{{ .Content }}
+
+{{ end }}

@@ -1,0 +1,13 @@
+baseurl       = "https://data.tomhummel.com/"
+languagecode  = "en-us"
+title         = "data.tomhummel.com"
+uglyurls      = false
+# disableKinds  = ["section"]
+
+[taxonomies]
+  tag = "tags"
+
+[params]
+    Title = "Tom Hummel's Data"
+    SiteDescription = "All the data"
+    author = "Tom Hummel"

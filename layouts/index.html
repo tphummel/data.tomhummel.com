@@ -1,0 +1,52 @@
+{{ define "title" }}Tom Hummel's Data{{ end }}
+
+{{ define "main" }}
+
+<h1>data.tomhummel.com</h1>
+
+<p>The clearinghouse for data of and adjacent to <a href="https://tomhummel.com">tom hummel</a></p>
+
+<div class="container">
+  <div class="row">
+
+
+    <div class="column">
+      <h3>Annual Reports</h3>
+      {{ range last 5 (where .Site.Taxonomies.tags.annual.Pages "Section" "report") }}
+        <p><a href="{{ .Permalink }}">{{ .Title }}</a></p>
+      {{ end }}
+      <p>
+        <a href="{{ with .Site.GetPage "taxonomyTerm" "tags/annual" }}{{ .Permalink }}{{ end }}">More...</a>
+      </p>
+    </div>
+
+    <div class="column">
+      <h3>Meta Reports</h3>
+      {{ range last 5 (where .Site.Taxonomies.tags.meta.Pages.ByWeight "Section" "report") }}
+        <p><a href="{{ .Permalink }}">{{ .Title }}</a></p>
+      {{ end }}
+      <p>
+        <a href="{{ with .Site.GetPage "taxonomyTerm" "tags/meta" }}{{ .Permalink }}{{ end }}">More...</a>
+      </p>
+    </div>
+
+    <div class="column">
+      <h3>Recipes</h3>
+      {{ range last 5 (where .Data.Pages.ByWeight "Section" "recipe") }}
+        <p><a href="{{ .Permalink }}">{{ .Title }}</a></p>
+      {{ end }}
+      <p><a href="{{ with .Site.GetPage "section" "recipe" }}{{ .Permalink }}{{ end }}">More...</a></p>
+    </div>
+
+    <div class="column">
+      <h3>Rules</h3>
+      {{ range last 5 (where .Data.Pages.ByWeight "Section" "rule") }}
+        <p><a href="{{ .Permalink }}">{{ .Title }}</a></p>
+      {{ end }}
+      <p><a href="{{ with .Site.GetPage "section" "rule" }}{{ .Permalink }}{{ end }}">More...</a></p>
+    </div>
+  </div>
+
+</div>
+
+{{ end }}
