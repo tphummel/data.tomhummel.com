@@ -1,4 +1,5 @@
 # data.tomhummel.com
+[![Build Status](https://travis-ci.org/tphummel/data.tomhummel.com.svg?branch=master)](https://travis-ci.org/tphummel/data.tomhummel.com)
 
 ### setup
 
