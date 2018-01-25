@@ -13,3 +13,5 @@ When is it legitimate to check in to a movie?
 For movies I've seen before, rewatching as little as 15 minutes warrants a checkin - even if I enter in the middle of the movie.
 
 For first viewings, I check in at the beginning if I intend to see the entire movie. It is ok if the viewing is spread across more than one day.
+
+If a single viewing is spread over multiple days, even non-consecutive days, it is only one check-in.
