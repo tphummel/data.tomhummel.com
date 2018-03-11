@@ -1,7 +1,6 @@
 ---
 title: "Tasks Wordcloud"
 date: 2017-12-31T09:54:42-08:00
-draft: true
 tags: ["analysis-recipe"]
 ---
 
