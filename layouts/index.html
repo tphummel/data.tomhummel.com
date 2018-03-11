@@ -12,7 +12,7 @@
 
     <div class="column">
       <h3>Annual Reports</h3>
-      {{ range last 5 (where .Site.Taxonomies.tags.annual.Pages "Section" "report") }}
+      {{ range first 5 (where .Site.Taxonomies.tags.annual.Pages "Section" "report") }}
         <p><a href="{{ .Permalink }}">{{ .Title }}</a></p>
       {{ end }}
       <p>
