@@ -12,7 +12,7 @@
 
     <div class="column">
       <h3>Annual Reports</h3>
-      {{ range first 5 (where .Site.Taxonomies.tags.annual.Pages "Section" "report") }}
+      {{ range last 10 (where .Site.Taxonomies.tags.annual.Pages "Section" "report") }}
         <p><a href="{{ .Permalink }}">{{ .Title }}</a></p>
       {{ end }}
       <p>
@@ -22,7 +22,7 @@
 
     <div class="column">
       <h3>Meta Reports</h3>
-      {{ range last 5 (where .Site.Taxonomies.tags.meta.Pages.ByWeight "Section" "report") }}
+      {{ range last 10 (where .Site.Taxonomies.tags.meta.Pages.ByWeight "Section" "report") }}
         <p><a href="{{ .Permalink }}">{{ .Title }}</a></p>
       {{ end }}
       <p>
