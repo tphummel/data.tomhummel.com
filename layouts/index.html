@@ -22,7 +22,7 @@
 
     <div class="column">
       <h3>Meta Reports</h3>
-      {{ range last 10 (where .Site.Taxonomies.tags.meta.Pages.ByWeight "Section" "report") }}
+      {{ range first 10 (where .Site.Taxonomies.tags.meta.Pages.ByWeight "Section" "report") }}
         <p><a href="{{ .Permalink }}">{{ .Title }}</a></p>
       {{ end }}
       <p>
@@ -32,7 +32,7 @@
 
     <div class="column">
       <h3>Recipes</h3>
-      {{ range last 5 (where .Data.Pages.ByWeight "Section" "recipe") }}
+      {{ range first 10 (where .Data.Pages.ByWeight "Section" "recipe") }}
         <p><a href="{{ .Permalink }}">{{ .Title }}</a></p>
       {{ end }}
       <p><a href="{{ with .Site.GetPage "section" "recipe" }}{{ .Permalink }}{{ end }}">More...</a></p>
@@ -40,7 +40,7 @@
 
     <div class="column">
       <h3>Rules</h3>
-      {{ range last 5 (where .Data.Pages.ByWeight "Section" "rule") }}
+      {{ range first 10 (where .Data.Pages.ByWeight "Section" "rule") }}
         <p><a href="{{ .Permalink }}">{{ .Title }}</a></p>
       {{ end }}
       <p><a href="{{ with .Site.GetPage "section" "rule" }}{{ .Permalink }}{{ end }}">More...</a></p>
