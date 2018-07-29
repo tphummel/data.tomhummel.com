@@ -2,6 +2,7 @@
 title: "workspace"
 date: 2018-04-24T16:08:56-07:00
 tags: []
+draft: true
 ---
 
 <!--more-->
@@ -76,13 +77,13 @@ q -H -d "," "select date, count from ./year-one-sneezes-daily.csv where strftime
 ### most consecutive days with 1+ sneeze
 
 ```
-# generate reference date range
-date-range 2017-04-22 2018-04-23 | jq -r '.[]'
-
-# query daily sneezes
-q -H -d "," "select date, count from ./year-one-sneezes-daily.csv order by date asc"
+date-range 2017-04-23 2018-04-22 | jq -r '.[]' | csvjoin -H -c "1" --outer ./year-one-sneezes-daily.csv - 2>/dev/null | csvcut -c 3,2 | csvsort -c 1 | q -H -d "," "select a2, ifnull(b, 0) from -"| csvjson -H 2>/dev/null | jq ".[] | [.a, .b]" | jq --slurp . | streak --label 0 --column 1 --min 1 | jq -r ".[] | [.start, .end, .value] | @csv" | csvsort -H -c 3 -r 2>/dev/null | sed '1 s/.*/start,end,streak/' | csvlook | head -n 15
 ```
 
 ### most consecutive days with 0 sneezes
+
+```
+date-range 2017-04-23 2018-04-22 | jq -r '.[]' | csvjoin -H -c "1" --outer ./year-one-sneezes-daily.csv - 2>/dev/null | csvcut -c 3,2 | csvsort -c 1 | q -H -d "," "select a2, ifnull(b, 0) from -"| csvjson -H 2>/dev/null | jq ".[] | [.a, .b]" | jq --slurp . | streak --label 0 --column 1 --max 0 | jq -r ".[] | [.start, .end, .value] | @csv" | csvsort -H -c 3 -r 2>/dev/null | sed '1 s/.*/start,end,streak/' | csvlook | head -n 15
+```
 
 ### most sneezes in a 5 day span
