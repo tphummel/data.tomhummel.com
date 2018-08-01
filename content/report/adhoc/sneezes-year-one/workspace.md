@@ -77,6 +77,7 @@ q -H -d "," "select date, count from ./year-one-sneezes-daily.csv where strftime
 ### most consecutive days with 1+ sneeze
 
 ```
+# no csv header row
 date-range 2017-04-23 2018-04-22 | jq -r '.[]' | csvjoin -H -c "1" --outer ./year-one-sneezes-daily.csv - 2>/dev/null | csvcut -c 3,2 | csvsort -c 1 | q -H -d "," "select a2, ifnull(b, 0) from -"| csvjson -H 2>/dev/null | jq ".[] | [.a, .b]" | jq --slurp . | streak --label 0 --column 1 --min 1 | jq -r ".[] | [.start, .end, .value] | @csv" | csvsort -H -c 3 -r 2>/dev/null | sed '1 s/.*/start,end,streak/' | csvlook | head -n 15
 ```
 
@@ -87,3 +88,15 @@ date-range 2017-04-23 2018-04-22 | jq -r '.[]' | csvjoin -H -c "1" --outer ./yea
 ```
 
 ### most sneezes in a 5 day span
+
+```
+# wip
+q -H -d "," "select c1, min(c1), max(c1), sum(c2) as count from ./year-one-sneezes-daily.csv a, ./year-one-sneezes-daily.csv b where b.c1 <= date(a.c1, '+5') order by c2 desc"
+```
+
+
+### most sneezes in a single hour
+
+```
+q -H -d "," "select date(timestamp) as date, strftime('%H', timestamp) as hour, count(*) as count from ./year-one-sneezes.csv group by date, hour order by count desc limit 15"
+```
