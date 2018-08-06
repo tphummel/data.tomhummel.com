@@ -47,6 +47,14 @@
     </div>
   </div>
 
+  <div class="row">
+    <div class="column">
+      <h3>Recent Updates</h3>
+      {{ range first 10 (.Pages.ByDate.Reverse) }}
+        <p><a href="{{ .Permalink }}">{{ .Title }}</a> ({{ .Date.Format "Mon, Jan 2, 2006" }})</p>
+      {{ end }}
+    </div>
+  </div>
 </div>
 
 {{ end }}
