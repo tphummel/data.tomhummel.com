@@ -1,7 +1,7 @@
 ---
 title: "2017 Steps"
 date: 2018-01-07
-tags: [2017, steps, fitbit]
+tags: [steps, fitbit, steps-annual]
 draft: true
 ---
 

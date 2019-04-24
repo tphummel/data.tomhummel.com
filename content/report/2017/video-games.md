@@ -1,5 +1,5 @@
 ---
-title: "Video Games"
+title: "2017 Video Games"
 date: 2018-01-21T11:22:29-08:00
 tags: ["video-games", "video-games-annual"]
 draft: true
