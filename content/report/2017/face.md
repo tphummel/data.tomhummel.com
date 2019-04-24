@@ -1,9 +1,11 @@
 ---
-title: "Face"
+title: "2017 Face Pictures"
 date: 2018-01-23T21:47:09-08:00
-tags: []
-draft: true
+tags:
+  - face
+  - face-annual
 ---
+272 daily pictures
 
 <!--more-->
 
