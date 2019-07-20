@@ -1,11 +1,12 @@
 ---
 title: "Birthday Workouts"
-date: 2017-12-28T20:17:09-08:00
+date: 2019-07-20T00:17:09-08:00
 tags: ["meta", "running", "birthday"]
 ---
 
 <!--more-->
 
+- 2019 - no workout
 - 2018 - Los Angeles, CA - 4.0 mi - 36:30 - [link](https://connect.garmin.com/modern/activity/2832933782)
 - 2017 - Occidental, CA - 5.0 mi - 43:44 - [link](https://connect.garmin.com/modern/activity/1840565277)
 - 2016 - no run
