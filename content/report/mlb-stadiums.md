@@ -11,7 +11,7 @@ tags: ["meta"]
 | Miami Marlins         | Marlins Park                    |                                                                            |
 | New York Mets         | Shea Stadium                    | 2007 (rainout)                                                             |
 |                       | Citi Field                      |                                                                            |
-| Philadelphia Phillies | Citizens Bank Park              | 2007. multiple                                                             |
+| Philadelphia Phillies | Citizens Bank Park              | 2007 & 4/21/2013                                                             |
 | Washington Nationals  | Nationals Park                  |                                                                            |
 |                       | RFK Stadium                     | 2007                                                                       |
 | Chicago Cubs          | Wrigley Field                   | 2006                                                                       |
