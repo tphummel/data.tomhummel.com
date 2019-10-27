@@ -71,7 +71,7 @@ For row 2 of columns G through P, use:
 - Column O: `=if(E1="123-main-st","home",if(E1="456-wall-st", "work", "other))"))`
 - Column P: `=if(N2="entered", "at " & O2, "out")`
 
-Column O can handle any mapping based on the literal string value you provided in the final cell of the iftt geofence applets. If you set up that value as you want it to appear in your reports, you can use `=E1` instead (the raw value of `location` which came directly from ifttt). The else case for `other` can also help you catch any weird values that come in from ifttt or your formulas.
+Column O can handle any mapping based on the literal string value you provided in the final cell of the ifttt geofence applets. If you set up that value as you want it to appear in your reports, you can use `=E1` instead (the raw value of `location` which came directly from ifttt). The else case for `other` can also help you catch any weird values that come in from ifttt or your formulas.
 
 Select Row 2, columns G through P. Click and hold the bottom right corner of P2 when the cursor turns into a cross. Then drag downward to the bottom of the sheet.
 
