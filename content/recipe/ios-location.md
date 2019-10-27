@@ -33,7 +33,7 @@ Drive folder path: `IFTTT/iOS Location`
 
 ### nightly marker
 
-Every night at 11:45PM, write a marker row to your spreadsheet. This allows for clean divisions of days when summing.
+Every night at 11:45PM, write a marker row to your spreadsheet. This allows for a clean division between days when summing.
 
 **If This**: every day at 11:45PM Pacific
 
@@ -81,7 +81,12 @@ The really neat part about the enrichment, particular columns M through P, is yo
 
 ## pivot tables
 
-## notes
+you can get a daily and weekly summary by configuring a pivot table as such:
 
-- Sometimes rows get written out of order by ifttt. This is the most common reason for odd looking sums. Reorder the rows to correct this.
-- When reordering incorrectly written rows or adding missing rows, it can be helpful to consult other data sources such as Automatic of Swarm.
+- Rows: `woy` w/ total, `date`. w/ total, `woy`
+- Columns: `prev` w/ total
+- Values: `time diff`
+
+You'll see a row per day with columns for each location. In each cell will be the total time spent on the day at that location. In the grand total column G, if you format it as duration, you should see it add up to 24 hours. This can be a helpful check at a glance to see if any events are out of order or missing - which happens periodically.
+
+You'll also see a row summing each week. This is interesting for instance to see how much time you spend at the office each week.
