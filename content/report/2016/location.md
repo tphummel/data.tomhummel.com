@@ -1,11 +1,13 @@
 ---
 title: "2016 Location"
 date: 2017-02-11T12:04:00-08:00
-tags: ["location", "location-annual"]
+tags:
+  - location
+  - location-annual
 draft: false
 ---
 
-1,204 location change events
+1,566 events. home: 53.93%, work: 18.51%, out: 27.56%. 353.558 days covered. 
 
 <!--more-->
 

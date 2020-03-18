@@ -26,7 +26,23 @@ cat *.json | jq --slurp '. | flatten | .[] | select((.starred_at >= "2016-01-01"
 
 #### question
 
-> what languages did I star most frequently in 2016?
+> how many total repos did i star in 2016?
+
+```
+cat *.json \
+  | jq --slurp '. | flatten | .[] | select((.starred_at >= "2016-01-01") and (.starred_at <= "2016-12-31"))' \
+  | jq --slurp 'length'
+```
+
+#### answer
+
+```
+210
+```
+
+#### question
+
+> which languages did I star most frequently in 2016?
 
 ```
 cat *.json \
@@ -63,4 +79,4 @@ null,12
 
 #### Links
 
-(source gist)[https://gist.github.com/tphummel/efdfc6737187e9927f72dac7465cadab]
+[source gist](https://gist.github.com/tphummel/efdfc6737187e9927f72dac7465cadab)
