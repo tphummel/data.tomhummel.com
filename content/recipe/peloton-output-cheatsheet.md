@@ -2,6 +2,7 @@
 title: "Peloton Output Cheatsheet"
 date: 2020-04-05T11:20:00-07:00
 tags: ["peloton", "analysis-recipe"]
+aliases: ["/recipe/peloton-cheatsheet"]
 ---
 
 Quickly see the relationship between average wattage and total output. Peloton computes total output using: 100 watts x 1 second = 100 joules ([reference](http://www.brygs.com/your-peloton-screen-resistance-cadence-and-output/)).
