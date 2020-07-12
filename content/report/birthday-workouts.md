@@ -21,7 +21,7 @@ tags: ["meta", "running", "birthday"]
 - 2008 - Sherman Oaks, CA - 50 min 2500 yds swim
 - 2007 - Montclair, CA - swim 30:02
 - 2006 - bike to school. Lift arms. Bike home. Stretch roll. Ice left leg.
-- 2005 - AM - Run 20:31 meeks bay desolation trail. PM - Coree 3x100-20-100 + 15 extra pushups.
+- 2005 - AM - Run 20:31 meeks bay desolation trail. PM - Core 3x100-20-100 + 15 extra pushups.
 - 2004 - open water swim in lake tahoe
 - 2003 - double. Meeks bay trail Tahoe. 64 min 7am. 30 minute 3pm
 - 2002 - no run
