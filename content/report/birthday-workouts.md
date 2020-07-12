@@ -6,6 +6,7 @@ tags: ["meta", "running", "birthday"]
 
 <!--more-->
 
+- 2020 - Peloton ride: [45 minute intervals and arms](https://members.onepeloton.com/members/94dfcaef2756477b8e42cdd722053c4a/workouts/268de23c48c840adbf64bb1eba03ccc6), [5 minute cool down](https://members.onepeloton.com/profile/workouts/e74cc54760a54d79b9fd275d40484894)
 - 2019 - no workout
 - 2018 - Los Angeles, CA - 4.0 mi - 36:30 - [link](https://connect.garmin.com/modern/activity/2832933782)
 - 2017 - Occidental, CA - 5.0 mi - 43:44 - [link](https://connect.garmin.com/modern/activity/1840565277)
@@ -20,7 +21,7 @@ tags: ["meta", "running", "birthday"]
 - 2008 - Sherman Oaks, CA - 50 min 2500 yds swim
 - 2007 - Montclair, CA - swim 30:02
 - 2006 - bike to school. Lift arms. Bike home. Stretch roll. Ice left leg.
-- 2005 - AM - Run 20:31 meeks bay desolation trail. PM - Coree 3x100-20-100 + 15 extra pushups.
+- 2005 - AM - Run 20:31 meeks bay desolation trail. PM - Core 3x100-20-100 + 15 extra pushups.
 - 2004 - open water swim in lake tahoe
 - 2003 - double. Meeks bay trail Tahoe. 64 min 7am. 30 minute 3pm
 - 2002 - no run
