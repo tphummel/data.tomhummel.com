@@ -10,6 +10,14 @@ tags:
   - video-games
 ---
 
+# Summary
+
+1:58 in-game time. 100% item rate. No bosses skipped. 
+
+<!--more-->
+
+# Transcript
+
 | Timestamp          |         | Area         | Checkpoint                | Seq | Room                                 |
 |--------------------|---------|--------------|---------------------------|-----|--------------------------------------|
 | 5/28/2021 9:41:37  |         |              | Game Start                |     |                                      |
