@@ -2,6 +2,9 @@
 title: "2017 Sneezes"
 date: 2018-01-07
 tags: ["sneezes", "sneezes-annual"]
+totalSneezes: 656
+year: 2017
+partialData: true
 ---
 
 Total sneezes: 656. Data began: April 23

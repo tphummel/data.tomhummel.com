@@ -3,6 +3,8 @@ languagecode  = "en-us"
 title         = "data.tomhummel.com"
 uglyurls      = false
 # disableKinds  = ["section"]
+enableInlineShortcodes = true
+enableGitInfo = true
 
 [taxonomies]
   tag = "tags"
@@ -11,3 +13,4 @@ uglyurls      = false
     Title = "Tom Hummel's Data"
     SiteDescription = "All the data"
     author = "Tom Hummel"
+    github_repo = "https://github.com/tphummel/data.tomhummel.com/"

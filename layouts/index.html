@@ -1,48 +1,55 @@
 {{ define "title" }}Tom Hummel's Data{{ end }}
 
 {{ define "main" }}
+  <h1>data.tomhummel.com</h1>
 
-<h1>data.tomhummel.com</h1>
+  <p>The clearinghouse for data of and adjacent to <a href="https://tomhummel.com">tom hummel</a></p>
 
-<p>The clearinghouse for data of and adjacent to <a href="https://tomhummel.com">tom hummel</a></p>
+  <h2>Meta Reports</h2>
+  {{ $metaReports := where .Site.Taxonomies.tags.meta.Pages.ByWeight "Section" "report" }}
+  <ul>
+  {{ range first 5 $metaReports }}
+    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+  {{ end }}
+  </ul>
+  <p>
+    <a href="{{ with .Site.GetPage "taxonomyTerm" "tags/meta" }}{{ .Permalink }}{{ end }}">More...</a>
+  </p>
 
-<div class="container">
-  <div class="row">
-    <div class="column">
-      <h3>Meta Reports</h3>
-      {{ range first 10 (where .Site.Taxonomies.tags.meta.Pages.ByWeight "Section" "report") }}
-        <p><a href="{{ .Permalink }}">{{ .Title }}</a></p>
-      {{ end }}
-      <p>
-        <a href="{{ with .Site.GetPage "taxonomyTerm" "tags/meta" }}{{ .Permalink }}{{ end }}">More...</a>
-      </p>
-    </div>
+  <h2>Annual Reports</h2>
+  {{ $annualReports := where .Site.Taxonomies.tags.annual.Pages "Section" "report" }}
+  <ul>
+  {{ range first 5 $annualReports }}
+    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+  {{ end }}
+  </ul>
+  <p>
+    <a href="{{ with .Site.GetPage "taxonomyTerm" "tags/meta" }}{{ .Permalink }}{{ end }}">More...</a>
+  </p>
 
-    <div class="column">
-      <h3>Recipes</h3>
-      {{ range first 10 (where .Data.Pages.ByWeight "Section" "recipe") }}
-        <p><a href="{{ .Permalink }}">{{ .Title }}</a></p>
-      {{ end }}
-      <p><a href="{{ with .Site.GetPage "section" "recipe" }}{{ .Permalink }}{{ end }}">More...</a></p>
-    </div>
+  <h2>Recipes</h2>
+  {{ $recipes := where .Site.RegularPages "Section" "recipe" }}
+  <ul>
+  {{ range first 5 $recipes.ByWeight }}
+    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+  {{ end }}
+  </ul>
+  <p><a href="{{ with .Site.GetPage "section" "recipe" }}{{ .Permalink }}{{ end }}">More...</a></p>
 
-    <div class="column">
-      <h3>Rules</h3>
-      {{ range first 10 (where .Data.Pages.ByWeight "Section" "rule") }}
-        <p><a href="{{ .Permalink }}">{{ .Title }}</a></p>
-      {{ end }}
-      <p><a href="{{ with .Site.GetPage "section" "rule" }}{{ .Permalink }}{{ end }}">More...</a></p>
-    </div>
-  </div>
+  <h2>Rules</h2>
+  {{ $rules := where .Site.RegularPages "Section" "rule" }}
+  <ul>
+  {{ range first 5 $rules }}
+    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+  {{ end }}
+  </ul>
+  <p><a href="{{ with .Site.GetPage "section" "rule" }}{{ .Permalink }}{{ end }}">More...</a></p>
 
-  <div class="row">
-    <div class="column">
-      <h3>Recent Updates</h3>
-      {{ range first 10 (.Pages.ByDate.Reverse) }}
-        <p><a href="{{ .Permalink }}">{{ .Title }}</a> ({{ .Date.Format "Mon, Jan 2, 2006" }})</p>
-      {{ end }}
-    </div>
-  </div>
-</div>
+  <h2>Recent Updates</h2>
+  <ul>
+  {{ range first 10 (.Site.RegularPages.ByDate.Reverse) }}
+    <li><a href="{{ .Permalink }}">{{ .Title }}</a> ({{ .Date.Format "Mon, Jan 2, 2006" }})</li>
+  {{ end }}
+  </ul>
 
 {{ end }}
