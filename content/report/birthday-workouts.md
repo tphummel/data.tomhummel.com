@@ -6,7 +6,9 @@ tags: ["meta", "running", "birthday"]
 
 <!--more-->
 
-- 2020 - Peloton ride: [45 minute intervals and arms](https://members.onepeloton.com/members/94dfcaef2756477b8e42cdd722053c4a/workouts/268de23c48c840adbf64bb1eba03ccc6), [5 minute cool down](https://members.onepeloton.com/profile/workouts/e74cc54760a54d79b9fd275d40484894)
+- 2022 - Los Angeles, CA - 6.22 mi - 53:01 - [garmin](https://connect.garmin.com/modern/activity/9158446101)
+- 2021 - No workout
+- 2020 - Peloton ride: [45 minute intervals and arms](https://members.onepeloton.com/profile/workouts/268de23c48c840adbf64bb1eba03ccc6), [5 minute cool down](https://members.onepeloton.com/profile/workouts/e74cc54760a54d79b9fd275d40484894)
 - 2019 - no workout
 - 2018 - Los Angeles, CA - 4.0 mi - 36:30 - [link](https://connect.garmin.com/modern/activity/2832933782)
 - 2017 - Occidental, CA - 5.0 mi - 43:44 - [link](https://connect.garmin.com/modern/activity/1840565277)
