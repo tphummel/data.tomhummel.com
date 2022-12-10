@@ -6,7 +6,7 @@
   <p>The clearinghouse for data of and adjacent to <a href="https://tomhummel.com">tom hummel</a></p>
 
   <h2>Meta Reports</h2>
-  {{ $metaReports := where .Site.Taxonomies.tags.meta.Pages.ByWeight "Section" "report" }}
+  {{ $metaReports := .Site.Taxonomies.tags.meta.Pages }}
   <ul>
   {{ range first 5 $metaReports }}
     <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
