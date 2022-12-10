@@ -1,7 +1,7 @@
 ---
 title: "MLB Stadium Checklist"
 date: 2019-09-01T00:17:09-08:00
-tags: ["meta"]
+tags: []
 ---
 
 <!--more-->
