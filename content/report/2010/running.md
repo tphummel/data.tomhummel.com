@@ -4,4 +4,5 @@ date: 2011-01-01
 tags: ["running-annual"]
 total_miles_run: 932.89
 total_runs: 211
+total_minutes: 
 ---

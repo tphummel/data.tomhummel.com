@@ -8,12 +8,14 @@ date: 2022-12-10T06:35:00Z
 
   {{ $allTimeMilesRun := 0 }}
   {{ $allTimeRunCount := 0 }}
+  {{ $allTimeMinutes := 0 }}
   {{ $minYear := 10000 }}
   {{ $maxYear := 0 }}
 
   {{ range $runningAnnualReports }}
     {{ $allTimeMilesRun = add $allTimeMilesRun (.Params.total_miles_run | default 0) }}
     {{ $allTimeRunCount = add $allTimeRunCount (.Params.total_runs | default 0) }}
+    {{ $allTimeMinutes = add $allTimeMinutes (.Params.total_minutes | default 0) }}
     {{ if lt .Params.year $minYear }}
       {{ $minYear = .Params.year }}
     {{ end }}
@@ -24,20 +26,25 @@ date: 2022-12-10T06:35:00Z
   {{ end }}
 
 
-  <p>All Time Runs: <strong>{{ $allTimeRunCount | lang.FormatNumber 0 }}</strong></p>
-  <p>All Time Mileage: <strong>{{ $allTimeMilesRun | lang.FormatNumber 0 }}</strong></p>
+  <p>Total Runs: <strong>{{ $allTimeRunCount | lang.FormatNumber 0 }}</strong></p>
+  <p>Total Miles: <strong>{{ $allTimeMilesRun | lang.FormatNumber 0 }}</strong></p>
+  {{ $hours := math.Floor (float (div $allTimeMinutes 60)) }}
+  {{ $modMinutes := mod $allTimeMinutes 60 }}
+  <p>Total Duration: <strong>{{ $hours | lang.FormatNumber 0 }} hours</strong></p>
   <p>Years: {{ $minYear }} - {{ $maxYear }}</p>
   <table>
     <tr>
       <th>Year</th>
       <th>Run Count</th>
       <th>Mileage</th>
+      <th>Duration</th>
     </tr>
-  {{ range $runningAnnualReports.Reverse }}
+  {{ range ($runningAnnualReports.ByParam "year").Reverse }}
     <tr>
       <td>{{ .Params.year }}</td>
       <td>{{ (.Params.total_runs | default 0) | lang.FormatNumber 0 }}{{ cond (.Params.partial_data | default false) "*" "" }}</td>
       <td>{{ (.Params.total_miles_run | default 0) | lang.FormatNumber 0 }}{{ cond (.Params.partial_data | default false) "*" "" }}</td>
+      <td>{{ (.Params.total_minutes | default 0) | lang.FormatNumber 0 }}{{ cond (.Params.partial_data | default false) "*" "" }}</td>
     </tr>
   {{ end }}
   </table>
