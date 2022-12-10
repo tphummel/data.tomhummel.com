@@ -9,46 +9,46 @@
   {{ $metaReports := where .Site.Taxonomies.tags.meta.Pages.ByWeight "Section" "report" }}
   <ul>
   {{ range first 5 $metaReports }}
-    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
   {{ end }}
   </ul>
   <p>
-    <a href="{{ with .Site.GetPage "taxonomyTerm" "tags/meta" }}{{ .Permalink }}{{ end }}">More...</a>
+    <a href="{{ with .Site.GetPage "taxonomyTerm" "tags/meta" }}{{ .RelPermalink }}{{ end }}">More...</a>
   </p>
 
   <h2>Annual Reports</h2>
   {{ $annualReports := where .Site.Taxonomies.tags.annual.Pages "Section" "report" }}
   <ul>
   {{ range first 5 $annualReports }}
-    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
   {{ end }}
   </ul>
   <p>
-    <a href="{{ with .Site.GetPage "taxonomyTerm" "tags/meta" }}{{ .Permalink }}{{ end }}">More...</a>
+    <a href="{{ with .Site.GetPage "taxonomyTerm" "tags/annual" }}{{ .RelPermalink }}{{ end }}">More...</a>
   </p>
 
   <h2>Recipes</h2>
   {{ $recipes := where .Site.RegularPages "Section" "recipe" }}
   <ul>
   {{ range first 5 $recipes.ByWeight }}
-    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
   {{ end }}
   </ul>
-  <p><a href="{{ with .Site.GetPage "section" "recipe" }}{{ .Permalink }}{{ end }}">More...</a></p>
+  <p><a href="{{ with .Site.GetPage "section" "recipe" }}{{ .RelPermalink }}{{ end }}">More...</a></p>
 
   <h2>Rules</h2>
   {{ $rules := where .Site.RegularPages "Section" "rule" }}
   <ul>
   {{ range first 5 $rules }}
-    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
   {{ end }}
   </ul>
-  <p><a href="{{ with .Site.GetPage "section" "rule" }}{{ .Permalink }}{{ end }}">More...</a></p>
+  <p><a href="{{ with .Site.GetPage "section" "rule" }}{{ .RelPermalink }}{{ end }}">More...</a></p>
 
   <h2>Recent Updates</h2>
   <ul>
   {{ range first 10 (.Site.RegularPages.ByDate.Reverse) }}
-    <li><a href="{{ .Permalink }}">{{ .Title }}</a> ({{ .Date.Format "Mon, Jan 2, 2006" }})</li>
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a> ({{ .Date.Format "Mon, Jan 2, 2006" }})</li>
   {{ end }}
   </ul>
 
