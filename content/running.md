@@ -38,7 +38,7 @@ tags: ["meta"]
       <th>Year</th>
       <th>Run Count</th>
       <th>Mileage</th>
-      <th>Duration</th>
+      <th>Minutes</th>
     </tr>
   {{ range ($runningAnnualReports.ByParam "year").Reverse }}
     <tr>
