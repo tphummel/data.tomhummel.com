@@ -51,9 +51,9 @@ I'm not a triathlete.
   <table>
     <tr>
       <th>Year</th>
-      <th>Swim Minutes</th>
-      <th>Bike Minutes</th>
-      <th>Run Minutes</th>
+      <th>Total Swim Minutes</th>
+      <th>Total Bike Minutes</th>
+      <th>Total Run Minutes</th>
     </tr>
   {{ range ($runningAnnualReports.ByParam "year").Reverse }}
     <tr>
