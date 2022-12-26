@@ -4,11 +4,9 @@ date: 2022-12-25T06:35:00Z
 tags: ["meta"]
 ---
 
+I'm not a triathlete. 
+
 {{< om.inline >}}
-  {{ $annualTemplate := dict "swimMinutes" 0 "bikeMinutes" 0 "runMinutes" 0 }}
-
-
-
   {{ $runningAnnualReports := where (index .Site.Taxonomies.tags "running-annual").Pages "Section" "report" }}
   {{ $runMinutesByYear := dict }}
   {{ range $runningAnnualReports }}
@@ -21,14 +19,22 @@ tags: ["meta"]
     {{ $swimMinutesByYear = $swimMinutesByYear | merge (dict (string .Params.year) .Params.total_minutes) }}
   {{ end }}
 
+  {{ $bikingAnnualReports := where (index .Site.Taxonomies.tags "biking-annual").Pages "Section" "report" }}
+  {{ $bikeMinutesByYear := dict }}
+  {{ range $bikingAnnualReports }}
+    {{ $bikeMinutesByYear = $bikeMinutesByYear | merge (dict (string .Params.year) .Params.total_minutes) }}
+  {{ end }}
+
   {{ $minYear := 10000 }}
   {{ $maxYear := 0 }}
   {{ $totalRunMinutes := 0 }}
   {{ $totalSwimMinutes := 0 }}
+  {{ $totalBikeMinutes := 0 }}
 
   {{ range $runningAnnualReports }}
     {{ $totalRunMinutes = add $totalRunMinutes (.Params.total_minutes | default 0) }}
     {{ $totalSwimMinutes = add $totalSwimMinutes ((index $swimMinutesByYear (string .Params.year)) | default 0) }}
+    {{ $totalBikeMinutes = add $totalBikeMinutes ((index $bikeMinutesByYear (string .Params.year)) | default 0) }}
     {{ if lt .Params.year $minYear }}
       {{ $minYear = .Params.year }}
     {{ end }}
@@ -38,7 +44,10 @@ tags: ["meta"]
     {{ end }}
   {{ end }}
 
-  <p>Years: {{ $minYear }} - {{ $maxYear }}</p>
+  <p><strong>Years:</strong> {{ $minYear }} - {{ $maxYear }}</p>
+  <p><strong>Swim Minutes: </strong>{{ $totalSwimMinutes | lang.FormatNumber 0 }}</p>
+  <p><strong>Bike Minutes: </strong>{{ $totalBikeMinutes | lang.FormatNumber 0 }}</p>
+  <p><strong>Run Minutes: </strong>{{ $totalRunMinutes | lang.FormatNumber 0 }}</p>
   <table>
     <tr>
       <th>Year</th>
@@ -50,7 +59,7 @@ tags: ["meta"]
     <tr>
       <td>{{ .Params.year }}</td>
       <td>{{ ((index $swimMinutesByYear (string .Params.year)) | default 0) | lang.FormatNumber 0 }}</td>
-      <td> - </td>
+      <td>{{ ((index $bikeMinutesByYear (string .Params.year)) | default 0) | lang.FormatNumber 0 }}</td>
       <td>{{ (.Params.total_minutes | default 0) | lang.FormatNumber 0 }}{{ cond (.Params.partial_data | default false) "*" "" }}</td>
     </tr>
   {{ end }}
