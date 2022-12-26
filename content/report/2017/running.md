@@ -6,7 +6,7 @@ tags:
   - running-annual
 total_miles_run: 216.03
 total_runs: 51
-total_minutes: 
+total_minutes: 1922
 ---
 
 51 runs. 216.03 miles
