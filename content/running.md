@@ -31,7 +31,7 @@ tags: ["meta"]
   <p>Total Miles: <strong>{{ $allTimeMilesRun | lang.FormatNumber 0 }}</strong></p>
   {{ $hours := math.Floor (float (div $allTimeMinutes 60)) }}
   {{ $modMinutes := mod $allTimeMinutes 60 }}
-  <p>Total Duration: <strong>{{ $hours | lang.FormatNumber 0 }} hours</strong></p>
+  <p>Total Minutes: <strong>{{ $hours | lang.FormatNumber 0 }} hours</strong></p>
   <p>Years: {{ $minYear }} - {{ $maxYear }}</p>
   <table>
     <tr>
