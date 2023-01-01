@@ -1,9 +1,9 @@
 ---
 title: "2022 Running"
-date: 2022-12-10T06:01:00-08:00
+date: 2022-12-31T20:30:00-08:00
 tags: ["running", "running-annual"]
-total_miles_run: 138.29
-total_runs: 32
-total_minutes: 0
-partial_data: true
+total_miles_run: 177.9
+total_runs: 39
+total_minutes: 1550
+partial_data: false
 ---
