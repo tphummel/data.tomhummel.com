@@ -2,9 +2,9 @@
 title: "2023 Running"
 date: 2023-01-04T16:30:00-08:00
 tags: ["running", "running-annual"]
-total_miles_run: 86.65
-total_runs: 16
-total_minutes: 718
+total_miles_run: 96.61
+total_runs: 18
+total_minutes: 812
 partial_data: true
 weekly_goal_miles: 9.0
 by_week:
@@ -35,6 +35,137 @@ by_week:
   - start: 2023-02-26
     end: 2023-03-04
     miles: 9.36
+  - start: 2023-03-05
+    end: 2023-03-12
+    miles: 9.96
+  - start: 2023-03-12
+    end: 2023-03-18
+    miles: 
+  - start: 2023-03-19
+    end: 2023-03-25
+    miles: 
+  - start: 2023-03-26
+    end: 2023-04-01
+    miles: 
+  - start: 2023-04-02
+    end: 2023-04-08
+    miles: 
+  - start: 2023-04-09
+    end: 2023-04-15
+    miles: 
+  - start: 2023-04-16
+    end: 2023-04-22
+    miles: 
+  - start: 2023-04-23
+    end: 2023-04-29
+    miles: 
+  - start: 2023-04-30
+    end: 2023-05-06
+    miles: 
+  - start: 2023-05-07
+    end: 2023-05-13
+    miles: 
+  - start: 2023-05-14
+    end: 2023-05-20
+    miles: 
+  - start: 2023-05-21
+    end: 2023-05-27
+    miles: 
+  - start: 2023-05-28
+    end: 2023-06-03
+    miles: 
+  - start: 2023-06-04
+    end: 2023-06-10
+    miles: 
+  - start: 2023-06-11
+    end: 2023-06-17
+    miles: 
+  - start: 2023-06-18
+    end: 2023-06-24
+    miles: 
+  - start: 2023-06-25
+    end: 2023-07-01
+    miles: 
+  - start: 2023-07-02
+    end: 2023-07-08
+    miles: 
+  - start: 2023-07-09
+    end: 2023-07-15
+    miles: 
+  - start: 2023-07-16
+    end: 2023-07-22
+    miles: 
+  - start: 2023-07-23
+    end: 2023-07-29
+    miles: 
+  - start: 2023-07-30
+    end: 2023-08-05
+    miles: 
+  - start: 2023-08-06
+    end: 2023-08-12
+    miles: 
+  - start: 2023-08-13
+    end: 2023-08-19
+    miles: 
+  - start: 2023-08-20
+    end: 2023-08-26
+    miles: 
+  - start: 2023-08-27
+    end: 2023-09-02
+    miles: 
+  - start: 2023-09-03
+    end: 2023-09-09
+    miles: 
+  - start: 2023-09-10
+    end: 2023-09-16
+    miles: 
+  - start: 2023-09-17
+    end: 2023-09-23
+    miles: 
+  - start: 2023-09-24
+    end: 2023-09-30
+    miles: 
+  - start: 2023-10-01
+    end: 2023-10-07
+    miles: 
+  - start: 2023-10-08
+    end: 2023-10-14
+    miles: 
+  - start: 2023-10-15
+    end: 2023-10-21
+    miles: 
+  - start: 2023-10-22
+    end: 2023-10-28
+    miles: 
+  - start: 2023-10-29
+    end: 2023-11-04
+    miles: 
+  - start: 2023-11-05
+    end: 2023-11-11
+    miles: 
+  - start: 2023-11-12
+    end: 2023-11-18
+    miles: 
+  - start: 2023-11-19
+    end: 2023-11-25
+    miles: 
+  - start: 2023-11-26
+    end: 2023-12-02
+    miles: 
+  - start: 2023-12-03
+    end: 2023-12-09
+    miles: 
+  - start: 2023-12-10
+    end: 2023-12-16
+    miles: 
+  - start: 2023-12-17
+    end: 2023-12-23
+    miles: 
+  - start: 2023-12-24
+    end: 2023-12-30
+    miles: 
+
+
 ---
 
 {{< om.inline >}}
