@@ -32,6 +32,11 @@ tags: ["meta"]
   {{ $hours := math.Floor (float (div $allTimeMinutes 60)) }}
   {{ $modMinutes := mod $allTimeMinutes 60 }}
   <p>Total Duration: <strong>{{ $hours | lang.FormatNumber 0 }} hours</strong></p>
+  {{ $milesPerHour := (div $allTimeMilesRun $hours) }}
+  {{ $milePace := div 60 $milesPerHour }}
+  {{ $milePaceMinutes := math.Floor $milePace }}
+  {{ $milePaceSeconds := math.Floor (mul (sub $milePace $milePaceMinutes) 60) }}
+  <p>Mile Pace: <strong>{{ $milePaceMinutes | lang.FormatNumber 0 }}:{{ printf "%02d" (int $milePaceSeconds) }}</strong></p>
   <p>Years: {{ $minYear }} - {{ $maxYear }}</p>
   <table>
     <tr>
