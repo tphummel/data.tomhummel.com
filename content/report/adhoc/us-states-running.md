@@ -14,9 +14,9 @@ by_state:
     notes: 
 
   - state: Arizona
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2007-04-22
+    notes: Phoenix area.
 
   - state: Arkansas
     completed: false
@@ -66,7 +66,7 @@ by_state:
   - state: Illinois
     completed: true
     date: 2005-07-13
-    notes: 
+    notes: Caseyville, IL
 
   - state: Indiana
     completed: false
@@ -229,9 +229,9 @@ by_state:
     notes: 
 
   - state: Virginia
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2005-07-14
+    notes: Salem. Williamsburg
 
   - state: Washington
     completed: false
@@ -251,7 +251,7 @@ by_state:
   - state: Wyoming
     completed: true
     date: 2005-07-12
-    notes: 
+    notes: US-80. Either exit 260 or 255.
 
 ---
 
