@@ -94,9 +94,9 @@ by_state:
     notes: 
 
   - state: Maine
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2023-06-06
+    notes: Kennibunkport. 2023-06-08
 
   - state: Maryland
     completed: true
