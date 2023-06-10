@@ -25,8 +25,8 @@ by_state:
 
   - state: California
     completed: true
-    date: 
-    notes: 
+    date: 1998-05-17
+    notes: Just chose an early date from log. 99.9999% of my running is in California. 
 
   - state: Colorado
     completed: false
@@ -54,18 +54,18 @@ by_state:
     notes: 
 
   - state: Hawaii
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2002-12-15
+    notes: Maui
 
   - state: Idaho
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2011-06-09
+    notes: Boise. 6/11, 6/12. 
 
   - state: Illinois
-    completed: false
-    date: 
+    completed: true
+    date: 2005-07-13
     notes: 
 
   - state: Indiana
@@ -99,14 +99,14 @@ by_state:
     notes: 
 
   - state: Maryland
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2003-11-26
+    notes: Silver Spring
 
   - state: Massachusetts
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2013-04-24
+    notes: Boston Commons. 2023-04-25 Charles River
 
   - state: Michigan
     completed: false
@@ -139,9 +139,9 @@ by_state:
     notes: 
 
   - state: Nevada
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2002-02-16
+    notes: Holiday Inn Classic, Reno. 
 
   - state: New Hampshire
     completed: false
@@ -154,9 +154,9 @@ by_state:
     notes: 
 
   - state: New Mexico
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2017-12-18
+    notes: Santa Fe. 12/22, 12/23, 12/25 Taos. 
 
   - state: New York
     completed: false
@@ -164,9 +164,9 @@ by_state:
     notes: 
 
   - state: North Carolina
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2003-11-22
+    notes: Cary. 2003-11-23 New Bern. 2003-11-24 Ocracoke.
 
   - state: North Dakota
     completed: false
@@ -249,12 +249,9 @@ by_state:
     notes: 
 
   - state: Wyoming
-    completed: false
-    date: 
+    completed: true
+    date: 2005-07-12
     notes: 
-
-
-
 
 ---
 
@@ -273,7 +270,7 @@ by_state:
     <tr>
       <td>{{ $state.state }}</td>
       <td>{{ cond $state.completed "✅" "❌" }}</td>
-      <td>{{ $state.date | default "-" }}</td>
+      <td>{{ $state.date }}</td>
       <td>{{ $state.notes | default "-" }}</td>
     </tr>
   {{ end }}
