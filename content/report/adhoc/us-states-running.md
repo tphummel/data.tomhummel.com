@@ -255,6 +255,8 @@ by_state:
 
 ---
 
+<!--more-->
+
 {{< om.inline >}}
 
 <p>States Completed: {{ len (where .Page.Params.by_state "completed" true) }}</p>
