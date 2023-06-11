@@ -16,6 +16,26 @@
     <a href="{{ with .Site.GetPage "taxonomyTerm" "tags/meta" }}{{ .RelPermalink }}{{ end }}">More...</a>
   </p>
 
+  <h2>Recent Updates</h2>
+  <ul>
+  {{ range first 10 (.Site.RegularPages.ByDate.Reverse) }}
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a> ({{ .Date.Format "Mon, Jan 2, 2006" }})</li>
+  {{ end }}
+  </ul>
+
+<h2>Tags</h2>
+<ul>
+{{range $name, $taxonomy := .Site.Taxonomies.tags}} 
+  {{ $cnt := .Count }}
+  {{ with $.Site.GetPage (printf "/tags/%s" $name) }}
+  <li>
+    <a href={{ .RelPermalink }} title="All pages with tag {{$name}}">{{ .LinkTitle }}</a>
+    <sup>{{ $cnt }}</sup>
+  </li>
+  {{end}}
+{{end}}
+</ul>
+
   <h2>Annual Reports</h2>
   {{ $annualReports := where .Site.Taxonomies.tags.annual.Pages "Section" "report" }}
   <ul>
@@ -44,12 +64,5 @@
   {{ end }}
   </ul>
   <p><a href="{{ with .Site.GetPage "section" "rule" }}{{ .RelPermalink }}{{ end }}">More...</a></p>
-
-  <h2>Recent Updates</h2>
-  <ul>
-  {{ range first 10 (.Site.RegularPages.ByDate.Reverse) }}
-    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a> ({{ .Date.Format "Mon, Jan 2, 2006" }})</li>
-  {{ end }}
-  </ul>
 
 {{ end }}
