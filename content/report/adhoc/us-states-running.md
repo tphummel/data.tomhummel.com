@@ -1,5 +1,5 @@
 ---
-title: "US States Running Checklist"
+title: "US States Running"
 date: 2023-06-09T16:30:00-08:00
 tags: ["running", "checklist"]
 by_state:
