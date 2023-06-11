@@ -16,7 +16,7 @@ by_state:
   - state: Arizona
     completed: true
     date: 2007-04-22
-    notes: Phoenix area.
+    notes: Carefree, AZ
 
   - state: Arkansas
     completed: false
