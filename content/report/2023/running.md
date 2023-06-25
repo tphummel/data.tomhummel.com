@@ -2,9 +2,9 @@
 title: "2023 Running"
 date: 2023-01-04T16:30:00-08:00
 tags: ["running", "running-annual"]
-total_miles_run: 242.71
-total_runs: 47
-total_minutes: 2089
+total_miles_run: 253.90
+total_runs: 49
+total_minutes: 2200
 partial_data: true
 weekly_goal_miles: 9.0
 by_week:
@@ -82,10 +82,10 @@ by_week:
     miles: 10.48
   - start: 2023-06-18
     end: 2023-06-24
-    miles: 11.79
+    miles: 14.14
   - start: 2023-06-25
     end: 2023-07-01
-    miles: 
+    miles: 8.85
   - start: 2023-07-02
     end: 2023-07-08
     miles: 
