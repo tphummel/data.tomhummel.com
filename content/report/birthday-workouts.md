@@ -6,7 +6,7 @@ tags: ["meta", "running", "birthday"]
 
 <!--more-->
 
-- 2023 - Los Angeles, CA - 6.27 mi - 1:01:54 (1,483 ft climb) - [garmin[(https://connect.garmin.com/modern/activity/11508446457)
+- 2023 - Los Angeles, CA - 6.27 mi - 1:01:54 (1,483 ft climb) - [garmin](https://connect.garmin.com/modern/activity/11508446457)
 - 2022 - Los Angeles, CA - 6.22 mi - 53:01 - [garmin](https://connect.garmin.com/modern/activity/9158446101)
 - 2021 - No workout
 - 2020 - Peloton ride: [45 minute intervals and arms](https://members.onepeloton.com/profile/workouts/268de23c48c840adbf64bb1eba03ccc6), [5 minute cool down](https://members.onepeloton.com/profile/workouts/e74cc54760a54d79b9fd275d40484894)
