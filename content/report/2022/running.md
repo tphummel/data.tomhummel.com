@@ -5,5 +5,6 @@ tags: ["running", "running-annual"]
 total_miles_run: 177.9
 total_runs: 39
 total_minutes: 1550
+total_ascent_feet: 4779
 partial_data: false
 ---
