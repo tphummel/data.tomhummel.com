@@ -10,6 +10,7 @@ tags: ["meta"]
   {{ $allTimeMilesRun := 0 }}
   {{ $allTimeRunCount := 0 }}
   {{ $allTimeMinutes := 0 }}
+  {{ $allTimeAscentFeet := 0 }}
   {{ $minYear := 10000 }}
   {{ $maxYear := 0 }}
 
@@ -17,6 +18,7 @@ tags: ["meta"]
     {{ $allTimeMilesRun = add $allTimeMilesRun (.Params.total_miles_run | default 0) }}
     {{ $allTimeRunCount = add $allTimeRunCount (.Params.total_runs | default 0) }}
     {{ $allTimeMinutes = add $allTimeMinutes (.Params.total_minutes | default 0) }}
+    {{ $allTimeAscentFeet = add $allTimeAscentFeet (.Params.total_ascent_feet | default 0) }}
     {{ if lt .Params.year $minYear }}
       {{ $minYear = .Params.year }}
     {{ end }}
@@ -32,6 +34,7 @@ tags: ["meta"]
   {{ $hours := math.Floor (float (div $allTimeMinutes 60)) }}
   {{ $modMinutes := mod $allTimeMinutes 60 }}
   <p>Total Duration: <strong>{{ $hours | lang.FormatNumber 0 }} hours</strong></p>
+  <p>Total Ascent: <strong>{{ $allTimeAscentFeet | lang.FormatNumber 0 }} feet (Since 2010)</strong></p>
   {{ $milesPerHour := (div $allTimeMilesRun $hours) }}
   {{ $milePace := div 60 $milesPerHour }}
   {{ $milePaceMinutes := math.Floor $milePace }}
@@ -44,6 +47,7 @@ tags: ["meta"]
       <th>Run Count</th>
       <th>Mileage</th>
       <th>Minutes</th>
+      <th>Ascent (Feet)</th>
     </tr>
   {{ range ($runningAnnualReports.ByParam "year").Reverse }}
     <tr>
@@ -51,6 +55,7 @@ tags: ["meta"]
       <td>{{ (.Params.total_runs | default 0) | lang.FormatNumber 0 }}{{ cond (.Params.partial_data | default false) "*" "" }}</td>
       <td>{{ (.Params.total_miles_run | default 0) | lang.FormatNumber 0 }}{{ cond (.Params.partial_data | default false) "*" "" }}</td>
       <td>{{ (.Params.total_minutes | default 0) | lang.FormatNumber 0 }}{{ cond (.Params.partial_data | default false) "*" "" }}</td>
+      <td>{{ (.Params.total_ascent_feet | default 0) | lang.FormatNumber 0 }}{{ cond (.Params.partial_data | default false) "*" "" }}</td>
     </tr>
   {{ end }}
   </table>
