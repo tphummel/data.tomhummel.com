@@ -14,3 +14,13 @@ enableGitInfo = true
     SiteDescription = "All the data"
     author = "Tom Hummel"
     github_repo = "https://github.com/tphummel/data.tomhummel.com/"
+
+[outputFormats]
+  [outputFormats.p8s]
+    baseName = 'metrics'
+    suffix = 'txt'
+    isPlainText = true
+    mediaType = 'text/plain'
+
+[outputs]
+  home = ['html', 'p8s']
