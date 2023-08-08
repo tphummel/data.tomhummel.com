@@ -19,11 +19,11 @@
 {{- end -}}
 {{- $hours := math.Floor (float (div $allTimeMinutes 60)) -}}
 {{- $modMinutes := mod $allTimeMinutes 60 -}}
-running_total_runs {{ $allTimeRunCount | lang.FormatNumber 0 }}
-running_total_miles {{ $allTimeMilesRun | lang.FormatNumber 0 }}
+running_total_runs {{ $allTimeRunCount }}
+running_total_miles {{ $allTimeMilesRun }}
 running_total_minutes {{ $allTimeMinutes }}
-running_total_hours {{ $hours | lang.FormatNumber 0 }}
-running_total_ascent_feet {{ $allTimeAscentFeet | lang.FormatNumber 0 }}
+running_total_hours {{ $hours }}
+running_total_ascent_feet {{ $allTimeAscentFeet }}
 running_miles_per_hour {{ (div $allTimeMilesRun $hours) }}
 running_min_year {{ $minYear }}
 running_max_year {{ $maxYear }}
