@@ -1,7 +1,7 @@
 ---
 title: Running
 date: 2022-12-10T06:35:00Z
-tags: ["meta"]
+tags: ["meta","running"]
 ---
 
 {{< om.inline >}}
