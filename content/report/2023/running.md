@@ -2,7 +2,7 @@
 title: "2023 Running"
 date: 2023-01-04T16:30:00-08:00
 tags: ["running", "running-annual"]
-total_miles_run: 352.92
+total_miles_run: 363.43
 total_runs: 69
 total_minutes: 3221
 total_ascent_feet: 29214
