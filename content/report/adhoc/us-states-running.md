@@ -184,9 +184,9 @@ by_state:
     notes: 
 
   - state: Oregon
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 10/21/2023
+    notes: Portland, Mt. Tabor
 
   - state: Pennsylvania
     completed: false
