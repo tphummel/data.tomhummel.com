@@ -147,6 +147,7 @@ by_week:
   - start: 2023-11-12
     end: 2023-11-18
     miles: 3.01
+    note: recovery from double inguinal hernia repair surgery
   - start: 2023-11-19
     end: 2023-11-25
     miles: 
@@ -181,14 +182,20 @@ by_week:
     <th>End</th>
     <th>Miles</th>
     <th>Goal Complete</th>
+    <th>Net Pace</th>
   </tr>
+  {{ $running_total_miles := 0 }}
   {{ range $i, $week := .Page.Params.by_week }}
+    {{ $week_num := add $i 1 }}
+    {{ $running_total_miles = add $running_total_miles ($week.miles | default 0) }}
+    {{ $goal_through_week_miles := mul $.Page.Params.weekly_goal_miles $week_num }}
     <tr>
-      <td>{{ add $i 1 }}</td>
+      <td>{{ $week_num }}</td>
       <td>{{ time $week.start | time.Format "Mon Jan 2" }}</td>
       <td>{{ time $week.end | time.Format "Mon Jan 2" }}</td>
       <td>{{ $week.miles }}</td>
       <td>{{ cond (gt $week.miles $.Page.Params.weekly_goal_miles) "✅" "❌" }}</td>
+      <td>{{ (sub $running_total_miles $goal_through_week_miles ) | lang.FormatNumber 1 }}</td>
     </tr>
   {{ end }}
 
