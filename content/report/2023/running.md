@@ -2,9 +2,9 @@
 title: "2023 Running"
 date: 2023-01-04T16:30:00-08:00
 tags: ["running", "running-annual"]
-total_miles_run: 472.92
-total_runs: 88
-total_minutes: 4231
+total_miles_run: 484.11
+total_runs: 91
+total_minutes: 4331
 total_ascent_feet: 42189
 partial_data: true
 weekly_goal_miles: 9.0
@@ -150,7 +150,7 @@ by_week:
     note: recovery from double inguinal hernia repair surgery
   - start: 2023-11-19
     end: 2023-11-25
-    miles: 
+    miles: 9.15
   - start: 2023-11-26
     end: 2023-12-02
     miles: 
