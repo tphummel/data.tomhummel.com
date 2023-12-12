@@ -27,6 +27,9 @@ by_country:
   - name: Spain
     date: 2019-03-13
     notes: Getaria, Gipuzkoa
+  - name: Belize
+    date: 2014-11-13
+    notes: San Pedro, Ambergris Caye
 
 ---
 
