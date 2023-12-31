@@ -165,10 +165,12 @@ by_week:
     miles: 9.02
   - start: 2023-12-24
     end: 2023-12-30
-    miles: 
+    miles: 0
 
 
 ---
+
+<!--more-->
 
 {{< om.inline >}}
 <p>Total Runs: {{ .Page.Params.total_runs }}</p>
@@ -203,3 +205,18 @@ by_week:
 </table>
 {{< /om.inline >}}
 
+2023 was an awesome running year. 512 miles was my highest total since 2012. 43,226 feet of climbing was my third highest since I started running with Garmin in 2010. 
+
+Highlights
+
+- 7 runs of 10 miles or longer.
+- 20 runs of 1000+ feet of climbing.
+- 4 runs of 2000+ feet of climbing.
+- 27 runs on treadmills
+- 1/29/2023: Paris, France. 9 mile run along both banks of the Seine. Louvre, Notre Dame, Jardin de Tuileries. Bucket list stuff. 
+- 3/7: Santa Barbara, CA
+- 6/6 & 6/8: Kennebunkport, ME
+- 8/31 & 9/2: Atascadero, CA
+- 10/4, 5, 6: Palm Springs, CA
+- 10/21: Portland, OR
+- 11/5/2023: Malibu Half Marathon. 1:35:46
