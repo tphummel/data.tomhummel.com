@@ -6,7 +6,7 @@ total_miles_run: 511.69
 total_runs: 95
 total_minutes: 4550
 total_ascent_feet: 43226
-partial_data: true
+partial_data: false
 weekly_goal_miles: 9.0
 by_week:
   - start: 2023-01-01
