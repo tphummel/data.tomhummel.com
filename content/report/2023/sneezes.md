@@ -2,7 +2,7 @@
 title: "2023 Sneezes"
 date: 2024-01-01
 tags: ["sneezes", "sneezes-annual"]
-totalSneezes: 1019
+totalSneezes: 1020
 partialData: false
 ---
 
