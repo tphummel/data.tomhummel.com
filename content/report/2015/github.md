@@ -3,6 +3,7 @@ title: "2015 Github"
 date: 2016-01-12T12:06:00-08:00
 draft: false
 tags: ["github-annual", "github"]
+contribution_count: 2173
 ---
 
 2,173 contributions.

@@ -4,6 +4,7 @@ date: 2017-12-31T20:53:50-08:00
 tags:
   - github
   - github-annual
+contribution_count: 1301
 ---
 
 1301 contributions. 170 stars.

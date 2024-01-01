@@ -3,6 +3,7 @@ title: "2016 Github"
 date: 2017-02-11T12:07:00-08:00
 draft: false
 tags: ["github-annual", "github"]
+contribution_count: 2275
 ---
 
 2,275 contributions. 210 starred repos.
