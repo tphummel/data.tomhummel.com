@@ -44,9 +44,9 @@ by_state:
     notes: 
 
   - state: Florida
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2024-02-05
+    notes: Palm Beach
 
   - state: Georgia
     completed: false
