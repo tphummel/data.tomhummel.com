@@ -32,11 +32,12 @@ by_country:
     notes: San Pedro, Ambergris Caye
 
 ---
-
-<!--more-->
-{{< om.inline >}}
-
+{{< summary.inline >}}
 <p>Countries Completed: {{ len .Page.Params.by_country }}</p>
+{{< /summary.inline >}}
+<!--more-->
+
+{{< detail.inline >}}
 
 <table>
   <tr>
@@ -53,5 +54,5 @@ by_country:
   {{ end }}
 
 </table>
-{{< /om.inline >}}
+{{< /detail.inline >}}
 
