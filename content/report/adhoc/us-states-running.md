@@ -254,12 +254,13 @@ by_state:
     notes: US-80. Either exit 260 or 255.
 
 ---
+{{< summary.inline >}}
+<p>States Completed: {{ len (where .Page.Params.by_state "completed" true) }}/50</p>
+{{< /summary.inline >}}
 
 <!--more-->
 
-{{< om.inline >}}
-
-<p>States Completed: {{ len (where .Page.Params.by_state "completed" true) }}</p>
+{{< detail.inline >}}
 
 <table>
   <tr>
@@ -279,5 +280,5 @@ by_state:
 
 
 </table>
-{{< /om.inline >}}
+{{< /detail.inline >}}
 
