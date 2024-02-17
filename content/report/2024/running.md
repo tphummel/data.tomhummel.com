@@ -29,7 +29,7 @@ by_week:
     miles: 11.28
   - start: 2024-02-11
     end: 2024-02-17
-    miles: 0
+    miles: 11.26
   - start: 2024-02-18
     end: 2024-02-24
     miles: 0
