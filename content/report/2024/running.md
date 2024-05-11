@@ -2,10 +2,10 @@
 title: "2024 Running"
 date: 2024-01-01T02:30:00-08:00
 tags: ["running", "running-annual"]
-total_miles_run: 199.17
-total_runs: 45
-total_minutes: 1655
-total_ascent_feet: 4038
+total_miles_run: 210.20
+total_runs: 47
+total_minutes: 1748
+total_ascent_feet: 4776
 partial_data: true
 weekly_goal_miles: 11.0
 by_week:
@@ -65,7 +65,7 @@ by_week:
     miles: 11.18
   - start: 2024-05-05
     end: 2024-05-11
-    miles: 0
+    miles: 11.03
   - start: 2024-05-12
     end: 2024-05-18
     miles: 0
