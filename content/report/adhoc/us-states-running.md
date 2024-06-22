@@ -219,9 +219,9 @@ by_state:
     notes: 
 
   - state: Utah
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2024-06-22
+    notes: Park City
 
   - state: Vermont
     completed: false
