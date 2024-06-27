@@ -159,9 +159,9 @@ by_state:
     notes: Santa Fe. 12/22, 12/23, 12/25 Taos. 
 
   - state: New York
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2024-04-06
+    notes: Hudson River Greenway & Central Park
 
   - state: North Carolina
     completed: true
