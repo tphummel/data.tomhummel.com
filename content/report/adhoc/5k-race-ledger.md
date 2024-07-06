@@ -1,6 +1,6 @@
 ---
 title: "5k Race Ledger"
-date: 2023-07-05T09:00:00-07:00
+date: 2024-07-05T09:00:00-07:00
 tags: ["running"]
 url: /running/5k
 history: 
@@ -187,6 +187,11 @@ history:
   mile1: "5:49"
   mile2: "6:01"
   mile3: "6:18"
+- date: 2017-07-04
+  event: Freedom 5k
+  location: "Grass Valley, CA"
+  mark: "?"
+  type: road
 - date: 2019-11-28
   event: Pacific Palisades Turkey Trot
   location: "Pacific Palisades, CA"
