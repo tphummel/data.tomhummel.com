@@ -106,12 +106,7 @@ history:
   mile1: "6:00"
   mile2: "5:15"
   mile3: "5:15"
-- date: 2008-06-21
-  event: Dash to the Altar 5k
-  location: "Dana Point, CA"
-  mark: "16:54"
-  type: road
-- date: 2008-08-11
+- date: 2007-08-11
   event: Nevada City 5k
   location: "Nevada City, CA"
   mark: "18:22"
@@ -125,6 +120,31 @@ history:
   mark: "?"
   type: road
   note: i have a note in running log from the day prior saying i was prepping for a 5k tomorrow.
+- date: 2008-04-27
+  event: "Playa Del Run - Mission Bay Aquathlon"
+  location: "San Diego, CA"
+  mark: "18:35"
+  type: road
+  note: 1k swim prior to the 5k. 2nd of 107 runners.
+- date: 2008-05-18
+  event: "Playa Del Run - Santa Monica"
+  location: "Santa Monica, CA"
+  mark: "19:29"
+  type: road
+  note: 1k swim prior to the 5k. 5th of 174 runners.
+- date: 2008-06-21
+  event: Dash to the Altar 5k
+  location: "Dana Point, CA"
+  mark: "16:54"
+  type: road
+- date: 2008-12-14
+  event: "Griffith Park 5k"
+  location: "Los Feliz, Los Angeles, CA"
+  mark: "17:14"
+  type: road
+  mile1: "5:30"
+  mile2: "5:30"
+  mile3: "5:30"
 - date: 2009-07-19
   event: Heart and Sole 5k
   location: "Westwood, Los Angeles, CA"
