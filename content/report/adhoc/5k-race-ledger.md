@@ -127,11 +127,17 @@ history:
   type: road
   note: 1k swim prior to the 5k. 2nd of 107 runners.
 - date: 2008-05-18
-  event: "Playa Del Run - Santa Monica"
+  event: "Playa Del Run Aquathlon - Santa Monica"
   location: "Santa Monica, CA"
   mark: "19:29"
   type: road
   note: 1k swim prior to the 5k. 5th of 174 runners.
+- date: 2008-06-08
+  event: Playa Del Run Aquathlon - Huntington Beach
+  location: "Huntington Beach, CA"
+  mark: "?"
+  type: road
+  note: 1k swim prior to the 5k.
 - date: 2008-06-21
   event: Dash to the Altar 5k
   location: "Dana Point, CA"
