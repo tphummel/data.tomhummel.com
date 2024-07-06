@@ -251,7 +251,6 @@ history:
 
 ---
 5000 meters. Not 3 miles, not 2.95 miles. 5K.
-matt and nikki's wedding 5k. 
 
 {{< summary.inline >}}
 <p>Total Races: {{ len .Page.Params.history }}</p>
