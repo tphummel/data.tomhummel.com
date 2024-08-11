@@ -30,6 +30,15 @@ by_country:
   - name: Belize
     date: 2014-11-13
     notes: San Pedro, Ambergris Caye
+  - name: England
+    date: 2024-07-29
+    notes: London
+  - name: Denmark
+    date: 2024-08-03
+    notes: Copenhagen
+  - name: Sweden
+    date: 2024-08-08
+    notes: Stockholm
 
 ---
 {{< summary.inline >}}
