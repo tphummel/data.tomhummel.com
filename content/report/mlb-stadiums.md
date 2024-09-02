@@ -1,211 +1,262 @@
 ---
-title: "MLB Stadium Checklist"
-date: 2019-09-01T00:17:09-08:00
-tags: []
+title: "MLB Stadiums"
+date: 2024-09-01T00:17:09-08:00
+tags: ["meta", "baseball", "travel", "checklist"]
+stadiums:
+  - team: Arizona Diamondbacks
+    venue: Chase Field
+    visited: false
+    date: 
+    note: 
+
+  - team: Atlanta Braves
+    venue: Truist Park
+    visited: false
+    date: 
+    note: 
+
+  - team: Baltimore Orioles
+    venue: Oriole Park at Camden Yards
+    visited: true
+    date: 2007
+    note: 
+
+  - team: Boston Red Sox
+    venue: Fenway Park
+    visited: true
+    date: 2007
+    note: also 4/24/2013
+
+  - team: Chicago Cubs
+    venue: Wrigley Field
+    visited: true
+    date: 2006
+    note: 
+
+  - team: Chicago White Sox
+    venue: Guaranteed Rate Field
+    visited: true
+    date: 2006
+    note: 
+
+  - team: Cincinnati Reds
+    venue: Great American Ball Park
+    visited: true
+    date: 2006
+    note: 
+
+  - team: Cleveland Guardians
+    venue: Progressive Field
+    visited: true
+    date: 2006
+    note: 
+
+  - team: Colorado Rockies
+    venue: Coors Field
+    visited: false
+    date: 
+    note: 
+
+  - team: Detroit Tigers
+    venue: Tiger Stadium
+    visited: true
+    date: 2006
+    note: Didn't see a game. stood outside the walls while it was still standing. I was able to see into the field and grandstands through a fence. 
+
+  - team: Detroit Tigers
+    venue: Comerica Park
+    visited: true
+    date: 2006
+    note: 
+
+  - team: Houston Astros
+    venue: Minute Maid Park
+    visited: false
+    date: 
+    note: 
+
+  - team: Kansas City Royals
+    venue: Kauffman Stadium
+    visited: false
+    date: 
+    note: 
+
+  - team: Los Angeles Angels
+    venue: Angel Stadium
+    visited: true
+    date: 2002-09-02
+    note: many visits
+
+  - team: Los Angeles Dodgers
+    venue: Dodger Stadium
+    visited: true
+    date: 2010-09-03
+    note: many visits
+
+  - team: Miami Marlins
+    venue: LoanDepot Park
+    visited: false
+    date: 
+    note: 
+
+  - team: Milwaukee Brewers
+    venue: American Family Field
+    visited: false
+    date: 
+    note: 
+
+  - team: Minnesota Twins
+    venue: Metrodome
+    visited: false
+    date: 
+    note: 
+  - team: Minnesota Twins
+    venue: Target Field
+    visited: false
+    date: 
+    note: 
+
+  - team: New York Mets
+    venue: Shea Stadium
+    visited: true
+    date: 2007
+    note: I was inside the stadium but the game was rained out after we arrived
+  - team: New York Mets
+    venue: Citi Field
+    visited: false
+    date: 
+    note: 
+
+  - team: New York Yankees
+    venue: Yankee Stadium I
+    visited: true
+    date: 2007-06-29
+    note: 
+  - team: New York Yankees
+    venue: Yankee Stadium II
+    visited: false
+    date: 
+    note: 
+
+  - team: Oakland Athletics
+    venue: Oakland-Alameda County Coliseum
+    visited: true
+    date: 1984
+    note: Many
+
+  - team: Philadelphia Phillies
+    venue: Citizens Bank Park
+    visited: true
+    date: 2007
+    note: I've been to multiple games. 2007 was the first. 
+
+  - team: Pittsburgh Pirates
+    venue: PNC Park
+    visited: true
+    date: 2006
+    note: 
+
+  - team: San Diego Padres
+    venue: Qualcomm Stadium
+    visited: false
+    date: 
+    note: 
+
+  - team: San Diego Padres
+    venue: Petco Park
+    visited: true
+    date: 2004-04-08
+    note: Several. First attended in 2004 for an open house preview. 
+
+  - team: San Francisco Giants
+    venue: Candlestick Park
+    visited: true
+    date: 1999-06-04
+    note: several
+
+  - team: San Francisco Giants
+    venue: Oracle Park
+    visited: true
+    date: 2000-04-11
+    note: 
+
+  - team: Seattle Mariners
+    venue: Kingdome
+    visited: false
+    date: 
+    note: 
+
+  - team: Seattle Mariners
+    venue: T-Mobile Park
+    visited: true
+    date: 2009-05-02
+    note: Saturday 6:10pm game vs. A's. 
+
+  - team: St. Louis Cardinals
+    venue: Busch Stadium I
+    visited: false
+    date: 
+    note: 
+  - team: St. Louis Cardinals
+    venue: Busch Stadium II
+    visited: true
+    date: 2006
+    note: 
+
+  - team: Tampa Bay Rays
+    venue: Tropicana Field
+    visited: false
+    date: 
+    note: 
+
+  - team: Texas Rangers
+    venue: Globe Life Field
+    visited: false
+    date: 
+    note: 
+
+  - team: Toronto Blue Jays
+    venue: Rogers Centre
+    visited: false
+    date: 
+  - team: Washington Nationals
+    venue: RFK Stadium
+    visited: true
+    date: 2007
+    note: 
+  - team: Washington Nationals
+    venue: Nationals Park
+    visited: false
+    date: 
+    note: 
+
 ---
+{{< summary.inline >}}
+<p>Stadiums Visited: {{ len (where .Page.Params.stadiums "visited" true) }}</p>
+{{< /summary.inline >}}
 
 <!--more-->
+
+{{< detail.inline >}}
+
 <table>
-	<thead>
-		<tr>
-			<td>Team</td>
-			<td>Venue</td>
-			<td>Date Visted</td>
-		</tr>
-	</thead>
-	<tr>
-		<td>Atlanta Braves</td>
-		<td>Turner Stadium</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Miami Marlins</td>
-		<td>Marlins Park</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>New York Mets</td>
-		<td>Shea Stadium</td>
-		<td>2007 (rainout)</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>Citi Field</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Philadelphia Phillies</td>
-		<td>Citizens Bank Park</td>
-		<td>2007. multiple</td>
-	</tr>
-	<tr>
-		<td>Washington Nationals</td>
-		<td>Nationals Park</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>RFK Stadium</td>
-		<td>2007</td>
-	</tr>
-	<tr>
-		<td>Chicago Cubs</td>
-		<td>Wrigley Field</td>
-		<td>2006</td>
-	</tr>
-	<tr>
-		<td>Cincinnati Reds</td>
-		<td>Great American Ballpark</td>
-		<td>2006</td>
-	</tr>
-	<tr>
-		<td>Milwaukee Brewers</td>
-		<td>Miller Park</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Pittsburgh Pirates</td>
-		<td>PNC Park</td>
-		<td>2006</td>
-	</tr>
-	<tr>
-		<td>St. Louis Cardinals</td>
-		<td>Busch Stadium 1</td>
-		<td>-</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>Busch Stadium 2</td>
-		<td>2006</td>
-	</tr>
-	<tr>
-		<td>Arizona Diamondbacks</td>
-		<td>Chase Field</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Colorado Rockies</td>
-		<td>Coors Field</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Los Angeles Dodgers</td>
-		<td>Dodger Stadium</td>
-		<td>multiple</td>
-	</tr>
-	<tr>
-		<td>San Diego Padres</td>
-		<td>Qualcomm Stadium</td>
-		<td>-</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>Petco Park</td>
-		<td>many</td>
-	</tr>
-	<tr>
-		<td>San Francisco Giants</td>
-		<td>Candlestick Park</td>
-		<td>many</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>Oracle Park</td>
-		<td>many</td>
-	</tr>
-	<tr>
-		<td>Baltimore Orioles</td>
-		<td>Camden Yards</td>
-		<td>2007</td>
-	</tr>
-	<tr>
-		<td>Boston Red Sox</td>
-		<td>Fenway Park</td>
-		<td>2007 & 4/24/2013</td>
-	</tr>
-	<tr>
-		<td>New York Yankees</td>
-		<td>Yankee Stadium 1</td>
-		<td>6/29/2007</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>Yankee Stadium 2</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Tampa Bay Rays</td>
-		<td>Tropicana Field</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Toronto Blue Jays</td>
-		<td>Rogers Centre</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Chicago White Sox</td>
-		<td>US Cellular</td>
-		<td>2006</td>
-	</tr>
-	<tr>
-		<td>Cleveland Indians</td>
-		<td>Jacobs Field</td>
-		<td>2006</td>
-	</tr>
-	<tr>
-		<td>Detroit Tigers</td>
-		<td>Tiger Stadium</td>
-		<td>2006 (didn't see a game. stood outside the walls while it was still standing)</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>Comerica Park</td>
-		<td>2006</td>
-	</tr>
-	<tr>
-		<td>Kansas City Royals</td>
-		<td>Kauffman</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Minnesota Twins</td>
-		<td>Metrodome</td>
-		<td>-</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>Target Field</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Houston Astros</td>
-		<td>Minute Maid Park</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td>Los Angeles Angels</td>
-		<td>Big A</td>
-		<td>many</td>
-	</tr>
-	<tr>
-		<td>Oakland Athletics</td>
-		<td>Oakland-Alameda County Coliseum</td>
-		<td>many</td>
-	</tr>
-	<tr>
-		<td>Seattle Mariners</td>
-		<td>Kingdome</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>Safeco Field</td>
-		<td>2009?</td>
-	</tr>
-	<tr>
-		<td>Texas Rangers</td>
-		<td>Globe Life Park</td>
-		<td></td>
-	</tr>
+  <tr>
+    <th></th>
+    <th>Team</th>
+    <th>Venue</th>
+    <th>Date</th>
+    <th>Note</th>
+  </tr>
+  {{ range $i, $stadium := .Page.Params.stadiums }}
+    <tr>
+      <td>{{ cond $stadium.visited "✅" "❌" }}</td>
+      <td>{{ $stadium.team }}</td>
+      <td>{{ $stadium.venue }}</td>
+      <td>{{ $stadium.date }}</td>
+      <td>{{ $stadium.note | default "-" }}</td>
+    </tr>
+  {{ end }}
+
+
 </table>
+{{< /detail.inline >}}

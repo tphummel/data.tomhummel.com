@@ -1,7 +1,7 @@
 ---
 title: "5k Race Ledger"
 date: 2024-07-05T09:00:00-07:00
-tags: ["running"]
+tags: ["running", "meta"]
 url: /running/5k
 history: 
 - date: 1998-05-17

@@ -8,7 +8,7 @@
   <h2>Meta Reports</h2>
   {{ $metaReports := .Site.Taxonomies.tags.meta.Pages }}
   <ul>
-  {{ range first 5 $metaReports }}
+  {{ range $metaReports }}
     <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
   {{ end }}
   </ul>
