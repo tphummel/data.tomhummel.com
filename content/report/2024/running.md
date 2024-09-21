@@ -1,6 +1,6 @@
 ---
 title: "2024 Running"
-date: 2024-09-13
+date: 2024-09-21
 tags: ["running", "running-annual"]
 total_miles_run: 426.40
 total_runs: 90
