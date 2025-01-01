@@ -143,6 +143,12 @@ stadiums:
     visited: true
     date: 1984
     note: Many
+  
+  - team: Oakland Athletics
+    venue: Sutter Health Park
+    visited: false
+    date:
+    note:
 
   - team: Philadelphia Phillies
     venue: Citizens Bank Park
