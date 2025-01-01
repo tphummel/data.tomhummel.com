@@ -1,9 +1,9 @@
 ---
 title: "2024 Sneezes"
-date: 2024-08-11
+date: 2025-01-01
 tags: ["sneezes", "sneezes-annual"]
-totalSneezes: 526
-partialData: true
+totalSneezes: 925
+partialData: false
 ---
 
 Data source: Nomie

@@ -1,7 +1,7 @@
 ---
 title: "2024 Pushups"
-date: 2024-08-11
+date: 2025-01-01
 tags: ["pushups", "pushups-annual"]
-total_pushups: 3222
-partial_data: true
+total_pushups: 4859
+partial_data: false
 ---
