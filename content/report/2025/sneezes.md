@@ -1,8 +1,8 @@
 ---
 title: "2025 Sneezes"
-date: 2025-01-01
+date: 2025-05-27
 tags: ["sneezes", "sneezes-annual"]
-totalSneezes: 1
+totalSneezes: 269
 partialData: true
 ---
 
