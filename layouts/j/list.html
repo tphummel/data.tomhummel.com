@@ -1,0 +1,39 @@
+{{ define "main" }}
+<h2>{{ .Title }}</h2>
+<p>
+  {{ partial "breadcrumb.html" . }}
+  {{ partial "tag-list.html" . }}
+</p>
+
+<div>{{ .Content }}</div>
+<p>Total entries: {{ len .RegularPagesRecursive }}</p>
+
+{{ $jsonFiles := .Resources.Match "*.json" }}
+{{ if $jsonFiles }}
+<h3>Data Files</h3>
+<ul>
+  {{ range $jsonFiles }}
+  {{ $data := . | transform.Unmarshal }}
+  <li>{{ .Name }}: <pre>{{ $data | jsonify }}</pre></li>
+  {{ end }}
+</ul>
+{{ end }}
+
+{{ if .Sections }}
+<h3>Subsections</h3>
+<ul>
+  {{ range .Sections }}
+  <li><a href="{{ .RelPermalink }}">{{ .Title }}</a> ({{ len .RegularPagesRecursive }} entries)</li>
+  {{ end }}
+</ul>
+{{ end }}
+
+{{ if .RegularPages }}
+<h3>Entries</h3>
+<ul>
+  {{ range .RegularPages }}
+  <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+  {{ end }}
+</ul>
+{{ end }}
+{{ end }}
