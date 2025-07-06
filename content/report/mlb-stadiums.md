@@ -146,9 +146,9 @@ stadiums:
   
   - team: Oakland Athletics
     venue: Sutter Health Park
-    visited: false
-    date:
-    note:
+    visited: true
+    date: 2025-05-24
+    note: also 7/4 and 7/5 2025
 
   - team: Philadelphia Phillies
     venue: Citizens Bank Park
