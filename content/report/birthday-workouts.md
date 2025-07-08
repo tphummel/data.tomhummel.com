@@ -6,6 +6,7 @@ tags: ["meta", "running", "birthday"]
 
 <!--more-->
 
+- 2025 - No workout. Push-ups only; see nomie
 - 2024 - Griffith Park, Los Angeles, CA - 10.35 mi - 1:37:12 (1,829 ft climb) - [garmin](https://connect.garmin.com/modern/activity/16291458055)
 - 2023 - Westridge Canyon, Los Angeles, CA - 6.27 mi - 1:01:54 (1,483 ft climb) - [garmin](https://connect.garmin.com/modern/activity/11508446457)
 - 2022 - Los Angeles, CA - 6.22 mi - 53:01 - [garmin](https://connect.garmin.com/modern/activity/9158446101)
