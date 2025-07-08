@@ -1,0 +1,20 @@
+{{ define "main" }}
+<h2>{{ .Title }}</h2>
+<p>
+  {{ partial "breadcrumb.html" . }}
+  {{ partial "tag-list.html" . }}
+</p>
+
+<div>{{ .Content }}</div>
+
+{{ $jsonFiles := .Resources.Match "*.json" }}
+{{ if $jsonFiles }}
+<h3>Data Files</h3>
+<ul>
+  {{ range $jsonFiles }}
+  {{ $data := . | transform.Unmarshal }}
+  <li>{{ .Name }}: <pre>{{ $data | jsonify }}</pre></li>
+  {{ end }}
+</ul>
+{{ end }}
+{{ end }}
