@@ -5,6 +5,7 @@ uglyurls      = false
 # disableKinds  = ["section"]
 enableInlineShortcodes = true
 enableGitInfo = true
+ignoreLogs = ['warning-goldmark-raw-html']
 
 [taxonomies]
   tag = "tags"
