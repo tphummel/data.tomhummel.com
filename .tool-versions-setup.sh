@@ -1,6 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
+# this script is intended to be run from Cloudflare Pages to bootstrap new builds
+# ./.tool-versions-setup.sh && hugo
+# SKIP_DEPENDENCY_INSTALL=1
+
 echo "➡️ Using pre-installed asdf"
 . /opt/buildhome/.asdf/asdf.sh
 asdf version
