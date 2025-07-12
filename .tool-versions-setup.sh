@@ -1,15 +1,18 @@
 #!/bin/bash
 set -euo pipefail
 
-echo "➡️ Installing asdf"
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.13.1
-. ~/.asdf/asdf.sh
+echo "➡️ Using pre-installed asdf"
+. /opt/buildhome/.asdf/asdf.sh
+asdf version
 
-echo "➡️ Installing asdf-hugo plugin"
+echo "➡️ Installing hugo plugin if needed"
 asdf plugin add hugo https://github.com/asdf-community/asdf-hugo.git || true
 
-echo "➡️ Installing Hugo via asdf"
+echo "➡️ Installing hugo from .tool-versions"
 asdf install
 asdf global hugo "$(awk '/^hugo / {print $2}' .tool-versions)"
 
 echo "✅ Hugo version: $(hugo version)"
+
+export ASDF_DIR=/opt/buildhome/.asdf
+export PATH="$ASDF_DIR/bin:$ASDF_DIR/shims:$PATH"
