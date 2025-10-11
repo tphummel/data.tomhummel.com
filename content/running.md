@@ -41,6 +41,104 @@ tags: ["meta","running"]
   {{ $milePaceSeconds := math.Floor (mul (sub $milePace $milePaceMinutes) 60) }}
   <p>Mile Pace: <strong>{{ $milePaceMinutes | lang.FormatNumber 0 }}:{{ printf "%02d" (int $milePaceSeconds) }}</strong></p>
   <p>Years: {{ $minYear }} - {{ $maxYear }}</p>
+
+  <h2>By Decade</h2>
+  {{ $decades := dict "1990s" (slice) "2000s" (slice) "2010s" (slice) "2020s" (slice) }}
+  {{ range $runningAnnualReports }}
+    {{ $year := .Params.year }}
+    {{ if and (ge $year 1990) (lt $year 2000) }}
+      {{ $decades = merge $decades (dict "1990s" ($decades.Get "1990s" | append .)) }}
+    {{ else if and (ge $year 2000) (lt $year 2010) }}
+      {{ $decades = merge $decades (dict "2000s" ($decades.Get "2000s" | append .)) }}
+    {{ else if and (ge $year 2010) (lt $year 2020) }}
+      {{ $decades = merge $decades (dict "2010s" ($decades.Get "2010s" | append .)) }}
+    {{ else if and (ge $year 2020) (lt $year 2030) }}
+      {{ $decades = merge $decades (dict "2020s" ($decades.Get "2020s" | append .)) }}
+    {{ end }}
+  {{ end }}
+
+  <table>
+    <tr>
+      <th>Decade</th>
+      <th>Run Count</th>
+      <th>Mileage</th>
+      <th>Minutes</th>
+      <th>Ascent (Feet)</th>
+    </tr>
+  {{ range slice "1990s" "2000s" "2010s" "2020s" }}
+    {{ $decade := . }}
+    {{ $reports := index $decades $decade }}
+    {{ if $reports }}
+      {{ $decadeRuns := 0 }}
+      {{ $decadeMiles := 0 }}
+      {{ $decadeMinutes := 0 }}
+      {{ $decadeAscent := 0 }}
+      {{ range $reports }}
+        {{ $decadeRuns = add $decadeRuns (.Params.total_runs | default 0) }}
+        {{ $decadeMiles = add $decadeMiles (.Params.total_miles_run | default 0) }}
+        {{ $decadeMinutes = add $decadeMinutes (.Params.total_minutes | default 0) }}
+        {{ $decadeAscent = add $decadeAscent (.Params.total_ascent_feet | default 0) }}
+      {{ end }}
+      <tr>
+        <td>{{ $decade }}</td>
+        <td>{{ $decadeRuns | lang.FormatNumber 0 }}</td>
+        <td>{{ $decadeMiles | lang.FormatNumber 0 }}</td>
+        <td>{{ $decadeMinutes | lang.FormatNumber 0 }}</td>
+        <td>{{ $decadeAscent | lang.FormatNumber 0 }}</td>
+      </tr>
+    {{ end }}
+  {{ end }}
+  </table>
+
+  <h2>By Age</h2>
+  {{ $ages := dict "Teens" (slice) "20s" (slice) "30s" (slice) "40s" (slice) }}
+  {{ range $runningAnnualReports }}
+    {{ $year := .Params.year }}
+    {{ if and (ge $year 1998) (lt $year 2005) }}
+      {{ $ages = merge $ages (dict "Teens" ($ages.Get "Teens" | append .)) }}
+    {{ else if and (ge $year 2005) (lt $year 2015) }}
+      {{ $ages = merge $ages (dict "20s" ($ages.Get "20s" | append .)) }}
+    {{ else if and (ge $year 2015) (lt $year 2025) }}
+      {{ $ages = merge $ages (dict "30s" ($ages.Get "30s" | append .)) }}
+    {{ else if ge $year 2025 }}
+      {{ $ages = merge $ages (dict "40s" ($ages.Get "40s" | append .)) }}
+    {{ end }}
+  {{ end }}
+
+  <table>
+    <tr>
+      <th>Age Range</th>
+      <th>Run Count</th>
+      <th>Mileage</th>
+      <th>Minutes</th>
+      <th>Ascent (Feet)</th>
+    </tr>
+  {{ range slice "Teens" "20s" "30s" "40s" }}
+    {{ $ageRange := . }}
+    {{ $reports := index $ages $ageRange }}
+    {{ if $reports }}
+      {{ $ageRuns := 0 }}
+      {{ $ageMiles := 0 }}
+      {{ $ageMinutes := 0 }}
+      {{ $ageAscent := 0 }}
+      {{ range $reports }}
+        {{ $ageRuns = add $ageRuns (.Params.total_runs | default 0) }}
+        {{ $ageMiles = add $ageMiles (.Params.total_miles_run | default 0) }}
+        {{ $ageMinutes = add $ageMinutes (.Params.total_minutes | default 0) }}
+        {{ $ageAscent = add $ageAscent (.Params.total_ascent_feet | default 0) }}
+      {{ end }}
+      <tr>
+        <td>{{ $ageRange }}</td>
+        <td>{{ $ageRuns | lang.FormatNumber 0 }}</td>
+        <td>{{ $ageMiles | lang.FormatNumber 0 }}</td>
+        <td>{{ $ageMinutes | lang.FormatNumber 0 }}</td>
+        <td>{{ $ageAscent | lang.FormatNumber 0 }}</td>
+      </tr>
+    {{ end }}
+  {{ end }}
+  </table>
+
+  <h2>By Year</h2>
   <table>
     <tr>
       <th>Year</th>
