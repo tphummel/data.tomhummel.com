@@ -47,13 +47,13 @@ tags: ["meta","running"]
   {{ range $runningAnnualReports }}
     {{ $year := .Params.year }}
     {{ if and (ge $year 1990) (lt $year 2000) }}
-      {{ $decades = merge $decades (dict "1990s" ($decades.Get "1990s" | append .)) }}
+      {{ $decades = merge $decades (dict "1990s" (index $decades "1990s" | append .)) }}
     {{ else if and (ge $year 2000) (lt $year 2010) }}
-      {{ $decades = merge $decades (dict "2000s" ($decades.Get "2000s" | append .)) }}
+      {{ $decades = merge $decades (dict "2000s" (index $decades "2000s" | append .)) }}
     {{ else if and (ge $year 2010) (lt $year 2020) }}
-      {{ $decades = merge $decades (dict "2010s" ($decades.Get "2010s" | append .)) }}
+      {{ $decades = merge $decades (dict "2010s" (index $decades "2010s" | append .)) }}
     {{ else if and (ge $year 2020) (lt $year 2030) }}
-      {{ $decades = merge $decades (dict "2020s" ($decades.Get "2020s" | append .)) }}
+      {{ $decades = merge $decades (dict "2020s" (index $decades "2020s" | append .)) }}
     {{ end }}
   {{ end }}
 
@@ -95,13 +95,13 @@ tags: ["meta","running"]
   {{ range $runningAnnualReports }}
     {{ $year := .Params.year }}
     {{ if and (ge $year 1998) (lt $year 2005) }}
-      {{ $ages = merge $ages (dict "Teens" ($ages.Get "Teens" | append .)) }}
+      {{ $ages = merge $ages (dict "Teens" (index $ages "Teens" | append .)) }}
     {{ else if and (ge $year 2005) (lt $year 2015) }}
-      {{ $ages = merge $ages (dict "20s" ($ages.Get "20s" | append .)) }}
+      {{ $ages = merge $ages (dict "20s" (index $ages "20s" | append .)) }}
     {{ else if and (ge $year 2015) (lt $year 2025) }}
-      {{ $ages = merge $ages (dict "30s" ($ages.Get "30s" | append .)) }}
+      {{ $ages = merge $ages (dict "30s" (index $ages "30s" | append .)) }}
     {{ else if ge $year 2025 }}
-      {{ $ages = merge $ages (dict "40s" ($ages.Get "40s" | append .)) }}
+      {{ $ages = merge $ages (dict "40s" (index $ages "40s" | append .)) }}
     {{ end }}
   {{ end }}
 
