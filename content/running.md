@@ -91,16 +91,17 @@ tags: ["meta","running"]
   </table>
 
   <h2>By Age</h2>
+  {{/* Born 1984-07-07. Using MLB-style "age-X season" = age on June 30 of that year */}}
   {{ $ages := dict "Teens" (slice) "20s" (slice) "30s" (slice) "40s" (slice) }}
   {{ range $runningAnnualReports }}
     {{ $year := .Params.year }}
-    {{ if and (ge $year 1998) (lt $year 2005) }}
+    {{ if and (ge $year 1995) (lt $year 2004) }}
       {{ $ages = merge $ages (dict "Teens" (index $ages "Teens" | append .)) }}
-    {{ else if and (ge $year 2005) (lt $year 2015) }}
+    {{ else if and (ge $year 2004) (lt $year 2014) }}
       {{ $ages = merge $ages (dict "20s" (index $ages "20s" | append .)) }}
-    {{ else if and (ge $year 2015) (lt $year 2025) }}
+    {{ else if and (ge $year 2014) (lt $year 2024) }}
       {{ $ages = merge $ages (dict "30s" (index $ages "30s" | append .)) }}
-    {{ else if ge $year 2025 }}
+    {{ else if ge $year 2024 }}
       {{ $ages = merge $ages (dict "40s" (index $ages "40s" | append .)) }}
     {{ end }}
   {{ end }}
@@ -142,14 +143,18 @@ tags: ["meta","running"]
   <table>
     <tr>
       <th>Year</th>
+      <th>Age</th>
       <th>Run Count</th>
       <th>Mileage</th>
       <th>Minutes</th>
       <th>Ascent (Feet)</th>
     </tr>
   {{ range ($runningAnnualReports.ByParam "year").Reverse }}
+    {{/* Born 1984-07-07. Age on June 30 = year - 1984 */}}
+    {{ $age := sub .Params.year 1984 }}
     <tr>
       <td>{{ .Params.year }}</td>
+      <td>{{ $age }}</td>
       <td>{{ (.Params.total_runs | default 0) | lang.FormatNumber 0 }}{{ cond (.Params.partial_data | default false) "*" "" }}</td>
       <td>{{ (.Params.total_miles_run | default 0) | lang.FormatNumber 0 }}{{ cond (.Params.partial_data | default false) "*" "" }}</td>
       <td>{{ (.Params.total_minutes | default 0) | lang.FormatNumber 0 }}{{ cond (.Params.partial_data | default false) "*" "" }}</td>
