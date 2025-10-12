@@ -549,6 +549,12 @@ games:
     opponent: "Giants"
     venue: "Sutter Health Stadium"
     note:
+  - date: "9/7/2025"
+    start_time: ""
+    home_away: "at"
+    opponent: "Angels"
+    venue: "Angel Stadium"
+    note:
 ---
 {{< summary.inline >}}
 <p>Games Count: {{ len .Page.Params.games }}</p>
