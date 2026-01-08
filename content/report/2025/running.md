@@ -1,12 +1,12 @@
 ---
 title: "2025 Running"
-date: 2025-05-27
+date: 2026-01-01
 tags: ["running", "running-annual"]
-total_miles_run: 137.49
-total_runs: 36
-total_minutes: 1282
-total_ascent_feet: 11346
-partial_data: true
+total_miles_run: 178.45
+total_runs: 59
+total_minutes: 1837
+total_ascent_feet: 13405
+partial_data: false
 
 ---
 
