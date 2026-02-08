@@ -42,19 +42,38 @@ python3 region_time.py ./2026-01-19/data 2025-12-01
 python3 region_time.py ./2026-01-19/data 2025-12-01 2026-01-19
 ```
 
+### Full Example
+
+```bash
+# Generate the CSV
+python3 region_time.py ./2026-01-19/data 2025-12-01 2026-01-19
+
+# Pretty print the output
+column -t -s, region_time_20260208T153042Z.csv
+```
+
+```
+date        Home    Office  Gym   not_in_region  total
+2025-12-01  1397.0  0       0.5   42.5           1440
+2025-12-02  932.9   0       0     507.1          1440
+2025-12-22  0       0       0     1440.0         1440
+2025-12-23  987.9   452.1   0     0              1440
+2025-12-25  1433.8  0       0     6.2            1440
+```
+
 ## Output
 
-The script writes `region_time.csv` to the current working directory.
+The script writes a timestamped CSV file (e.g. `region_time_20260208T153042Z.csv`) to the current working directory.
 
 ### Sample Output
 
 ```csv
-date,Barcelona 2025 Vacation Rental,Mar Vista Elementary,Tilden,not_in_region,total
-2025-12-01,0,0.5,1397.0,42.5,1440
-2025-12-02,0,0,932.9,507.1,1440
+date,Gym,Home,Office,not_in_region,total
+2025-12-01,0.5,1397.0,0,42.5,1440
+2025-12-02,0,932.9,0,507.1,1440
 2025-12-22,0,0,0,1440.0,1440
-2025-12-23,987.9,0,0,452.1,1440
-2025-12-25,1433.8,0,0,6.2,1440
+2025-12-23,0,987.9,452.1,0,1440
+2025-12-25,0,1433.8,0,6.2,1440
 ```
 
 ### Column Descriptions
