@@ -466,7 +466,7 @@ Days are calculated in Pacific time (midnight to midnight).
 
     header, rows = generate_csv(daily_minutes, daily_not_in_region, all_regions, start_date, end_date)
 
-    output_file = 'region_time.csv'
+    output_file = f"region_time_{datetime.now(tz=UTC).strftime('%Y%m%dT%H%M%SZ')}.csv"
     with open(output_file, 'w', newline='') as f:
         writer = csv.DictWriter(f, fieldnames=header)
         writer.writeheader()
