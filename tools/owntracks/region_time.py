@@ -153,12 +153,14 @@ def is_in_region(lat, lon, region):
 def synthesize_missing_events(events, locations, regions):
     """Fill gaps in transition events using location data.
 
-    Handles two cases:
-    1. After a "leave" with no matching "enter" before the next transition
-       for that region: check if location data shows the phone back in the
-       region and synthesize an "enter".
-    2. A "leave" appears but the phone was never "entered": check preceding
-       locations and synthesize a preceding "enter" if the phone was in region.
+    Handles missing transitions in three cases:
+    1. Missing "enter": leave→leave gap (or leave with no subsequent enter) —
+       search for the first location inside the region and synthesize an "enter".
+    2. Missing "leave": enter→enter gap (or enter with no subsequent leave) —
+       search for the first location outside the region and synthesize a "leave".
+    3. Excursions within enter→leave pairs: if the phone left and returned
+       within a valid pair (>2h span), synthesize both a "leave" and "enter"
+       using the first outside and first subsequent inside location points.
 
     Returns a new list of events (original + synthetic), sorted by timestamp.
     """
@@ -214,6 +216,123 @@ def synthesize_missing_events(events, locations, regions):
                 if loc['acc'] > 100:
                     continue
                 if is_in_region(loc['lat'], loc['lon'], region_def):
+                    synthetic.append({
+                        'timestamp': loc['timestamp'],
+                        'region': region_name,
+                        'event': 'enter',
+                        'synthetic': True,
+                    })
+                    break
+
+    # Second pass: find missing "leave" events (enter→enter gaps)
+    for region_name, revents in region_events.items():
+        if region_name not in regions:
+            continue
+
+        region_def = regions[region_name]
+
+        for ri, (idx, event) in enumerate(revents):
+            if event['event'] != 'enter':
+                continue
+
+            enter_ts = event['timestamp']
+
+            # Find the next event for this same region
+            next_event = revents[ri + 1] if ri + 1 < len(revents) else None
+
+            if next_event is not None:
+                _, next_ev = next_event
+                if next_ev['event'] == 'leave':
+                    # enter → leave: normal, no gap
+                    continue
+                # enter → enter: missing leave between the two enters
+                search_end_ts = next_ev['timestamp']
+            else:
+                # enter with no further events for this region
+                # Search up to end of location data
+                search_end_ts = loc_timestamps[-1] + 1 if loc_timestamps else enter_ts
+
+            # Search location events between enter and the search end.
+            # Find the first location that's outside the region.
+            loc_idx = bisect.bisect_left(loc_timestamps, enter_ts)
+
+            for k in range(loc_idx, len(locations)):
+                loc = locations[k]
+                if loc['timestamp'] >= search_end_ts:
+                    break
+                if loc['acc'] > 100:
+                    continue
+                if not is_in_region(loc['lat'], loc['lon'], region_def):
+                    synthetic.append({
+                        'timestamp': loc['timestamp'],
+                        'region': region_name,
+                        'event': 'leave',
+                        'synthetic': True,
+                    })
+                    break
+
+    # Third pass: find excursions within enter→leave pairs.
+    # If the phone left and returned within a valid enter→leave span,
+    # both the leave and re-enter events were dropped. Detect this by
+    # scanning location data for points outside the region, then finding
+    # the return point.
+    for region_name, revents in region_events.items():
+        if region_name not in regions:
+            continue
+
+        region_def = regions[region_name]
+
+        for ri, (idx, event) in enumerate(revents):
+            if event['event'] != 'enter':
+                continue
+
+            enter_ts = event['timestamp']
+
+            next_event = revents[ri + 1] if ri + 1 < len(revents) else None
+            if next_event is None:
+                continue
+            _, next_ev = next_event
+            if next_ev['event'] != 'leave':
+                continue
+
+            leave_ts = next_ev['timestamp']
+
+            # Only check spans longer than 2 hours — short spans are normal
+            if leave_ts - enter_ts < 7200:
+                continue
+
+            # Find first location outside the region (= missing leave)
+            loc_idx = bisect.bisect_left(loc_timestamps, enter_ts)
+            excursion_leave_ts = None
+
+            for k in range(loc_idx, len(locations)):
+                loc = locations[k]
+                if loc['timestamp'] >= leave_ts:
+                    break
+                if loc['acc'] > 100:
+                    continue
+                if not is_in_region(loc['lat'], loc['lon'], region_def):
+                    excursion_leave_ts = loc['timestamp']
+                    excursion_leave_k = k
+                    break
+
+            if excursion_leave_ts is None:
+                continue
+
+            # Find first location back inside the region (= missing enter)
+            for k in range(excursion_leave_k + 1, len(locations)):
+                loc = locations[k]
+                if loc['timestamp'] >= leave_ts:
+                    break
+                if loc['acc'] > 100:
+                    continue
+                if is_in_region(loc['lat'], loc['lon'], region_def):
+                    synthetic.append({
+                        'timestamp': excursion_leave_ts,
+                        'region': region_name,
+                        'event': 'leave',
+                        'synthetic': True,
+                    })
                     synthetic.append({
                         'timestamp': loc['timestamp'],
                         'region': region_name,
