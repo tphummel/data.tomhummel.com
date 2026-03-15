@@ -15,6 +15,20 @@ This tool parses OwnTracks transition events (region enter/leave) and calculates
 - Python 3.9+ (uses `zoneinfo` module)
 - OwnTracks Recorder data export
 
+## Workflow
+
+```bash
+# 1. Pull data from OwnTracks Recorder
+mkdir -p /mnt/nas1/me/owntracks/$(date +%Y-%m-%d)/
+scp -r root@owntracks-recorder.hummel.casa:/etc/owntracks-recorder/data/ \
+    /mnt/nas1/me/owntracks/$(date +%Y-%m-%d)/
+
+# 2. Run analysis
+python3 region_time.py /mnt/nas1/me/owntracks/$(date +%Y-%m-%d)/data
+python3 region_time.py /mnt/nas1/me/owntracks/$(date +%Y-%m-%d)/data 2026-02-05
+python3 region_time.py /mnt/nas1/me/owntracks/$(date +%Y-%m-%d)/data 2026-02-05 2026-03-14
+```
+
 ## Usage
 
 ```bash
@@ -95,14 +109,13 @@ The script replays all transition events before the start date to determine whic
 
 ### Location-Based Gap Filling
 
-OwnTracks transition events sometimes have gaps — a "leave" fires but the corresponding "re-enter" never arrives, causing the script to think you were away for hours when you were actually there. The script detects and fills these gaps using location data:
+OwnTracks transition events sometimes have gaps — the phone drops `enter` or `leave` events, causing inaccurate time calculations. The script detects and fills these gaps using location data (periodic lat/lon reports with accuracy) and region definitions from the `waypoints/` directory (center lat/lon and radius in meters). Location events with poor accuracy (>100m) are ignored.
 
-1. **Parses location events** from `.rec` files (periodic lat/lon reports with accuracy).
-2. **Loads region definitions** from the `waypoints/` directory (center lat/lon and radius in meters).
-3. **Detects gaps**: After a "leave" event for region R, if the next event for that region is another "leave" (with no intervening "enter"), searches location events in the gap. Uses haversine distance to check if the phone was inside the region's geofence.
-4. **Synthesizes missing "enter" events** at the timestamp of the first location event that shows the phone back inside the region.
+Three cases are handled:
 
-This runs only on events within the requested date range so it doesn't affect initial state detection. Location events with poor accuracy (>100m) are ignored.
+1. **Missing enter** (leave→leave gap): After a "leave" for region R, if the next event for that region is another "leave" with no intervening "enter", searches location data in the gap for the first point **inside** the region and synthesizes an "enter" event.
+2. **Missing leave** (enter→enter gap): After an "enter" for region R, if the next event for that region is another "enter" with no intervening "leave", searches location data in the gap for the first point **outside** the region and synthesizes a "leave" event.
+3. **Excursions within enter→leave pairs**: For enter→leave pairs spanning more than 2 hours, checks if location data shows the phone left and returned mid-span. If the first location outside the region is followed by a later location back inside, synthesizes both a "leave" and "enter" to split the pair.
 
 ### Overlapping Regions
 
