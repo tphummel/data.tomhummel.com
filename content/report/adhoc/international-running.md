@@ -39,6 +39,9 @@ by_country:
   - name: Sweden
     date: 2024-08-08
     notes: Stockholm
+  - name: Costa Rica
+    date: 2025-08-01
+    notes: Playa Conchal
 
 ---
 {{< summary.inline >}}
