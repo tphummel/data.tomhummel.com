@@ -21,6 +21,9 @@ by_country:
   - name: Canada
     date: 2018-07-20
     notes: Edmonton, Alberta
+  - name: Canada
+    date: 2026-05-05
+    notes: Toronto, Ontario
   - name: Mexico
     date: 2017-11-10
     notes: Todos Santos, Baja California Sur
