@@ -20,7 +20,7 @@ by_country:
     notes: HK Island central coastline
   - name: Canada
     date: 2018-07-20
-    notes: Edmonton, Alberta
+    notes: Edmonton, Alberta. 2026-05-05 Toronto, Ontario
   - name: Mexico
     date: 2017-11-10
     notes: Todos Santos, Baja California Sur
@@ -39,6 +39,9 @@ by_country:
   - name: Sweden
     date: 2024-08-08
     notes: Stockholm
+  - name: Costa Rica
+    date: 2025-08-01
+    notes: Playa Conchal
 
 ---
 {{< summary.inline >}}
