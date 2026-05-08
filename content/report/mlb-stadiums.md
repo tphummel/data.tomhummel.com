@@ -225,7 +225,7 @@ stadiums:
     venue: Rogers Centre
     visited: true
     date: 2026-05-08
-    note: Toronto, Ontario, Canada
+    note: 
 
   - team: Washington Nationals
     venue: RFK Stadium
