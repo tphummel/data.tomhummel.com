@@ -223,8 +223,10 @@ stadiums:
 
   - team: Toronto Blue Jays
     venue: Rogers Centre
-    visited: false
-    date: 
+    visited: true
+    date: 2026-05-08
+    note: 
+
   - team: Washington Nationals
     venue: RFK Stadium
     visited: true
