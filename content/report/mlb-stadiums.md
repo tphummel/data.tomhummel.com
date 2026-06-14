@@ -150,6 +150,12 @@ stadiums:
     date: 2025-05-24
     note: also 7/4 and 7/5 2025
 
+  - team: Athletics
+    venue: Las Vegas Ballpark
+    visited: true
+    date: 2026-06-13
+    note: Section 107, Row V, Seat 5 vs. Col
+
   - team: Philadelphia Phillies
     venue: Citizens Bank Park
     visited: true
