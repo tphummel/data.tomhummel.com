@@ -555,6 +555,24 @@ games:
     opponent: "Angels"
     venue: "Angel Stadium"
     note:
+  - date: "5/18/2026"
+    start_time: ""
+    home_away: "at"
+    opponent: "Angels"
+    venue: "Angel Stadium"
+    note: "Section 114, Row N, Seat 13"
+  - date: "5/23/2026"
+    start_time: ""
+    home_away: "at"
+    opponent: "Padres"
+    venue: "Petco Park"
+    note: "Gallagher Square"
+  - date: "6/13/2026"
+    start_time: ""
+    home_away: "vs"
+    opponent: "Rockies"
+    venue: "Las Vegas Ballpark"
+    note: "Section 107, Row V, Seat 5"
 ---
 {{< summary.inline >}}
 <p>Games Count: {{ len .Page.Params.games }}</p>
