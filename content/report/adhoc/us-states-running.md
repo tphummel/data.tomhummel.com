@@ -185,8 +185,8 @@ by_state:
 
   - state: Oregon
     completed: true
-    date: 10/21/2023
-    notes: Portland, Mt. Tabor
+    date: 2015-06-27
+    notes: Mt. Hood. 2023-10-21 Portland, Mt. Tabor
 
   - state: Pennsylvania
     completed: false
