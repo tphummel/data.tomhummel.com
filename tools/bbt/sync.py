@@ -187,61 +187,79 @@ def closest_idx(coords, lat, lon):
     return min(range(len(coords)), key=lambda i: haversine_m(coords[i][0], coords[i][1], lat, lon))
 
 
-def any_gpx_covers(bp, all_gpx_tracks):
-    return any(
-        min(haversine_m(bp[0], bp[1], gp[0], gp[1]) for gp in gpx) <= BBT_THRESH_M
-        for gpx in all_gpx_tracks
-    )
-
-
-def recompute_all_segment_coverage(bbt, all_gpx_tracks):
-    """
-    Compute miles_covered for each segment by unioning ALL BBT GPX tracks.
-    Returns dict: slug -> miles_covered (deduplicated — each BBT metre counted once).
-    """
-    # Sort descending: high idx = Ray Miller (west), low idx = Will Rogers (east)
-    split_idxs = sorted([closest_idx(bbt, lat, lon) for _, lat, lon in SEGMENT_SPLITS], reverse=True)
-
-    # Mark every BBT point as covered by the union of all tracks
-    covered = [any_gpx_covers(bp, all_gpx_tracks) for bp in bbt]
-
-    result = {}
-    for seg_i, slug in enumerate(SEGMENT_SLUGS):
-        # Segment i spans bbt[split_idxs[i+1] : split_idxs[i]+1]
-        e = split_idxs[seg_i]
-        s = split_idxs[seg_i + 1]
-        seg_covered = [bbt[i] for i in range(s, e + 1) if covered[i]]
-        # Sum contiguous covered spans (length of covered BBT points in this segment)
-        seg_pts = bbt[s:e + 1]
-        seg_flags = covered[s:e + 1]
-        total = 0.0
-        span = []
-        for pt, flag in zip(seg_pts, seg_flags):
-            if flag:
-                span.append(pt)
-            elif span:
-                if len(span) > 1:
-                    total += seg_len_m(span)
-                span = []
-        if len(span) > 1:
-            total += seg_len_m(span)
-        result[slug] = round(total / 1609.344, 2)
-
-    return result
+def miles_from_index_set(indices, bbt):
+    """Sum trail distance for a set of BBT point indices, grouping contiguous runs."""
+    if not indices:
+        return 0.0
+    sorted_idxs = sorted(indices)
+    total = 0.0
+    span = [sorted_idxs[0]]
+    for i in sorted_idxs[1:]:
+        if i == span[-1] + 1:
+            span.append(i)
+        else:
+            if len(span) > 1:
+                total += seg_len_m([bbt[j] for j in span])
+            span = [i]
+    if len(span) > 1:
+        total += seg_len_m([bbt[j] for j in span])
+    return round(total / 1609.344, 2)
 
 
 def bbt_touched_by_gpx(bbt, gpx_pts):
     """Returns list of slugs where a single GPX track passes within threshold."""
     split_idxs = sorted([closest_idx(bbt, lat, lon) for _, lat, lon in SEGMENT_SPLITS], reverse=True)
-    touched = set()
-    for bp_i, bp in enumerate(bbt):
-        if min(haversine_m(bp[0], bp[1], gp[0], gp[1]) for gp in gpx_pts) <= BBT_THRESH_M:
-            for k in range(len(split_idxs) - 1):
-                # Segment k spans bbt[split_idxs[k+1] : split_idxs[k]+1]
-                if split_idxs[k + 1] <= bp_i <= split_idxs[k]:
-                    touched.add(SEGMENT_SLUGS[k])
-                    break
-    return list(touched)
+    seg_ranges = [set(range(split_idxs[i + 1], split_idxs[i] + 1)) for i in range(len(SEGMENT_SLUGS))]
+    covered = {i for i, bp in enumerate(bbt)
+               if min(haversine_m(bp[0], bp[1], gp[0], gp[1]) for gp in gpx_pts) <= BBT_THRESH_M}
+    return [slug for seg_i, slug in enumerate(SEGMENT_SLUGS) if covered & seg_ranges[seg_i]]
+
+
+def recompute_all_segment_coverage(bbt, all_bbt_runs):
+    """
+    Process all BBT runs chronologically, computing per-run-per-segment coverage.
+    Returns dict: slug -> {miles_covered, runs: [{garmin_id, date, miles_this_seg, miles_new}]}
+    """
+    split_idxs = sorted([closest_idx(bbt, lat, lon) for _, lat, lon in SEGMENT_SPLITS], reverse=True)
+    seg_ranges = [set(range(split_idxs[i + 1], split_idxs[i] + 1)) for i in range(len(SEGMENT_SLUGS))]
+
+    seg_already_covered = [set() for _ in SEGMENT_SLUGS]
+    seg_run_entries = [[] for _ in SEGMENT_SLUGS]
+
+    ns = {"g": "http://www.topografix.com/GPX/1/1"}
+    for run in sorted(all_bbt_runs, key=lambda r: str(r.get("date", ""))):
+        gid = str(run.get("garmin_id", ""))
+        candidates = list(GPX_DIR.glob(f"activity_{gid}.gpx"))
+        if not candidates:
+            continue
+        gpx_pts = [(float(p.get("lat")), float(p.get("lon")))
+                   for p in ET.parse(candidates[0]).getroot().findall(".//g:trkpt", ns)]
+        covered_by_run = {
+            i for i, bp in enumerate(bbt)
+            if min(haversine_m(bp[0], bp[1], gp[0], gp[1]) for gp in gpx_pts) <= BBT_THRESH_M
+        }
+        for seg_i, slug in enumerate(SEGMENT_SLUGS):
+            in_seg = covered_by_run & seg_ranges[seg_i]
+            if not in_seg:
+                continue
+            new_in_seg = in_seg - seg_already_covered[seg_i]
+            miles_this_seg = miles_from_index_set(in_seg, bbt)
+            miles_overlap = miles_from_index_set(in_seg & seg_already_covered[seg_i], bbt)
+            seg_run_entries[seg_i].append({
+                "garmin_id": run["garmin_id"],
+                "date": run["date"],
+                "miles_this_seg": miles_this_seg,
+                "miles_new": round(miles_this_seg - miles_overlap, 2),
+            })
+            seg_already_covered[seg_i] |= in_seg
+
+    return {
+        slug: {
+            "miles_covered": miles_from_index_set(seg_already_covered[seg_i], bbt),
+            "runs": seg_run_entries[seg_i],
+        }
+        for seg_i, slug in enumerate(SEGMENT_SLUGS)
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -343,35 +361,23 @@ def main():
         if bbt is None:
             bbt = build_bbt_route()
         all_bbt_runs = [r for r in runs if r.get("bbt")]
-        all_gpx_tracks = []
-        for r in all_bbt_runs:
-            gid = str(r.get("garmin_id", ""))
-            candidates = list(GPX_DIR.glob(f"activity_{gid}.gpx"))
-            if candidates:
-                ns = {"g": "http://www.topografix.com/GPX/1/1"}
-                root = ET.parse(candidates[0]).getroot()
-                pts = [(float(p.get("lat")), float(p.get("lon")))
-                       for p in root.findall(".//g:trkpt", ns)]
-                all_gpx_tracks.append(pts)
-
-        print(f"\nRecomputing coverage from {len(all_gpx_tracks)} BBT track(s)...")
-        coverage = recompute_all_segment_coverage(bbt, all_gpx_tracks)
+        print(f"\nRecomputing coverage from {len(all_bbt_runs)} BBT track(s)...")
+        coverage = recompute_all_segment_coverage(bbt, all_bbt_runs)
 
         for seg in data.get("bbt_segments", []):
             slug = seg.get("slug")
-            if slug in coverage:
-                new_mi = coverage[slug]
-                if new_mi > 0:
-                    old_mi = seg.get("miles_covered", 0)
-                    seg["miles_covered"] = new_mi
-                    seg["touched"] = True
-                    # Set date/garmin_id to the most recent BBT run touching this segment
-                    # (only if not already set to a more specific value)
-                    if not seg.get("date") or old_mi == 0:
-                        seg["date"] = all_bbt_runs[-1]["date"]
-                    if not seg.get("garmin_id") or old_mi == 0:
-                        seg["garmin_id"] = all_bbt_runs[-1]["garmin_id"]
-                    print(f"  {seg['name']}: {old_mi} -> {new_mi} mi")
+            if slug not in coverage:
+                continue
+            result = coverage[slug]
+            new_mi = result["miles_covered"]
+            old_mi = seg.get("miles_covered", 0)
+            seg["miles_covered"] = new_mi
+            seg["touched"] = new_mi > 0
+            seg.pop("date", None)
+            seg.pop("garmin_id", None)
+            seg["runs"] = result["runs"]
+            if new_mi != old_mi:
+                print(f"  {seg['name']}: {old_mi} -> {new_mi} mi ({len(result['runs'])} run(s))")
 
     # Sort runs chronologically
     runs.sort(key=lambda r: str(r.get("date", "")))

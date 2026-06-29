@@ -10,8 +10,6 @@ bbt_segments:
   direction: west terminus
   touched: false
   complete: false
-  date:
-  garmin_id:
   notes:
   trailheads:
   - name: Ray Miller Trailhead
@@ -21,14 +19,13 @@ bbt_segments:
     address: 3000 Yerba Buena Rd, Malibu, CA 90265
     parking: Fee
 
+  runs: []
 - name: "Segment 2: Mishe Mokwa TH to Danielson Ranch"
   slug: 02-mishe-mokwa-to-danielson
   miles_approx: 7.5
   miles_covered: 0.0
   touched: false
   complete: false
-  date:
-  garmin_id:
   notes: Alternate route through Sandstone Peak (3,111 ft, highest point in SMM) and Circle X Wilderness.
   trailheads:
   - name: Mishe Mokwa Trailhead
@@ -38,14 +35,13 @@ bbt_segments:
     address: 3000 Yerba Buena Rd, Malibu, CA 90265
     parking: Fee
 
+  runs: []
 - name: "Segment 3: Mishe Mokwa TH to Encinal Canyon Road"
   slug: 03-mishe-mokwa-to-encinal
   miles_approx: 6.9
   miles_covered: 0.0
   touched: false
   complete: false
-  date:
-  garmin_id:
   notes: Gentle ridgetop walking east from Mishe Mokwa.
   trailheads:
   - name: Mishe Mokwa Trailhead
@@ -55,14 +51,13 @@ bbt_segments:
     address: Encinal Canyon Rd, Malibu, CA
     parking: ""
 
+  runs: []
 - name: "Segment 4: Encinal Canyon Road to Latigo Canyon Road"
   slug: 04-encinal-to-latigo
   miles_approx: 6.9
   miles_covered: 1.08
   touched: true
   complete: false
-  date: 2010-01-02
-  garmin_id: 21534025
   notes: 2010 run clipped the eastern edge past Latigo Canyon Rd. Passes through Trancas Canyon with first perennial water on the BBT.
   trailheads:
   - name: Encinal Canyon Rd Trailhead
@@ -72,14 +67,17 @@ bbt_segments:
     address: End of Latigo Canyon Rd, Malibu, CA
     parking: Free
 
+  runs:
+  - garmin_id: 21534025
+    date: &id001 2010-01-02
+    miles_this_seg: 1.08
+    miles_new: 1.08
 - name: "Segment 5: Latigo Canyon Road to Piuma TH"
   slug: 05-latigo-to-piuma
   miles_approx: 5.5
   miles_covered: 3.13
   touched: true
   complete: false
-  date: 2010-01-02
-  garmin_id: 21534025
   notes: 2010 run covered the Piuma-to-Latigo section. Castro Crest area. Total 4.21 mi split across segs 4/5/6. Passes Newton Canyon and Solstice Canyon watershed.
   trailheads:
   - name: Latigo Canyon Rd / Castro Crest
@@ -89,14 +87,17 @@ bbt_segments:
     address: Piuma Rd, Malibu, CA
     parking: ""
 
+  runs:
+  - garmin_id: 21534025
+    date: *id001
+    miles_this_seg: 3.13
+    miles_new: 3.13
 - name: "Segment 6: Saddle Peak to Piuma TH"
   slug: 06-saddle-peak-to-piuma
   miles_approx: 5.5
   miles_covered: 0.0
   touched: false
   complete: false
-  date:
-  garmin_id:
   notes: Lois Ewen Overlook and Saddle Peak summit. Descends via sandstone outcrops to Malibu Canyon.
   trailheads:
   - name: Saddle Peak
@@ -106,14 +107,13 @@ bbt_segments:
     address: Piuma Rd, Malibu, CA
     parking: ""
 
+  runs: []
 - name: "Segment 7: Saddle Peak to Trippet Ranch"
   slug: 07-saddle-peak-to-trippet
   miles_approx: 7.1
   miles_covered: 0.0
   touched: false
   complete: false
-  date:
-  garmin_id:
   notes: Approaches Topanga via Hondo Canyon.
   trailheads:
   - name: Saddle Peak
@@ -123,6 +123,7 @@ bbt_segments:
     address: 20825 Entrada Rd, Topanga, CA 90290
     parking: Free
 
+  runs: []
 - name: "Segment 8: Trippet Ranch to Will Rogers State Park"
   slug: 08-trippet-to-will-rogers
   miles_approx: 4.9
@@ -130,8 +131,6 @@ bbt_segments:
   direction: east terminus
   touched: true
   complete: false
-  date: 2026-06-28
-  garmin_id: 23409544287
   notes: 2026 run covered the Will Rogers SHP eastern section. Musch Ranch Trail approach from Trippet uncovered.
   trailheads:
   - name: Trippet Ranch
@@ -141,6 +140,15 @@ bbt_segments:
     address: 1501 Will Rogers State Park Rd, Pacific Palisades, CA 90272
     parking: Fee
 
+  runs:
+  - garmin_id: 11567108483
+    date: &id002 2023-07-15
+    miles_this_seg: 0.3
+    miles_new: 0.3
+  - garmin_id: 23409544287
+    date: '2026-06-28'
+    miles_this_seg: 2.02
+    miles_new: 1.72
 runs:
 - date: 2009-12-04
   name: Mulholland Drive East from Reseda Blvd
@@ -196,7 +204,7 @@ runs:
   notes:
   elev_gain_ft: 1051
   elev_loss_ft: 1248
-- date: 2010-01-02
+- date: *id001
   name: Latigo Canyon to Corral Canyon
   area: bbt
   miles: 10.1
@@ -313,7 +321,7 @@ runs:
   notes:
   elev_gain_ft: 2056
   elev_loss_ft: 2032
-- date: 2023-07-15
+- date: *id002
   name: Sullivan Canyon to Backbone Above Will Rogers
   area: bbt
   miles: 4.3
@@ -459,7 +467,6 @@ runs:
     <th>~Miles</th>
     <th>Covered</th>
     <th>Status</th>
-    <th>Date</th>
     <th>Notes</th>
   </tr>
   <tr>
@@ -476,25 +483,17 @@ runs:
       {{ else }}⬜ Not started
       {{ end }}
     </td>
-    <td>
-      {{ if .garmin_id }}
-        <a href="https://connect.garmin.com/modern/activity/{{ .garmin_id }}">{{ .date }}</a>
-      {{ else }}
-        -
-      {{ end }}
-    </td>
     <td>{{ .notes | default "-" }}</td>
   </tr>
 </table>
-{{ if .trailheads }}
-<p><strong>Trailheads / Parking</strong></p>
+{{ if .runs }}
 <table>
-  <tr><th>Name</th><th>Address</th><th>Parking</th></tr>
-  {{ range .trailheads }}
+  <tr><th>Date</th><th>Seg Miles</th><th>New Miles</th></tr>
+  {{ range .runs }}
   <tr>
-    <td>{{ .name }}</td>
-    <td>{{ .address | default "-" }}</td>
-    <td>{{ .parking | default "-" }}</td>
+    <td><a href="https://connect.garmin.com/modern/activity/{{ .garmin_id }}">{{ .date }}</a></td>
+    <td>{{ .miles_this_seg }}</td>
+    <td>{{ .miles_new }}</td>
   </tr>
   {{ end }}
 </table>

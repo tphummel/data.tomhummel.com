@@ -5,6 +5,7 @@
 # ///
 """
 Force-recompute all BBT segment coverage from scratch using current split points.
+Produces per-run-per-segment miles (this run on segment) and new miles (first time).
 Run this after changing SEGMENT_SPLITS.
 """
 
@@ -52,38 +53,58 @@ SEGMENT_SLUGS = [
 def haversine_m(lat1, lon1, lat2, lon2):
     R = 6371000
     phi1, phi2 = math.radians(lat1), math.radians(lat2)
-    a = math.sin((lat2-lat1)*math.pi/360)**2 + \
-        math.cos(phi1)*math.cos(phi2)*math.sin((lon2-lon1)*math.pi/360)**2
-    return 2*R*math.asin(math.sqrt(a))
+    a = math.sin((lat2 - lat1) * math.pi / 360) ** 2 + \
+        math.cos(phi1) * math.cos(phi2) * math.sin((lon2 - lon1) * math.pi / 360) ** 2
+    return 2 * R * math.asin(math.sqrt(a))
 
 
 def seg_len_m(coords):
     return sum(haversine_m(coords[i][0], coords[i][1], coords[i+1][0], coords[i+1][1])
-               for i in range(len(coords)-1))
+               for i in range(len(coords) - 1))
 
 
 def closest_idx(coords, lat, lon):
     return min(range(len(coords)), key=lambda i: haversine_m(coords[i][0], coords[i][1], lat, lon))
 
 
+def miles_from_index_set(indices, bbt):
+    """Sum trail distance for a set of BBT point indices, grouping contiguous runs."""
+    if not indices:
+        return 0.0
+    sorted_idxs = sorted(indices)
+    total = 0.0
+    span = [sorted_idxs[0]]
+    for i in sorted_idxs[1:]:
+        if i == span[-1] + 1:
+            span.append(i)
+        else:
+            if len(span) > 1:
+                total += seg_len_m([bbt[j] for j in span])
+            span = [i]
+    if len(span) > 1:
+        total += seg_len_m([bbt[j] for j in span])
+    return round(total / 1609.344, 2)
+
+
 def build_bbt():
-    query = f"[out:json][timeout:120];relation(2748910);way(r);out geom;"
+    query = "[out:json][timeout:120];relation(2748910);way(r);out geom;"
     r = requests.get(OVERPASS_URL, params={"data": query}, timeout=120)
     r.raise_for_status()
     ways = sorted(
-        [e for e in r.json()["elements"] if e["type"]=="way"],
-        key=lambda w: sum(p["lon"] for p in w["geometry"])/len(w["geometry"])
+        [e for e in r.json()["elements"] if e["type"] == "way"],
+        key=lambda w: sum(p["lon"] for p in w["geometry"]) / len(w["geometry"])
                      if w.get("geometry") else 0,
         reverse=True,
     )
     bbt = []
     for w in ways:
         pts = [(p["lat"], p["lon"]) for p in w.get("geometry", [])]
-        if not pts: continue
+        if not pts:
+            continue
         if bbt:
             tail = bbt[-1]
-            if haversine_m(tail[0],tail[1],pts[-1][0],pts[-1][1]) < \
-               haversine_m(tail[0],tail[1],pts[0][0],pts[0][1]):
+            if haversine_m(tail[0], tail[1], pts[-1][0], pts[-1][1]) < \
+               haversine_m(tail[0], tail[1], pts[0][0], pts[0][1]):
                 pts = list(reversed(pts))
         bbt.extend(pts if not bbt else pts[1:])
     if bbt[0][1] < bbt[-1][1]:
@@ -93,13 +114,20 @@ def build_bbt():
 
 def main():
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    requests_cache.install_cache(str(DATA_DIR/"http_cache"), backend="sqlite", expire_after=-1)
+    requests_cache.install_cache(str(DATA_DIR / "http_cache"), backend="sqlite", expire_after=-1)
 
     print("Loading BBT route (cached)...")
     bbt = build_bbt()
     print(f"  {len(bbt)} pts")
 
-    split_idxs = sorted([closest_idx(bbt, lat, lon) for _, lat, lon in SEGMENT_SPLITS], reverse=True)
+    split_idxs = sorted(
+        [closest_idx(bbt, lat, lon) for _, lat, lon in SEGMENT_SPLITS], reverse=True
+    )
+    # seg_ranges[i] = set of bbt indices belonging to segment i
+    seg_ranges = [
+        set(range(split_idxs[i + 1], split_idxs[i] + 1))
+        for i in range(len(SEGMENT_SLUGS))
+    ]
 
     text = PAGE_PATH.read_text()
     _, fm_text, body = text.split("---", 2)
@@ -108,54 +136,77 @@ def main():
     yaml.width = 4096
     data = yaml.load(fm_text)
 
-    bbt_runs = [r for r in data.get("runs", []) if r.get("bbt")]
-    print(f"\nLoading {len(bbt_runs)} BBT track(s)...")
+    bbt_runs = sorted(
+        [r for r in data.get("runs", []) if r.get("bbt")],
+        key=lambda r: str(r.get("date", "")),
+    )
+    print(f"\nProcessing {len(bbt_runs)} BBT track(s) chronologically...")
+
     ns = {"g": "http://www.topografix.com/GPX/1/1"}
-    all_gpx = []
-    for r in bbt_runs:
-        gid = str(r["garmin_id"])
+
+    # per-segment: set of already-covered bbt indices (for new-miles tracking)
+    seg_already_covered = [set() for _ in SEGMENT_SLUGS]
+    # per-segment: list of run dicts to store
+    seg_run_entries = [[] for _ in SEGMENT_SLUGS]
+
+    for run in bbt_runs:
+        gid = str(run["garmin_id"])
         candidates = list(GPX_DIR.glob(f"activity_{gid}.gpx"))
-        if candidates:
-            pts = [(float(p.get("lat")), float(p.get("lon")))
-                   for p in ET.parse(candidates[0]).getroot().findall(".//g:trkpt", ns)]
-            all_gpx.append(pts)
-            print(f"  {r['date']} {gid}: {len(pts)} pts")
-        else:
-            print(f"  {r['date']} {gid}: GPX not found, skipping")
-
-    print("\nComputing coverage...")
-    covered = [
-        any(min(haversine_m(bp[0],bp[1],gp[0],gp[1]) for gp in gpx) <= BBT_THRESH_M
-            for gpx in all_gpx)
-        for bp in bbt
-    ]
-
-    for seg_i, slug in enumerate(SEGMENT_SLUGS):
-        e = split_idxs[seg_i]
-        s = split_idxs[seg_i + 1]
-        seg_pts = bbt[s:e+1]
-        seg_flags = covered[s:e+1]
-
-        total = 0.0
-        span = []
-        for pt, flag in zip(seg_pts, seg_flags):
-            if flag:
-                span.append(pt)
-            elif span:
-                if len(span) > 1:
-                    total += seg_len_m(span)
-                span = []
-        if len(span) > 1:
-            total += seg_len_m(span)
-        miles = round(total / 1609.344, 2)
-
-        seg_data = next((s for s in data["bbt_segments"] if s["slug"] == slug), None)
-        if seg_data is None:
+        if not candidates:
+            print(f"  {run['date']} {gid}: GPX not found, skipping")
             continue
+
+        gpx_pts = [(float(p.get("lat")), float(p.get("lon")))
+                   for p in ET.parse(candidates[0]).getroot().findall(".//g:trkpt", ns)]
+
+        # BBT indices covered by this run
+        covered_by_run = {
+            i for i, bp in enumerate(bbt)
+            if min(haversine_m(bp[0], bp[1], gp[0], gp[1]) for gp in gpx_pts) <= BBT_THRESH_M
+        }
+
+        touched_any = False
+        for seg_i, slug in enumerate(SEGMENT_SLUGS):
+            in_seg = covered_by_run & seg_ranges[seg_i]
+            if not in_seg:
+                continue
+            new_in_seg = in_seg - seg_already_covered[seg_i]
+            miles_this_seg = miles_from_index_set(in_seg, bbt)
+            miles_overlap = miles_from_index_set(in_seg & seg_already_covered[seg_i], bbt)
+            miles_new = round(miles_this_seg - miles_overlap, 2)
+            seg_already_covered[seg_i] |= in_seg
+            seg_run_entries[seg_i].append({
+                "garmin_id": run["garmin_id"],
+                "date": run["date"],
+                "miles_this_seg": miles_this_seg,
+                "miles_new": miles_new,
+            })
+            touched_any = True
+            print(f"  {run['date']} {gid} → {slug}: {miles_this_seg} mi ({miles_new} new)")
+
+        if not touched_any:
+            print(f"  {run['date']} {gid}: no BBT overlap")
+
+    # Write results back to bbt_segments
+    print("\nUpdating segments...")
+    for seg_data in data.get("bbt_segments", []):
+        slug = seg_data.get("slug")
+        try:
+            seg_i = SEGMENT_SLUGS.index(slug)
+        except ValueError:
+            continue
+
+        run_entries = seg_run_entries[seg_i]
+        total_covered = miles_from_index_set(seg_already_covered[seg_i], bbt)
+
         old = seg_data.get("miles_covered", 0)
-        seg_data["miles_covered"] = miles
-        seg_data["touched"] = miles > 0
-        print(f"  {slug}: {old} -> {miles} mi {'✓' if miles > 0 else ''}")
+        seg_data["miles_covered"] = total_covered
+        seg_data["touched"] = total_covered > 0
+        # Replace date/garmin_id with runs list
+        seg_data.pop("date", None)
+        seg_data.pop("garmin_id", None)
+        seg_data["runs"] = run_entries
+        print(f"  {slug}: {old} -> {total_covered} mi, {len(run_entries)} run(s)")
 
     yaml2 = YAML()
     yaml2.preserve_quotes = True
