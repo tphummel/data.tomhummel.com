@@ -39,6 +39,7 @@ If you change `bbt: false → true`, continue to step 4. Otherwise skip to step 
 ```
 uv run tools/bbt/recompute_coverage.py
 uv run tools/bbt/generate_maps.py
+uv run tools/bbt/generate_elevation.py
 ```
 
 ### 5. Visual check (BBT runs only)
