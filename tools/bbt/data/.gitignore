@@ -1,0 +1,2 @@
+# HTTP cache (Overpass responses + OSM tiles) — re-fetchable, large
+http_cache.sqlite
