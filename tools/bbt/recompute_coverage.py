@@ -143,11 +143,14 @@ def main():
     print(f"\nProcessing {len(bbt_runs)} BBT track(s) chronologically...")
 
     ns = {"g": "http://www.topografix.com/GPX/1/1"}
+    ELEV_THRESH_M = 11.0
 
     # per-segment: set of already-covered bbt indices (for new-miles tracking)
     seg_already_covered = [set() for _ in SEGMENT_SLUGS]
     # per-segment: list of run dicts to store
     seg_run_entries = [[] for _ in SEGMENT_SLUGS]
+    # bbt_idx -> (best_dist_m, elev_m) — populated from GPX elevation data
+    bbt_elev = {}
 
     for run in bbt_runs:
         gid = str(run["garmin_id"])
@@ -156,14 +159,28 @@ def main():
             print(f"  {run['date']} {gid}: GPX not found, skipping")
             continue
 
-        gpx_pts = [(float(p.get("lat")), float(p.get("lon")))
-                   for p in ET.parse(candidates[0]).getroot().findall(".//g:trkpt", ns)]
+        trkpts = ET.parse(candidates[0]).getroot().findall(".//g:trkpt", ns)
+        gpx_pts = [(float(p.get("lat")), float(p.get("lon"))) for p in trkpts]
+        gpx_elevs = [
+            float(p.find("g:ele", ns).text) if p.find("g:ele", ns) is not None else None
+            for p in trkpts
+        ]
 
         # BBT indices covered by this run
         covered_by_run = {
             i for i, bp in enumerate(bbt)
             if min(haversine_m(bp[0], bp[1], gp[0], gp[1]) for gp in gpx_pts) <= BBT_THRESH_M
         }
+
+        # Update bbt_elev for covered indices using nearest GPX point with elevation
+        for i in covered_by_run:
+            bp = bbt[i]
+            for gp, ge in zip(gpx_pts, gpx_elevs):
+                if ge is None:
+                    continue
+                d = haversine_m(bp[0], bp[1], gp[0], gp[1])
+                if d <= BBT_THRESH_M and (i not in bbt_elev or d < bbt_elev[i][0]):
+                    bbt_elev[i] = (d, ge)
 
         touched_any = False
         for seg_i, slug in enumerate(SEGMENT_SLUGS):
@@ -187,6 +204,22 @@ def main():
         if not touched_any:
             print(f"  {run['date']} {gid}: no BBT overlap")
 
+    def compute_seg_elev_gain(covered_idxs):
+        sorted_idxs = sorted(covered_idxs)
+        elevs = [bbt_elev[i][1] for i in sorted_idxs if i in bbt_elev]
+        if len(elevs) < 2:
+            return 0
+        gain_m = 0.0
+        last = elevs[0]
+        for e in elevs[1:]:
+            d = e - last
+            if d > ELEV_THRESH_M:
+                gain_m += d
+                last = e
+            elif d < -ELEV_THRESH_M:
+                last = e
+        return int(round(gain_m * 3.28084))
+
     # Write results back to bbt_segments
     print("\nUpdating segments...")
     for seg_data in data.get("bbt_segments", []):
@@ -198,15 +231,17 @@ def main():
 
         run_entries = seg_run_entries[seg_i]
         total_covered = miles_from_index_set(seg_already_covered[seg_i], bbt)
+        elev_gain = compute_seg_elev_gain(seg_already_covered[seg_i]) if seg_already_covered[seg_i] else None
 
         old = seg_data.get("miles_covered", 0)
         seg_data["miles_covered"] = total_covered
         seg_data["touched"] = total_covered > 0
+        seg_data["elev_gain_ft"] = elev_gain
         # Replace date/garmin_id with runs list
         seg_data.pop("date", None)
         seg_data.pop("garmin_id", None)
         seg_data["runs"] = run_entries
-        print(f"  {slug}: {old} -> {total_covered} mi, {len(run_entries)} run(s)")
+        print(f"  {slug}: {old} -> {total_covered} mi, elev +{elev_gain} ft, {len(run_entries)} run(s)")
 
     yaml2 = YAML()
     yaml2.preserve_quotes = True

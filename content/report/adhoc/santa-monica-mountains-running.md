@@ -20,6 +20,7 @@ bbt_segments:
     parking: Fee
 
   runs: []
+  elev_gain_ft:
 - name: "Segment 2: Mishe Mokwa TH to Danielson Ranch"
   slug: 02-mishe-mokwa-to-danielson
   miles_approx: 7.5
@@ -36,6 +37,7 @@ bbt_segments:
     parking: Fee
 
   runs: []
+  elev_gain_ft:
 - name: "Segment 3: Mishe Mokwa TH to Encinal Canyon Road"
   slug: 03-mishe-mokwa-to-encinal
   miles_approx: 6.9
@@ -52,6 +54,7 @@ bbt_segments:
     parking: ""
 
   runs: []
+  elev_gain_ft:
 - name: "Segment 4: Encinal Canyon Road to Latigo Canyon Road"
   slug: 04-encinal-to-latigo
   miles_approx: 6.9
@@ -72,6 +75,7 @@ bbt_segments:
     date: &id001 2010-01-02
     miles_this_seg: 1.08
     miles_new: 1.08
+  elev_gain_ft: 211
 - name: "Segment 5: Latigo Canyon Road to Piuma TH"
   slug: 05-latigo-to-piuma
   miles_approx: 5.5
@@ -92,6 +96,7 @@ bbt_segments:
     date: *id001
     miles_this_seg: 3.13
     miles_new: 3.13
+  elev_gain_ft: 621
 - name: "Segment 6: Saddle Peak to Piuma TH"
   slug: 06-saddle-peak-to-piuma
   miles_approx: 5.5
@@ -108,6 +113,7 @@ bbt_segments:
     parking: ""
 
   runs: []
+  elev_gain_ft:
 - name: "Segment 7: Saddle Peak to Trippet Ranch"
   slug: 07-saddle-peak-to-trippet
   miles_approx: 7.1
@@ -124,6 +130,7 @@ bbt_segments:
     parking: Free
 
   runs: []
+  elev_gain_ft:
 - name: "Segment 8: Trippet Ranch to Will Rogers State Park"
   slug: 08-trippet-to-will-rogers
   miles_approx: 4.9
@@ -149,6 +156,7 @@ bbt_segments:
     date: '2026-06-28'
     miles_this_seg: 2.02
     miles_new: 1.72
+  elev_gain_ft: 1072
 runs:
 - date: 2009-12-04
   name: Mulholland Drive East from Reseda Blvd
@@ -447,7 +455,7 @@ runs:
 
 <h2>Backbone Trail</h2>
 
-<p>The <a href="https://www.nps.gov/samo/planyourvisit/backbonetrail.htm">Santa Monica Mountains Backbone Trail</a> runs ~67 miles from Will Rogers State Historic Park (Pacific Palisades) east terminus west to Point Mugu State Park. Goal: run every segment.</p>
+<p>The <a href="https://www.nps.gov/samo/planyourvisit/backbonetrail.htm">Santa Monica Mountains Backbone Trail</a> runs ~67 miles from Will Rogers State Historic Park (Pacific Palisades) east terminus west to Point Mugu State Park. Goal: run every mile of every segment, in aggregate.</p>
 
 {{ $segments := .Page.Params.bbt_segments }}
 {{ $complete := len (where $segments "complete" true) }}
@@ -459,15 +467,39 @@ runs:
 
 <img src="/images/bbt/00-overview.png" alt="Backbone Trail overview" style="width:100%;max-width:1300px;">
 
+<table>
+  <tr><th>Segment</th><th>~Mi</th><th>Status</th><th>Progress</th><th>↑ ft</th><th>Profile (W→E)</th></tr>
+  {{ range .Page.Params.bbt_segments }}
+  <tr>
+    <td>{{ .name }}</td>
+    <td>{{ .miles_approx }}</td>
+    <td>
+      {{ if .complete }}✅ Complete
+      {{ else if .touched }}🔶 Partial
+      {{ else }}⬜ Not started
+      {{ end }}
+    </td>
+    <td>
+      {{ $covered := .miles_covered | default 0 }}
+      {{ $approx := .miles_approx | default 1 }}
+      {{ $pct := mul (div (float $covered) (float $approx)) 100 }}
+      {{ $covered }} mi ({{ $pct | lang.FormatNumber 0 }}%)
+    </td>
+    <td>{{ if .elev_gain_ft }}{{ .elev_gain_ft | lang.FormatNumber 0 }}{{ else }}–{{ end }}</td>
+    <td><img src="/images/bbt/{{ .slug }}-elev-thumb.png" alt="Elevation profile: {{ .name }}" style="width:220px;height:auto;vertical-align:middle;"></td>
+  </tr>
+  {{ end }}
+</table>
+
 {{ range .Page.Params.bbt_segments }}
 <h3>{{ .name }}</h3>
 <img src="/images/bbt/{{ .slug }}.png" alt="Map: {{ .name }}" style="width:100%;max-width:900px;">
+<img src="/images/bbt/{{ .slug }}-elev.png" alt="Elevation profile: {{ .name }}" style="width:100%;max-width:900px;margin-top:4px;">
 <table>
   <tr>
     <th>~Miles</th>
     <th>Covered</th>
     <th>Status</th>
-    <th>Notes</th>
   </tr>
   <tr>
     <td>{{ .miles_approx }}</td>
@@ -483,7 +515,6 @@ runs:
       {{ else }}⬜ Not started
       {{ end }}
     </td>
-    <td>{{ .notes | default "-" }}</td>
   </tr>
 </table>
 {{ if .runs }}
@@ -504,19 +535,19 @@ runs:
 
 <p>The eastern SM Mountains. Sullivan Canyon and Mandeville Canyon drain south from the ridgeline toward Brentwood. Westridge fire road runs along the top between them and connects to the BBT ridge near Will Rogers SHP.</p>
 
-{{ $smRuns := where .Page.Params.runs "area" "sullivan-mandeville" }}
+{{ $smRuns := where (where .Page.Params.runs "area" "sullivan-mandeville") "bbt" "!=" true }}
 {{ $smMiles := 0.0 }}
 {{ range $smRuns }}{{ $smMiles = add $smMiles (.miles | default 0) }}{{ end }}
 <p>Runs: <strong>{{ len $smRuns }}</strong> | Miles: <strong>{{ $smMiles | lang.FormatNumber 1 }}</strong></p>
 
 <table>
-  <tr><th>Date</th><th>Route</th><th>Miles</th><th>Elev ft (↑/↓)</th><th>Notes</th></tr>
+  <tr><th>Date</th><th>Route</th><th>Miles</th><th>↑ ft</th><th>Notes</th></tr>
   {{ range $smRuns }}
   <tr>
     <td><a href="https://connect.garmin.com/modern/activity/{{ .garmin_id }}">{{ .date }}</a></td>
     <td>{{ .name }}</td>
     <td>{{ .miles }}</td>
-    <td>+{{ .elev_gain_ft | lang.FormatNumber 0 }} / -{{ .elev_loss_ft | lang.FormatNumber 0 }}</td>
+    <td>{{ .elev_gain_ft | lang.FormatNumber 0 }}</td>
     <td>{{ .notes | default "" }}</td>
   </tr>
   {{ end }}
@@ -526,19 +557,19 @@ runs:
 
 <p>Topanga SP contains the largest urban wildland in the US. The BBT passes through it via Trippet Ranch (Segment 8) and Saddle Peak (Segments 6/7). Trailheads accessible from Topanga Canyon Blvd and from the Valley via Reseda Blvd / Mulholland.</p>
 
-{{ $topRuns := where .Page.Params.runs "area" "topanga" }}
+{{ $topRuns := where (where .Page.Params.runs "area" "topanga") "bbt" "!=" true }}
 {{ $topMiles := 0.0 }}
 {{ range $topRuns }}{{ $topMiles = add $topMiles (.miles | default 0) }}{{ end }}
 <p>Runs: <strong>{{ len $topRuns }}</strong> | Miles: <strong>{{ $topMiles | lang.FormatNumber 1 }}</strong></p>
 
 <table>
-  <tr><th>Date</th><th>Route</th><th>Miles</th><th>Elev ft (↑/↓)</th><th>Notes</th></tr>
+  <tr><th>Date</th><th>Route</th><th>Miles</th><th>↑ ft</th><th>Notes</th></tr>
   {{ range $topRuns }}
   <tr>
     <td><a href="https://connect.garmin.com/modern/activity/{{ .garmin_id }}">{{ .date }}</a></td>
     <td>{{ .name }}</td>
     <td>{{ .miles }}</td>
-    <td>+{{ .elev_gain_ft | lang.FormatNumber 0 }} / -{{ .elev_loss_ft | lang.FormatNumber 0 }}</td>
+    <td>{{ .elev_gain_ft | lang.FormatNumber 0 }}</td>
     <td>{{ .notes | default "" }}</td>
   </tr>
   {{ end }}
@@ -548,19 +579,19 @@ runs:
 
 <p>Temescal Gateway Park. Accessible from Sunset Blvd in Pacific Palisades and from the Valley via Reseda Blvd / Mulholland.</p>
 
-{{ $temRuns := where .Page.Params.runs "area" "temescal" }}
+{{ $temRuns := where (where .Page.Params.runs "area" "temescal") "bbt" "!=" true }}
 {{ $temMiles := 0.0 }}
 {{ range $temRuns }}{{ $temMiles = add $temMiles (.miles | default 0) }}{{ end }}
 <p>Runs: <strong>{{ len $temRuns }}</strong> | Miles: <strong>{{ $temMiles | lang.FormatNumber 1 }}</strong></p>
 
 <table>
-  <tr><th>Date</th><th>Route</th><th>Miles</th><th>Elev ft (↑/↓)</th><th>Notes</th></tr>
+  <tr><th>Date</th><th>Route</th><th>Miles</th><th>↑ ft</th><th>Notes</th></tr>
   {{ range $temRuns }}
   <tr>
     <td><a href="https://connect.garmin.com/modern/activity/{{ .garmin_id }}">{{ .date }}</a></td>
     <td>{{ .name }}</td>
     <td>{{ .miles }}</td>
-    <td>+{{ .elev_gain_ft | lang.FormatNumber 0 }} / -{{ .elev_loss_ft | lang.FormatNumber 0 }}</td>
+    <td>{{ .elev_gain_ft | lang.FormatNumber 0 }}</td>
     <td>{{ .notes | default "" }}</td>
   </tr>
   {{ end }}
@@ -570,19 +601,19 @@ runs:
 
 <p>Malibu Creek State Park. Accessible from Las Virgenes / Malibu Canyon Road. The BBT passes near the park's northern boundary.</p>
 
-{{ $mcRuns := where .Page.Params.runs "area" "malibu-creek" }}
+{{ $mcRuns := where (where .Page.Params.runs "area" "malibu-creek") "bbt" "!=" true }}
 {{ $mcMiles := 0.0 }}
 {{ range $mcRuns }}{{ $mcMiles = add $mcMiles (.miles | default 0) }}{{ end }}
 <p>Runs: <strong>{{ len $mcRuns }}</strong> | Miles: <strong>{{ $mcMiles | lang.FormatNumber 1 }}</strong></p>
 
 <table>
-  <tr><th>Date</th><th>Route</th><th>Miles</th><th>Elev ft (↑/↓)</th><th>Notes</th></tr>
+  <tr><th>Date</th><th>Route</th><th>Miles</th><th>↑ ft</th><th>Notes</th></tr>
   {{ range $mcRuns }}
   <tr>
     <td><a href="https://connect.garmin.com/modern/activity/{{ .garmin_id }}">{{ .date }}</a></td>
     <td>{{ .name }}</td>
     <td>{{ .miles }}</td>
-    <td>+{{ .elev_gain_ft | lang.FormatNumber 0 }} / -{{ .elev_loss_ft | lang.FormatNumber 0 }}</td>
+    <td>{{ .elev_gain_ft | lang.FormatNumber 0 }}</td>
     <td>{{ .notes | default "" }}</td>
   </tr>
   {{ end }}
@@ -592,19 +623,19 @@ runs:
 
 <p>Dirt and paved Mulholland Drive runs east-west along the Santa Monica Mountains ridgeline. The Marvin Braude Mulholland Gateway Park provides trailhead access on the eastern end.</p>
 
-{{ $mhRuns := where .Page.Params.runs "area" "mulholland" }}
+{{ $mhRuns := where (where .Page.Params.runs "area" "mulholland") "bbt" "!=" true }}
 {{ $mhMiles := 0.0 }}
 {{ range $mhRuns }}{{ $mhMiles = add $mhMiles (.miles | default 0) }}{{ end }}
 <p>Runs: <strong>{{ len $mhRuns }}</strong> | Miles: <strong>{{ $mhMiles | lang.FormatNumber 1 }}</strong></p>
 
 <table>
-  <tr><th>Date</th><th>Route</th><th>Miles</th><th>Elev ft (↑/↓)</th><th>Notes</th></tr>
+  <tr><th>Date</th><th>Route</th><th>Miles</th><th>↑ ft</th><th>Notes</th></tr>
   {{ range $mhRuns }}
   <tr>
     <td><a href="https://connect.garmin.com/modern/activity/{{ .garmin_id }}">{{ .date }}</a></td>
     <td>{{ .name }}</td>
     <td>{{ .miles }}</td>
-    <td>+{{ .elev_gain_ft | lang.FormatNumber 0 }} / -{{ .elev_loss_ft | lang.FormatNumber 0 }}</td>
+    <td>{{ .elev_gain_ft | lang.FormatNumber 0 }}</td>
     <td>{{ .notes | default "" }}</td>
   </tr>
   {{ end }}
@@ -612,19 +643,19 @@ runs:
 
 <h2>Beaches</h2>
 
-{{ $beachRuns := where .Page.Params.runs "area" "beaches" }}
+{{ $beachRuns := where (where .Page.Params.runs "area" "beaches") "bbt" "!=" true }}
 {{ $beachMiles := 0.0 }}
 {{ range $beachRuns }}{{ $beachMiles = add $beachMiles (.miles | default 0) }}{{ end }}
 <p>Runs: <strong>{{ len $beachRuns }}</strong> | Miles: <strong>{{ $beachMiles | lang.FormatNumber 1 }}</strong></p>
 
 <table>
-  <tr><th>Date</th><th>Route</th><th>Miles</th><th>Elev ft (↑/↓)</th><th>Notes</th></tr>
+  <tr><th>Date</th><th>Route</th><th>Miles</th><th>↑ ft</th><th>Notes</th></tr>
   {{ range $beachRuns }}
   <tr>
     <td><a href="https://connect.garmin.com/modern/activity/{{ .garmin_id }}">{{ .date }}</a></td>
     <td>{{ .name }}</td>
     <td>{{ .miles }}</td>
-    <td>+{{ .elev_gain_ft | lang.FormatNumber 0 }} / -{{ .elev_loss_ft | lang.FormatNumber 0 }}</td>
+    <td>{{ .elev_gain_ft | lang.FormatNumber 0 }}</td>
     <td>{{ .notes | default "" }}</td>
   </tr>
   {{ end }}
@@ -632,19 +663,19 @@ runs:
 
 <h2>Other</h2>
 
-{{ $otherRuns := where .Page.Params.runs "area" "other" }}
+{{ $otherRuns := where (where .Page.Params.runs "area" "other") "bbt" "!=" true }}
 {{ $otherMiles := 0.0 }}
 {{ range $otherRuns }}{{ $otherMiles = add $otherMiles (.miles | default 0) }}{{ end }}
 <p>Runs: <strong>{{ len $otherRuns }}</strong> | Miles: <strong>{{ $otherMiles | lang.FormatNumber 1 }}</strong></p>
 
 <table>
-  <tr><th>Date</th><th>Route</th><th>Miles</th><th>Elev ft (↑/↓)</th><th>Notes</th></tr>
+  <tr><th>Date</th><th>Route</th><th>Miles</th><th>↑ ft</th><th>Notes</th></tr>
   {{ range $otherRuns }}
   <tr>
     <td><a href="https://connect.garmin.com/modern/activity/{{ .garmin_id }}">{{ .date }}</a></td>
     <td>{{ .name }}</td>
     <td>{{ .miles }}</td>
-    <td>+{{ .elev_gain_ft | lang.FormatNumber 0 }} / -{{ .elev_loss_ft | lang.FormatNumber 0 }}</td>
+    <td>{{ .elev_gain_ft | lang.FormatNumber 0 }}</td>
     <td>{{ .notes | default "" }}</td>
   </tr>
   {{ end }}

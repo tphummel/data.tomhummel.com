@@ -65,7 +65,8 @@ gh pr create
 |---|---|
 | `sync.py` | Every new run |
 | `recompute_coverage.py` | After manually fixing a `bbt:` flag, or after changing `SEGMENT_SPLITS` |
-| `generate_maps.py` | After `recompute_coverage.py`, or to force-refresh PNGs |
+| `generate_maps.py` | After `recompute_coverage.py`, or to force-refresh map PNGs |
+| `generate_elevation.py` | After `recompute_coverage.py`, or to force-refresh elevation chart PNGs |
 
 ---
 
