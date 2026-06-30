@@ -5,7 +5,7 @@ tags: ["running", "checklist", "meta"]
 bbt_segments:
 - name: "Segment 1: Ray Miller TH to Danielson Ranch"
   slug: 01-ray-miller-to-danielson
-  miles_approx: 10.5
+  miles_approx: 16.6
   miles_covered: 0.0
   direction: west terminus
   touched: false
@@ -23,7 +23,7 @@ bbt_segments:
   elev_gain_ft:
 - name: "Segment 2: Mishe Mokwa TH to Danielson Ranch"
   slug: 02-mishe-mokwa-to-danielson
-  miles_approx: 7.5
+  miles_approx: 9.1
   miles_covered: 0.0
   touched: false
   complete: false
@@ -40,7 +40,7 @@ bbt_segments:
   elev_gain_ft:
 - name: "Segment 3: Mishe Mokwa TH to Encinal Canyon Road"
   slug: 03-mishe-mokwa-to-encinal
-  miles_approx: 6.9
+  miles_approx: 2.9
   miles_covered: 0.0
   touched: false
   complete: false
@@ -57,7 +57,7 @@ bbt_segments:
   elev_gain_ft:
 - name: "Segment 4: Encinal Canyon Road to Latigo Canyon Road"
   slug: 04-encinal-to-latigo
-  miles_approx: 6.9
+  miles_approx: 4.0
   miles_covered: 1.08
   touched: true
   complete: false
@@ -99,7 +99,7 @@ bbt_segments:
   elev_gain_ft: 621
 - name: "Segment 6: Saddle Peak to Piuma TH"
   slug: 06-saddle-peak-to-piuma
-  miles_approx: 5.5
+  miles_approx: 11.2
   miles_covered: 0.0
   touched: false
   complete: false
@@ -116,7 +116,7 @@ bbt_segments:
   elev_gain_ft:
 - name: "Segment 7: Saddle Peak to Trippet Ranch"
   slug: 07-saddle-peak-to-trippet
-  miles_approx: 7.1
+  miles_approx: 3.9
   miles_covered: 0.0
   touched: false
   complete: false
@@ -133,8 +133,8 @@ bbt_segments:
   elev_gain_ft:
 - name: "Segment 8: Trippet Ranch to Will Rogers State Park"
   slug: 08-trippet-to-will-rogers
-  miles_approx: 4.9
-  miles_covered: 2.02
+  miles_approx: 11.9
+  miles_covered: 3.52
   direction: east terminus
   touched: true
   complete: false
@@ -148,15 +148,19 @@ bbt_segments:
     parking: Fee
 
   runs:
+  - garmin_id: 24604486
+    date: &id002 2010-02-13
+    miles_this_seg: 1.5
+    miles_new: 1.5
   - garmin_id: 11567108483
-    date: &id002 2023-07-15
+    date: &id003 2023-07-15
     miles_this_seg: 0.3
     miles_new: 0.3
   - garmin_id: 23409544287
     date: '2026-06-28'
     miles_this_seg: 2.02
     miles_new: 1.72
-  elev_gain_ft: 1072
+  elev_gain_ft: 1626
 runs:
 - date: 2009-12-04
   name: Mulholland Drive East from Reseda Blvd
@@ -221,13 +225,13 @@ runs:
   notes: Confirmed BBT. Castro Crest area (Segment 5).
   elev_gain_ft: 1809
   elev_loss_ft: 1822
-- date: 2010-02-13
+- date: *id002
   name: Topanga SP from Reseda
-  area: topanga
+  area: bbt
   miles: 13.0
   garmin_id: 24604486
-  bbt: false
-  notes: May touch BBT near Trippet Ranch. Verify.
+  bbt: true
+  notes:
   elev_gain_ft: 1944
   elev_loss_ft: 1923
 - date: 2011-04-10
@@ -329,7 +333,7 @@ runs:
   notes:
   elev_gain_ft: 2056
   elev_loss_ft: 2032
-- date: *id002
+- date: *id003
   name: Sullivan Canyon to Backbone Above Will Rogers
   area: bbt
   miles: 4.3
@@ -543,28 +547,6 @@ runs:
 <table>
   <tr><th>Date</th><th>Route</th><th>Miles</th><th>↑ ft</th><th>Notes</th></tr>
   {{ range $smRuns }}
-  <tr>
-    <td><a href="https://connect.garmin.com/modern/activity/{{ .garmin_id }}">{{ .date }}</a></td>
-    <td>{{ .name }}</td>
-    <td>{{ .miles }}</td>
-    <td>{{ .elev_gain_ft | lang.FormatNumber 0 }}</td>
-    <td>{{ .notes | default "" }}</td>
-  </tr>
-  {{ end }}
-</table>
-
-<h2>Topanga State Park</h2>
-
-<p>Topanga SP contains the largest urban wildland in the US. The BBT passes through it via Trippet Ranch (Segment 8) and Saddle Peak (Segments 6/7). Trailheads accessible from Topanga Canyon Blvd and from the Valley via Reseda Blvd / Mulholland.</p>
-
-{{ $topRuns := where (where .Page.Params.runs "area" "topanga") "bbt" "!=" true }}
-{{ $topMiles := 0.0 }}
-{{ range $topRuns }}{{ $topMiles = add $topMiles (.miles | default 0) }}{{ end }}
-<p>Runs: <strong>{{ len $topRuns }}</strong> | Miles: <strong>{{ $topMiles | lang.FormatNumber 1 }}</strong></p>
-
-<table>
-  <tr><th>Date</th><th>Route</th><th>Miles</th><th>↑ ft</th><th>Notes</th></tr>
-  {{ range $topRuns }}
   <tr>
     <td><a href="https://connect.garmin.com/modern/activity/{{ .garmin_id }}">{{ .date }}</a></td>
     <td>{{ .name }}</td>

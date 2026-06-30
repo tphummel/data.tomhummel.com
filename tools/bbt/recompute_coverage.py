@@ -231,9 +231,11 @@ def main():
 
         run_entries = seg_run_entries[seg_i]
         total_covered = miles_from_index_set(seg_already_covered[seg_i], bbt)
+        total_seg = miles_from_index_set(seg_ranges[seg_i], bbt)
         elev_gain = compute_seg_elev_gain(seg_already_covered[seg_i]) if seg_already_covered[seg_i] else None
 
         old = seg_data.get("miles_covered", 0)
+        seg_data["miles_approx"] = round(total_seg, 1)
         seg_data["miles_covered"] = total_covered
         seg_data["touched"] = total_covered > 0
         seg_data["elev_gain_ft"] = elev_gain
@@ -241,7 +243,7 @@ def main():
         seg_data.pop("date", None)
         seg_data.pop("garmin_id", None)
         seg_data["runs"] = run_entries
-        print(f"  {slug}: {old} -> {total_covered} mi, elev +{elev_gain} ft, {len(run_entries)} run(s)")
+        print(f"  {slug}: {old} -> {total_covered} / {total_seg:.1f} mi, elev +{elev_gain} ft, {len(run_entries)} run(s)")
 
     yaml2 = YAML()
     yaml2.preserve_quotes = True
