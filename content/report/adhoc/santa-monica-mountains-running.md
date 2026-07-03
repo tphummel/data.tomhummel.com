@@ -161,6 +161,23 @@ bbt_segments:
     miles_this_seg: 2.02
     miles_new: 1.72
   elev_gain_ft: 1626
+bbt_ledger:
+- date: 2010-01-02
+  name: Latigo Canyon to Corral Canyon
+  garmin_id: 21534025
+  miles_new: 4.21
+- date: 2010-02-13
+  name: Topanga SP from Reseda
+  garmin_id: 24604486
+  miles_new: 1.5
+- date: 2023-07-15
+  name: Sullivan Canyon to Backbone Above Will Rogers
+  garmin_id: 11567108483
+  miles_new: 0.3
+- date: '2026-06-28'
+  name: Rogers Road Trail and Inspiration Loop from Will Rogers SP
+  garmin_id: 23409544287
+  miles_new: 1.72
 runs:
 - date: 2009-12-04
   name: Mulholland Drive East from Reseda Blvd
@@ -450,7 +467,8 @@ runs:
 {{ $total := len $segments }}
 {{ $coveredMiles := 0.0 }}
 {{ range $segments }}{{ $coveredMiles = add $coveredMiles (.miles_covered | default 0) }}{{ end }}
-<p>BBT: <strong>{{ $complete }}/{{ $total }}</strong> complete | <strong>{{ $partial }}</strong> partial | ~<strong>{{ $coveredMiles | lang.FormatNumber 1 }}</strong> of ~67 mi covered</p>
+{{ $pctCovered := mul (div $coveredMiles 67.0) 100 }}
+<p>BBT: <strong>{{ $complete }}/{{ $total }}</strong> complete | <strong>{{ $partial }}</strong> partial | ~<strong>{{ $coveredMiles | lang.FormatNumber 1 }}</strong> of ~67 mi covered (<strong>{{ $pctCovered | lang.FormatNumber 1 }}%</strong>)</p>
 {{< /summary.inline >}}
 
 <!--more-->
@@ -467,7 +485,8 @@ runs:
 {{ $total := len $segments }}
 {{ $coveredMiles := 0.0 }}
 {{ range $segments }}{{ $coveredMiles = add $coveredMiles (.miles_covered | default 0) }}{{ end }}
-<p>BBT: <strong>{{ $complete }}/{{ $total }}</strong> complete | <strong>{{ $partial }}</strong> partial | ~<strong>{{ $coveredMiles | lang.FormatNumber 1 }}</strong> of ~67 mi covered</p>
+{{ $pctCovered := mul (div $coveredMiles 67.0) 100 }}
+<p>BBT: <strong>{{ $complete }}/{{ $total }}</strong> complete | <strong>{{ $partial }}</strong> partial | ~<strong>{{ $coveredMiles | lang.FormatNumber 1 }}</strong> of ~67 mi covered (<strong>{{ $pctCovered | lang.FormatNumber 1 }}%</strong>)</p>
 
 <img src="/images/bbt/00-overview.png" alt="Backbone Trail overview" style="width:100%;max-width:1300px;">
 
@@ -659,6 +678,26 @@ runs:
     <td>{{ .miles }}</td>
     <td>{{ .elev_gain_ft | lang.FormatNumber 0 }}</td>
     <td>{{ .notes | default "" }}</td>
+  </tr>
+  {{ end }}
+</table>
+
+<h2>Appendix: BBT Coverage Ledger</h2>
+
+<p>Every run that touched the Backbone Trail, in chronological order, with net-new mileage (miles not previously covered by an earlier run) and cumulative progress toward the full ~67 mi.</p>
+
+<table>
+  <tr><th>Date</th><th>Route</th><th>Net New Mi</th><th>Cumulative Mi</th><th>% of Trail</th></tr>
+  {{ $cumMiles := 0.0 }}
+  {{ range .Page.Params.bbt_ledger }}
+  {{ $cumMiles = add $cumMiles (.miles_new | default 0) }}
+  {{ $pct := mul (div $cumMiles 67.0) 100 }}
+  <tr>
+    <td><a href="https://connect.garmin.com/modern/activity/{{ .garmin_id }}">{{ .date }}</a></td>
+    <td>{{ .name }}</td>
+    <td>{{ .miles_new }}</td>
+    <td>{{ $cumMiles | lang.FormatNumber 2 }}</td>
+    <td>{{ $pct | lang.FormatNumber 1 }}%</td>
   </tr>
   {{ end }}
 </table>
