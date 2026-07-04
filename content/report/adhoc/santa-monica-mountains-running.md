@@ -100,10 +100,10 @@ bbt_segments:
 - name: "Segment 6: Saddle Peak to Piuma TH"
   slug: 06-saddle-peak-to-piuma
   miles_approx: 11.2
-  miles_covered: 0.0
-  touched: false
+  miles_covered: 0.87
+  touched: true
   complete: false
-  notes: Lois Ewen Overlook and Saddle Peak summit. Descends via sandstone outcrops to Malibu Canyon.
+  notes: Lois Ewen Overlook and Saddle Peak summit. Descends via sandstone outcrops to Malibu Canyon. 2026 run clipped the Saddle Peak edge.
   trailheads:
   - name: Saddle Peak
     address: Stunt Rd at Mulholland Hwy, Calabasas, CA
@@ -112,15 +112,19 @@ bbt_segments:
     address: Piuma Rd, Malibu, CA
     parking: ""
 
-  runs: []
-  elev_gain_ft:
+  runs:
+  - garmin_id: 23479461975
+    date: '2026-07-04'
+    miles_this_seg: 0.87
+    miles_new: 0.87
+  elev_gain_ft: 244
 - name: "Segment 7: Saddle Peak to Trippet Ranch"
   slug: 07-saddle-peak-to-trippet
-  miles_approx: 3.9
-  miles_covered: 0.0
-  touched: false
+  miles_approx: 5.1
+  miles_covered: 3.92
+  touched: true
   complete: false
-  notes: Approaches Topanga via Hondo Canyon.
+  notes: Approaches Topanga via Hondo Canyon, then Dead Horse Trail down to Trippet Ranch. 2026 run reached Dead Horse Trailhead; the Dead Horse Trail descent into Trippet Ranch remains uncovered.
   trailheads:
   - name: Saddle Peak
     address: Stunt Rd at Mulholland Hwy, Calabasas, CA
@@ -129,11 +133,15 @@ bbt_segments:
     address: 20825 Entrada Rd, Topanga, CA 90290
     parking: Free
 
-  runs: []
-  elev_gain_ft:
+  runs:
+  - garmin_id: 23479461975
+    date: '2026-07-04'
+    miles_this_seg: 3.92
+    miles_new: 3.92
+  elev_gain_ft: 1599
 - name: "Segment 8: Trippet Ranch to Will Rogers State Park"
   slug: 08-trippet-to-will-rogers
-  miles_approx: 11.9
+  miles_approx: 10.4
   miles_covered: 3.52
   direction: east terminus
   touched: true
@@ -178,6 +186,10 @@ bbt_ledger:
   name: Rogers Road Trail and Inspiration Loop from Will Rogers SP
   garmin_id: 23409544287
   miles_new: 1.72
+- date: '2026-07-04'
+  name: Old Topanga to Saddle Peak 10
+  garmin_id: 23479461975
+  miles_new: 4.89
 runs:
 - date: 2009-12-04
   name: Mulholland Drive East from Reseda Blvd
@@ -458,6 +470,15 @@ runs:
   notes: Confirmed 2.95 mi on BBT (Segment 8), eastern section near Will Rogers SHP.
   elev_gain_ft: 1177
   elev_loss_ft: 1182
+- date: '2026-07-04'
+  name: Old Topanga to Saddle Peak 10
+  area: bbt
+  miles: 10.01
+  garmin_id: 23479461975
+  bbt: true
+  notes: Confirmed 4.89 mi net-new on BBT across Segments 6 and 7 — Saddle Peak through Hondo Canyon to Dead Horse Trailhead, stopping short of the Dead Horse Trail descent into Trippet Ranch.
+  elev_gain_ft: 2520
+  elev_loss_ft: 2497
 ---
 
 {{< summary.inline >}}

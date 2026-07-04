@@ -33,6 +33,13 @@ OVERPASS_URL = "https://maps.mail.ru/osm/tools/overpass/api/interpreter"
 BBT_RELATION_ID = 2748910
 BBT_THRESH_M = 50  # metres — within this distance = on the BBT
 
+# Duplicate/redundant road-crossing ways near the Trippet Ranch (Old Topanga Canyon
+# Blvd / Greenleaf Canyon Rd) junction. The two "Backbone Trail"-named ways bookending
+# this crossing already come within ~40m of each other directly; these extra relation
+# members (a stub road spur plus a ~200m there-and-back down Topanga Canyon Blvd)
+# make the naive longitude-sorted stitcher zigzag, showing as a stray line on maps.
+EXCLUDED_WAY_IDS = {13340743, 122087883, 204589613, 1216972055}
+
 TILE_URL = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
 COLOR_COVERED = "#ff6600"   # orange — miles you've run on the BBT
 COLOR_UNCOVERED = "#0066cc" # blue   — miles remaining
@@ -48,7 +55,7 @@ SEGMENT_SPLITS = [
     ("Latigo Canyon Rd",     34.0820, -118.7910),
     ("Piuma TH",             34.0721, -118.7232),
     ("Saddle Peak",          34.0843, -118.6350),
-    ("Trippet Ranch",        34.0857, -118.5998),
+    ("Trippet Ranch",        34.0934, -118.5878),
     ("Will Rogers SHP",      34.0540, -118.5245),  # east terminus
 ]
 
@@ -106,7 +113,9 @@ def fetch_bbt_route():
     r = requests.get(OVERPASS_URL, params={"data": query}, timeout=120)
     r.raise_for_status()
     ways = sorted(
-        [e for e in r.json()["elements"] if e["type"] == "way"],
+        [e for e in r.json()["elements"] if e["type"] == "way"
+         and "School Trail" not in e.get("tags", {}).get("name", "")
+         and e.get("id") not in EXCLUDED_WAY_IDS],
         key=lambda w: sum(pt["lon"] for pt in w["geometry"]) / len(w["geometry"])
                      if w.get("geometry") else 0,
         reverse=True,
