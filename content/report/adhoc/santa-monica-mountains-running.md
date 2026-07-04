@@ -491,24 +491,23 @@ runs:
 <img src="/images/bbt/00-overview.png" alt="Backbone Trail overview" style="width:100%;max-width:1300px;">
 
 <table>
-  <tr><th>Segment</th><th>~Mi</th><th>Status</th><th>Progress</th><th>↑ ft</th><th>Profile (W→E)</th></tr>
+  <tr><th>Segment</th><th>Status</th><th>~Mi</th><th>Progress</th><th>Profile (W→E)</th></tr>
   {{ range .Page.Params.bbt_segments }}
   <tr>
     <td>{{ .name }}</td>
-    <td>{{ .miles_approx }}</td>
     <td>
       {{ if .complete }}✅ Complete
       {{ else if .touched }}🔶 Partial
       {{ else }}⬜ Not started
       {{ end }}
     </td>
+    <td>{{ .miles_approx }}</td>
     <td>
       {{ $covered := .miles_covered | default 0 }}
       {{ $approx := .miles_approx | default 1 }}
       {{ $pct := mul (div (float $covered) (float $approx)) 100 }}
       {{ $covered }} mi ({{ $pct | lang.FormatNumber 0 }}%)
     </td>
-    <td>{{ if .elev_gain_ft }}{{ .elev_gain_ft | lang.FormatNumber 0 }}{{ else }}–{{ end }}</td>
     <td><img src="/images/bbt/{{ .slug }}-elev-thumb.png" alt="Elevation profile: {{ .name }}" style="width:220px;height:auto;vertical-align:middle;"></td>
   </tr>
   {{ end }}
