@@ -179,9 +179,9 @@ by_county:
     notes: 
 
   - county: San Bernardino
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2002-08-25
+    notes: Lake Arrowhead
 
   - county: San Diego
     completed: false
