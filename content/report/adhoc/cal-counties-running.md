@@ -44,9 +44,9 @@ by_county:
     notes: 
 
   - county: El Dorado
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2003-07-06
+    notes: Desolation Wilderness
 
   - county: Fresno
     completed: true
