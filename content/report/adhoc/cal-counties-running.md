@@ -129,9 +129,9 @@ by_county:
     notes: 
 
   - county: Mono
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2002-08-07
+    notes: First run in Mammoth Lakes, CA
 
   - county: Monterey
     completed: false
