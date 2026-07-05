@@ -209,9 +209,9 @@ by_county:
     notes: San Carlos Hometown Days run
 
   - county: Santa Barbara
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2023-03-07
+    notes: Goleta, CA
 
   - county: Santa Clara
     completed: true
