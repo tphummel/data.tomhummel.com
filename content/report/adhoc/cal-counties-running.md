@@ -214,9 +214,9 @@ by_county:
     notes: 
 
   - county: Santa Clara
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 1999-07-01
+    notes: Los Gatos High School all comers meet
 
   - county: Santa Cruz
     completed: false
