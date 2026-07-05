@@ -34,9 +34,9 @@ by_county:
     notes: 
 
   - county: Contra Costa
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2011-06-18
+    notes: Walnut Creek, CA
 
   - county: Del Norte
     completed: false
