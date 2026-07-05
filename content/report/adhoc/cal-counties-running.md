@@ -49,9 +49,9 @@ by_county:
     notes: 
 
   - county: Fresno
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2001-10-06
+    notes: Clovis HS XC Invite, Woodward Park
 
   - county: Glenn
     completed: false
