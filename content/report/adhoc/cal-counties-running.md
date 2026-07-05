@@ -94,9 +94,9 @@ by_county:
     notes: 
 
   - county: Los Angeles
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2002-08-18
+    notes: Cal Poly Pomona
 
   - county: Madera
     completed: false
