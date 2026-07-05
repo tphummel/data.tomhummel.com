@@ -154,9 +154,9 @@ by_county:
     notes: 
 
   - county: Placer
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2001-05-12
+    notes: Save A Life 5k, Auburn, CA
 
   - county: Plumas
     completed: false
