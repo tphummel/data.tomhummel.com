@@ -144,9 +144,9 @@ by_county:
     notes: 
 
   - county: Nevada
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2001-07-10
+    notes: First journal entry. Old ladies house.
 
   - county: Orange
     completed: false
