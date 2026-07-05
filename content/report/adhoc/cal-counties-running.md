@@ -24,9 +24,9 @@ by_county:
     notes: 
 
   - county: Calaveras
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2001-11-03
+    notes: Sac-Joaquin sub-section XC meet, Frogtown
 
   - county: Colusa
     completed: false
