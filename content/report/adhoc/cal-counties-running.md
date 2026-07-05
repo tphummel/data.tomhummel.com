@@ -184,9 +184,9 @@ by_county:
     notes: Lake Arrowhead
 
   - county: San Diego
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2007-08-05
+    notes: Pacific Beach
 
   - county: San Francisco
     completed: true
