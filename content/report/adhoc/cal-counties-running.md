@@ -164,9 +164,9 @@ by_county:
     notes: 
 
   - county: Riverside
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2002-09-21
+    notes: UC Riverside XC Invitational
 
   - county: Sacramento
     completed: true
