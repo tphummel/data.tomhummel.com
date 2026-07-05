@@ -19,9 +19,9 @@ by_county:
     notes: 
 
   - county: Butte
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2005-05-06
+    notes: CCAA Track Championship, Chico, CA
 
   - county: Calaveras
     completed: true
@@ -186,7 +186,7 @@ by_county:
   - county: San Diego
     completed: true
     date: 2005-04-23
-    notes: UCSD Invite, La Jolla. 2007-08-05 Pacific Beach.
+    notes: UCSD Invite, La Jolla
 
   - county: San Francisco
     completed: true
