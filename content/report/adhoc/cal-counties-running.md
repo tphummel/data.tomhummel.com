@@ -269,9 +269,9 @@ by_county:
     notes: 
 
   - county: Tulare
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2017-09-30
+    notes: Three Rivers, CA
 
   - county: Tuolumne
     completed: false
