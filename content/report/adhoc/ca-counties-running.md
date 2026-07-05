@@ -201,12 +201,12 @@ by_county:
   - county: San Luis Obispo
     completed: true
     date: 1998-10-17
-    notes: 
+    notes: Cal Poly XC Invite
 
   - county: San Mateo
     completed: true
     date: 1998-05-17
-    notes: 
+    notes: San Carlos Hometown Days run
 
   - county: Santa Barbara
     completed: false
