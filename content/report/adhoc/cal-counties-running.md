@@ -109,9 +109,9 @@ by_county:
     notes: Muir Woods and the Dipsea Trail
 
   - county: Mariposa
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2015-05-17
+    notes: Yosemite Valley
 
   - county: Mendocino
     completed: false
