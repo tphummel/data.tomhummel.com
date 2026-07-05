@@ -244,9 +244,9 @@ by_county:
     notes: 
 
   - county: Sonoma
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2017-07-07
+    notes: Occidental, CA
 
   - county: Stanislaus
     completed: false
