@@ -169,9 +169,9 @@ by_county:
     notes: 
 
   - county: Sacramento
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2001-06-08
+    notes: Friday Night 5k
 
   - county: San Benito
     completed: false
@@ -189,9 +189,9 @@ by_county:
     notes: 
 
   - county: San Francisco
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2001-07-08
+    notes: San Francisco Marathon relay
 
   - county: San Joaquin
     completed: false
