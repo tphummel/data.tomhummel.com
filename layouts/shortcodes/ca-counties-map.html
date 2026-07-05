@@ -1,0 +1,43 @@
+{{- $byCounty := .Page.Params.by_county -}}
+{{- $mapData := .Site.Data.ca_counties -}}
+<div class="ca-counties-map">
+  <svg viewBox="{{ $mapData.viewBox }}" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ca-counties-map-title">
+    <title id="ca-counties-map-title">Map of California counties visited while running</title>
+    {{- range $mapData.counties }}
+      {{- $countyName := .name }}
+      {{- $completed := false }}
+      {{- $visit := dict }}
+      {{- range $byCounty }}
+        {{- if and (eq .county $countyName) .completed }}
+          {{- $completed = true }}
+          {{- $visit = . }}
+        {{- end }}
+      {{- end }}
+      {{- $tooltip := $countyName }}
+      {{- if $completed }}
+        {{- if $visit.date }}{{ $tooltip = printf "%s (%s)" $countyName $visit.date }}{{ end }}
+      {{- end }}
+    <path id="{{ .id }}" class="{{ if $completed }}is-completed{{ else }}is-incomplete{{ end }}" d="{{ .d }}"><title>{{ $tooltip }}</title></path>
+    {{- end }}
+  </svg>
+</div>
+<style>
+  .ca-counties-map svg {
+    display: block;
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    margin: 0 auto 1.5rem;
+  }
+  .ca-counties-map path {
+    stroke: #949494;
+    stroke-width: 1;
+    stroke-linejoin: round;
+  }
+  .ca-counties-map path.is-completed {
+    fill: #7fbf8a;
+  }
+  .ca-counties-map path.is-incomplete {
+    fill: #efefef;
+  }
+</style>
