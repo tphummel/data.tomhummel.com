@@ -199,13 +199,13 @@ by_county:
     notes: 
 
   - county: San Luis Obispo
-    completed: false
-    date: 
+    completed: true
+    date: 1998-10-17
     notes: 
 
   - county: San Mateo
-    completed: false
-    date: 
+    completed: true
+    date: 1998-05-17
     notes: 
 
   - county: Santa Barbara
