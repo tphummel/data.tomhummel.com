@@ -1,0 +1,207 @@
+{
+  "cities": [
+    {
+      "id": "phoenix-az",
+      "name": "Phoenix, AZ",
+      "state": "az",
+      "x": 478.9,
+      "y": 404.1
+    },
+    {
+      "id": "atlanta-ga",
+      "name": "Atlanta, GA",
+      "state": "ga",
+      "x": 989.4,
+      "y": 400.4
+    },
+    {
+      "id": "baltimore-md",
+      "name": "Baltimore, MD",
+      "state": "md",
+      "x": 1092.4,
+      "y": 252.2
+    },
+    {
+      "id": "boston-ma",
+      "name": "Boston, MA",
+      "state": "ma",
+      "x": 1178.1,
+      "y": 163.4
+    },
+    {
+      "id": "chicago-il",
+      "name": "Chicago, IL",
+      "state": "il",
+      "x": 902.4,
+      "y": 219.4
+    },
+    {
+      "id": "cincinnati-oh",
+      "name": "Cincinnati, OH",
+      "state": "oh",
+      "x": 955.8,
+      "y": 284.6
+    },
+    {
+      "id": "cleveland-oh",
+      "name": "Cleveland, OH",
+      "state": "oh",
+      "x": 993.1,
+      "y": 209.2
+    },
+    {
+      "id": "denver-co",
+      "name": "Denver, CO",
+      "state": "co",
+      "x": 592.6,
+      "y": 268.5
+    },
+    {
+      "id": "detroit-mi",
+      "name": "Detroit, MI",
+      "state": "mi",
+      "x": 966.8,
+      "y": 213.1
+    },
+    {
+      "id": "houston-tx",
+      "name": "Houston, TX",
+      "state": "tx",
+      "x": 743.2,
+      "y": 533.7
+    },
+    {
+      "id": "kansascity-mo",
+      "name": "Kansas City, MO",
+      "state": "mo",
+      "x": 775.6,
+      "y": 270.8
+    },
+    {
+      "id": "anaheim-ca",
+      "name": "Anaheim, CA",
+      "state": "ca",
+      "x": 369.0,
+      "y": 367.9
+    },
+    {
+      "id": "losangeles-ca",
+      "name": "Los Angeles, CA",
+      "state": "ca",
+      "x": 361.9,
+      "y": 355.8
+    },
+    {
+      "id": "miami-fl",
+      "name": "Miami, FL",
+      "state": "fl",
+      "x": 1033.7,
+      "y": 587.5
+    },
+    {
+      "id": "milwaukee-wi",
+      "name": "Milwaukee, WI",
+      "state": "wi",
+      "x": 885.9,
+      "y": 197.3
+    },
+    {
+      "id": "minneapolis-mn",
+      "name": "Minneapolis, MN",
+      "state": "mn",
+      "x": 810.9,
+      "y": 164.2
+    },
+    {
+      "id": "newyork-ny",
+      "name": "New York, NY",
+      "state": "ny",
+      "x": 1146.6,
+      "y": 206.7
+    },
+    {
+      "id": "oakland-ca",
+      "name": "Oakland, CA",
+      "state": "ca",
+      "x": 319.4,
+      "y": 256.3
+    },
+    {
+      "id": "sacramento-ca",
+      "name": "West Sacramento, CA",
+      "state": "ca",
+      "x": 340.6,
+      "y": 239.3
+    },
+    {
+      "id": "lasvegas-nv",
+      "name": "Las Vegas, NV",
+      "state": "nv",
+      "x": 451.0,
+      "y": 333.8
+    },
+    {
+      "id": "philadelphia-pa",
+      "name": "Philadelphia, PA",
+      "state": "pa",
+      "x": 1114.8,
+      "y": 238.0
+    },
+    {
+      "id": "pittsburgh-pa",
+      "name": "Pittsburgh, PA",
+      "state": "pa",
+      "x": 1029.9,
+      "y": 238.0
+    },
+    {
+      "id": "sandiego-ca",
+      "name": "San Diego, CA",
+      "state": "ca",
+      "x": 354.8,
+      "y": 389.8
+    },
+    {
+      "id": "sanfrancisco-ca",
+      "name": "San Francisco, CA",
+      "state": "ca",
+      "x": 308.0,
+      "y": 251.5
+    },
+    {
+      "id": "seattle-wa",
+      "name": "Seattle, WA",
+      "state": "wa",
+      "x": 377.8,
+      "y": 59.6
+    },
+    {
+      "id": "stlouis-mo",
+      "name": "St. Louis, MO",
+      "state": "mo",
+      "x": 882.5,
+      "y": 311.4
+    },
+    {
+      "id": "tampabay-fl",
+      "name": "St. Petersburg, FL",
+      "state": "fl",
+      "x": 976.5,
+      "y": 531.5
+    },
+    {
+      "id": "arlington-tx",
+      "name": "Arlington, TX",
+      "state": "tx",
+      "x": 683.1,
+      "y": 412.1
+    },
+    {
+      "id": "washington-dc",
+      "name": "Washington, DC",
+      "state": "dc",
+      "x": 1092.7,
+      "y": 261.1
+    }
+  ]
+}

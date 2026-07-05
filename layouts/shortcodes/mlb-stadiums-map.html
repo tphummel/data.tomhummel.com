@@ -1,0 +1,57 @@
+{{- $stadiums := .Page.Params.stadiums -}}
+{{- $mapData := .Site.Data.us_states -}}
+{{- $locations := .Site.Data.mlb_stadium_locations.cities -}}
+<div class="mlb-stadiums-map">
+  <svg viewBox="{{ $mapData.viewBox }}" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mlb-stadiums-map-title">
+    <title id="mlb-stadiums-map-title">Map of MLB stadiums visited</title>
+    {{- range $mapData.states }}
+    <path class="state" d="{{ .d }}"></path>
+    {{- end }}
+    {{- range $locations }}
+      {{- $city := .id }}
+      {{- $matches := where $stadiums "city" $city }}
+      {{- $visited := false }}
+      {{- range $matches }}
+        {{- if .visited }}{{ $visited = true }}{{ end }}
+      {{- end }}
+      {{- $tooltip := slice }}
+      {{- range $matches }}
+        {{- $line := printf "%s (%s)" .venue (cond .visited (printf "visited %v" .date) "not visited") }}
+        {{- $tooltip = $tooltip | append $line }}
+      {{- end }}
+    <circle class="{{ if $visited }}is-visited{{ else }}is-not-visited{{ end }}" cx="{{ .x }}" cy="{{ .y }}" r="9"><title>{{ .name }}: {{ delimit $tooltip ", " }}</title></circle>
+    {{- end }}
+  </svg>
+  <p class="mlb-stadiums-map-note">Toronto, ON (Rogers Centre) isn't shown &mdash; it's outside the US map.</p>
+</div>
+<style>
+  .mlb-stadiums-map svg {
+    display: block;
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+    margin: 0 auto 0.5rem;
+  }
+  .mlb-stadiums-map path.state {
+    fill: #efefef;
+    stroke: #949494;
+    stroke-width: 1;
+    stroke-linejoin: round;
+  }
+  .mlb-stadiums-map circle {
+    stroke: #ffffff;
+    stroke-width: 1.5;
+  }
+  .mlb-stadiums-map circle.is-visited {
+    fill: #7fbf8a;
+  }
+  .mlb-stadiums-map circle.is-not-visited {
+    fill: #d9737a;
+  }
+  .mlb-stadiums-map-note {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #767676;
+    margin: 0 auto 1.5rem;
+  }
+</style>
