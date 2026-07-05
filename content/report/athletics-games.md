@@ -573,6 +573,12 @@ games:
     opponent: "Rockies"
     venue: "Las Vegas Ballpark"
     note: "Section 107, Row V, Seat 5"
+  - date: "6/27/2026"
+    start_time: "6:38 PM"
+    home_away: "at"
+    opponent: "Angels"
+    venue: "Angel Stadium"
+    note: "Section 118, Row W, Seats 7-11"
 ---
 {{< summary.inline >}}
 <p>Games Count: {{ len .Page.Params.games }}</p>
