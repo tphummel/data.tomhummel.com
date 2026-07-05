@@ -149,9 +149,9 @@ by_county:
     notes: First journal entry. Old ladies house.
 
   - county: Orange
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2001-09-28
+    notes: Brea Olinda XC Invite
 
   - county: Placer
     completed: true
