@@ -249,9 +249,9 @@ by_county:
     notes: Occidental, CA
 
   - county: Stanislaus
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2003-05-08
+    notes: Modesto Community College, CCAA Track Championships
 
   - county: Sutter
     completed: false
