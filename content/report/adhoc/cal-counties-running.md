@@ -104,9 +104,9 @@ by_county:
     notes: 
 
   - county: Marin
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2001-09-09
+    notes: Muir Woods and the Dipsea Trail
 
   - county: Mariposa
     completed: false
