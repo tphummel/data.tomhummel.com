@@ -279,9 +279,9 @@ by_county:
     notes: 
 
   - county: Ventura
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2022-08-02
+    notes: Ojai, CA
 
   - county: Yolo
     completed: false
