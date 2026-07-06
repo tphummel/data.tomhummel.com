@@ -1,6 +1,7 @@
 {{- $stadiums := .Page.Params.stadiums -}}
 {{- $mapData := .Site.Data.us_states -}}
 {{- $bboxData := .Site.Data.us_states_bbox.states -}}
+{{- $polygons := .Site.Data.us_states_polygons.states -}}
 {{- $skipStates := slice "ak" "hi" -}}
 {{- $pad := 12.0 -}}
 {{- $minX := 100000.0 -}}
@@ -42,10 +43,28 @@
     {{- $geo := $b.geoBBox }}
     {{- $fx := div (sub .lng $geo.minLon) (sub $geo.maxLon $geo.minLon) }}
     {{- $fy := div (sub $geo.maxLat .lat) (sub $geo.maxLat $geo.minLat) }}
-    {{- $x := add $svg.minX (mul $fx (sub $svg.maxX $svg.minX)) }}
-    {{- $y := add $svg.minY (mul $fy (sub $svg.maxY $svg.minY)) }}
     {{- $offset := index $jitter (mod $seenCount (len $jitter)) }}
-    {{- $markers = $markers | append (dict "city" $cityName "venue" .venue "visited" .visited "retired" .retired "date" .date "x" (add $x $offset.dx) "y" (add $y $offset.dy)) }}
+    {{- $x := add (add $svg.minX (mul $fx (sub $svg.maxX $svg.minX))) $offset.dx }}
+    {{- $y := add (add $svg.minY (mul $fy (sub $svg.maxY $svg.minY))) $offset.dy }}
+    {{- /* The state's bbox is a rectangle but its coastline isn't -- a point placed by
+       fraction-of-bbox can land just outside the actual polygon (e.g. in a lake notch
+       or across a river bend). If so, nudge it toward the polygon's centroid in small
+       steps until it's actually inside the state's shape. */ -}}
+    {{- if isset $polygons $state }}
+      {{- $poly := index $polygons $state }}
+      {{- $inside := partial "point-in-polygon.html" (dict "x" $x "y" $y "poly" $poly) }}
+      {{- if not $inside }}
+        {{- $c := partial "polygon-centroid.html" (dict "poly" $poly) }}
+        {{- range seq 20 }}
+          {{- if not $inside }}
+            {{- $x = add $x (mul (sub $c.x $x) 0.15) }}
+            {{- $y = add $y (mul (sub $c.y $y) 0.15) }}
+            {{- $inside = partial "point-in-polygon.html" (dict "x" $x "y" $y "poly" $poly) }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+    {{- $markers = $markers | append (dict "city" $cityName "venue" .venue "visited" .visited "retired" .retired "date" .date "x" $x "y" $y) }}
   {{- end }}
 {{- end -}}
 <div class="mlb-stadiums-map">

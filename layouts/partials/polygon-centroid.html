@@ -1,0 +1,11 @@
+{{- /* Average of vertices (not a true area-weighted centroid, close enough for nudging a
+   point back inside a polygon). Params: poly (slice of [x,y] pairs). Returns dict x,y. */ -}}
+{{- $poly := .poly -}}
+{{- $n := len $poly -}}
+{{- $sumX := 0.0 -}}
+{{- $sumY := 0.0 -}}
+{{- range $poly }}
+  {{- $sumX = add $sumX (index . 0) }}
+  {{- $sumY = add $sumY (index . 1) }}
+{{- end }}
+{{- return (dict "x" (div $sumX $n) "y" (div $sumY $n)) -}}

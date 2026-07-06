@@ -1,0 +1,22 @@
+{{- /* Ray-casting point-in-polygon test. Params: x, y, poly (slice of [x,y] pairs). Returns bool. */ -}}
+{{- $x := .x -}}
+{{- $y := .y -}}
+{{- $poly := .poly -}}
+{{- $n := len $poly -}}
+{{- $inside := false -}}
+{{- range $i, $pt := $poly }}
+  {{- $j := sub $i 1 }}
+  {{- if eq $i 0 }}{{ $j = sub $n 1 }}{{ end }}
+  {{- $pj := index $poly $j }}
+  {{- $xi := index $pt 0 }}
+  {{- $yi := index $pt 1 }}
+  {{- $xj := index $pj 0 }}
+  {{- $yj := index $pj 1 }}
+  {{- if ne (gt $yi $y) (gt $yj $y) }}
+    {{- $xcross := add $xi (div (mul (sub $xj $xi) (sub $y $yi)) (sub $yj $yi)) }}
+    {{- if lt $x $xcross }}
+      {{- $inside = not $inside }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- return $inside -}}
