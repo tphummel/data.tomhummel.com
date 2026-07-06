@@ -382,7 +382,7 @@ stadiums:
   - team: Toronto Blue Jays
     venue: Rogers Centre
     city: Toronto, ON
-    state: 
+    state: "on"
     lat: 43.6414
     lng: -79.3894
     visited: true
