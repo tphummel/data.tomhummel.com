@@ -99,6 +99,7 @@ stadiums:
     state: mi
     lat: 42.3399
     lng: -83.0687
+    retired: true
     visited: true
     date: 2006
     note: Didn't see a game. stood outside the walls while it was still standing. I was able to see into the field and grandstands through a fence. 
@@ -179,6 +180,7 @@ stadiums:
     state: mn
     lat: 44.9740
     lng: -93.2581
+    retired: true
     visited: false
     date: 
     note: 
@@ -198,6 +200,7 @@ stadiums:
     state: ny
     lat: 40.7571
     lng: -73.8458
+    retired: true
     visited: true
     date: 2007
     note: I was inside the stadium but the game was rained out after we arrived
@@ -217,6 +220,7 @@ stadiums:
     state: ny
     lat: 40.8296
     lng: -73.9262
+    retired: true
     visited: true
     date: 2007-06-29
     note: 
@@ -236,6 +240,7 @@ stadiums:
     state: ca
     lat: 37.7516
     lng: -122.2005
+    retired: true
     visited: true
     date: 1984
     note: Many
@@ -286,6 +291,7 @@ stadiums:
     state: ca
     lat: 32.7831
     lng: -117.1195
+    retired: true
     visited: false
     date: 
     note: 
@@ -306,6 +312,7 @@ stadiums:
     state: ca
     lat: 37.7139
     lng: -122.3861
+    retired: true
     visited: true
     date: 1999-06-04
     note: several
@@ -326,6 +333,7 @@ stadiums:
     state: wa
     lat: 47.5952
     lng: -122.3316
+    retired: true
     visited: false
     date: 
     note: 
@@ -346,6 +354,7 @@ stadiums:
     state: mo
     lat: 38.6226
     lng: -90.1928
+    retired: true
     visited: false
     date: 
     note: 
@@ -395,6 +404,7 @@ stadiums:
     state: dc
     lat: 38.8898
     lng: -76.9846
+    retired: true
     visited: true
     date: 2007
     note: 

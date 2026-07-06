@@ -21,7 +21,7 @@
    Toronto just gets a fixed, approximate dot placed north of the Great Lakes,
    outside the US shapes -- not derived from a calibration. */ -}}
 {{- $torontoX := 1010.0 -}}
-{{- $torontoY := 45.0 -}}
+{{- $torontoY := 70.0 -}}
 {{- $jitter := slice (dict "dx" 0.0 "dy" 0.0) (dict "dx" 8.0 "dy" 8.0) (dict "dx" -8.0 "dy" 8.0) (dict "dx" 8.0 "dy" -8.0) (dict "dx" -8.0 "dy" -8.0) -}}
 {{- $seenCities := slice -}}
 {{- $markers := slice -}}
@@ -29,7 +29,7 @@
   {{- $state := .state }}
   {{- if eq $state "on" }}
     {{- $cityName := .city }}
-    {{- $markers = $markers | append (dict "city" $cityName "venue" .venue "visited" .visited "date" .date "x" $torontoX "y" $torontoY) }}
+    {{- $markers = $markers | append (dict "city" $cityName "venue" .venue "visited" .visited "retired" .retired "date" .date "x" $torontoX "y" $torontoY) }}
   {{- else if and $state (isset $bboxData $state) }}
     {{- $cityName := .city }}
     {{- $seenCount := 0 }}
@@ -45,7 +45,7 @@
     {{- $x := add $svg.minX (mul $fx (sub $svg.maxX $svg.minX)) }}
     {{- $y := add $svg.minY (mul $fy (sub $svg.maxY $svg.minY)) }}
     {{- $offset := index $jitter (mod $seenCount (len $jitter)) }}
-    {{- $markers = $markers | append (dict "city" $cityName "venue" .venue "visited" .visited "date" .date "x" (add $x $offset.dx) "y" (add $y $offset.dy)) }}
+    {{- $markers = $markers | append (dict "city" $cityName "venue" .venue "visited" .visited "retired" .retired "date" .date "x" (add $x $offset.dx) "y" (add $y $offset.dy)) }}
   {{- end }}
 {{- end -}}
 <div class="mlb-stadiums-map">
@@ -57,8 +57,10 @@
       {{- end }}
     {{- end }}
     {{- range $markers }}
-      {{- $status := cond .visited (printf "visited %v" .date) "not visited" }}
-    <circle class="{{ if .visited }}is-visited{{ else }}is-not-visited{{ end }}" cx="{{ .x }}" cy="{{ .y }}" r="7"><title>{{ .city }}: {{ .venue }} ({{ $status }})</title></circle>
+      {{- $status := cond .visited (printf "visited %v" .date) (cond .retired "not visited, retired" "not visited") }}
+      {{- $class := "is-not-visited" }}
+      {{- if .visited }}{{ $class = "is-visited" }}{{ else if .retired }}{{ $class = "is-retired" }}{{ end }}
+    <circle class="{{ $class }}" cx="{{ .x }}" cy="{{ .y }}" r="7"><title>{{ .city }}: {{ .venue }} ({{ $status }})</title></circle>
     {{- end }}
   </svg>
 </div>
@@ -85,5 +87,8 @@
   }
   .mlb-stadiums-map circle.is-not-visited {
     fill: #d9737a;
+  }
+  .mlb-stadiums-map circle.is-retired {
+    fill: #a3a3a3;
   }
 </style>
