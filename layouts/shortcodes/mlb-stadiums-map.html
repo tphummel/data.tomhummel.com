@@ -19,28 +19,45 @@
 {{- $viewBox := printf "%.1f %.1f %.1f %.1f" (sub $minX $pad) (sub $minY $pad) (add (sub $maxX $minX) (mul $pad 2)) (add (sub $maxY $minY) (mul $pad 2)) -}}
 {{- /* Ontario isn't part of data/us_states.json (US states only), so it's read from
    data/canada_provinces.json (the real boundary, as [lat,lng] rings) and projected
-   into this map's SVG space with a scale/anchor derived from New York's calibration
-   in data/us_states_bbox.json -- the nearest US neighbor, so Ontario's coastline
-   lines up reasonably across the lake. Ontario's real shape extends far north of
-   this map's viewBox (up to Hudson Bay); the SVG's default overflow:hidden clips
-   that away, so only the Great Lakes portion actually shows. */ -}}
-{{- $nyBBox := index $bboxData "ny" -}}
-{{- $nyGeo := $nyBBox.geoBBox -}}
-{{- $nySvg := $nyBBox.svgBBox -}}
-{{- $caXScale := div (sub $nySvg.maxX $nySvg.minX) (sub $nyGeo.maxLon $nyGeo.minLon) -}}
-{{- $caYScale := div (sub $nySvg.maxY $nySvg.minY) (sub $nyGeo.maxLat $nyGeo.minLat) -}}
-{{- $caAnchorLon := $nyGeo.minLon -}}
-{{- $caAnchorLat := $nyGeo.maxLat -}}
-{{- $caAnchorX := $nySvg.minX -}}
-{{- $caAnchorY := $nySvg.minY -}}
+   into this map's SVG space. A single neighboring state's local scale (e.g. New
+   York's) doesn't match the rest of the map closely enough -- state-to-state
+   scale varies a few percent, which is enough over Ontario's span to sink its
+   shoreline into where Lake Erie/Ontario should be blank. Instead, fit a
+   least-squares line for x=f(lon) and y=f(lat) across every US state's bounding
+   box corners in data/us_states_bbox.json, averaging out that per-state noise.
+   Ontario's real shape extends far north of this map's viewBox (up to Hudson
+   Bay); the SVG's default overflow:hidden clips that away, so only the Great
+   Lakes portion actually shows. */ -}}
+{{- $n := 0.0 -}}
+{{- $sumLon := 0.0 -}}{{- $sumX := 0.0 -}}{{- $sumLonLon := 0.0 -}}{{- $sumLonX := 0.0 -}}
+{{- $sumLat := 0.0 -}}{{- $sumY := 0.0 -}}{{- $sumLatLat := 0.0 -}}{{- $sumLatY := 0.0 -}}
+{{- range $id, $b := $bboxData }}
+  {{- if not (in $skipStates $id) }}
+    {{- $g := $b.geoBBox }}
+    {{- $s := $b.svgBBox }}
+    {{- $n = add $n 2 }}
+    {{- $sumLon = add $sumLon (add $g.minLon $g.maxLon) }}
+    {{- $sumX = add $sumX (add $s.minX $s.maxX) }}
+    {{- $sumLonLon = add $sumLonLon (add (mul $g.minLon $g.minLon) (mul $g.maxLon $g.maxLon)) }}
+    {{- $sumLonX = add $sumLonX (add (mul $g.minLon $s.minX) (mul $g.maxLon $s.maxX)) }}
+    {{- $sumLat = add $sumLat (add $g.minLat $g.maxLat) }}
+    {{- $sumY = add $sumY (add $s.maxY $s.minY) }}
+    {{- $sumLatLat = add $sumLatLat (add (mul $g.minLat $g.minLat) (mul $g.maxLat $g.maxLat)) }}
+    {{- $sumLatY = add $sumLatY (add (mul $g.minLat $s.maxY) (mul $g.maxLat $s.minY)) }}
+  {{- end }}
+{{- end }}
+{{- $xSlope := div (sub (mul $n $sumLonX) (mul $sumLon $sumX)) (sub (mul $n $sumLonLon) (mul $sumLon $sumLon)) -}}
+{{- $xIntercept := div (sub $sumX (mul $xSlope $sumLon)) $n -}}
+{{- $ySlope := div (sub (mul $n $sumLatY) (mul $sumLat $sumY)) (sub (mul $n $sumLatLat) (mul $sumLat $sumLat)) -}}
+{{- $yIntercept := div (sub $sumY (mul $ySlope $sumLat)) $n -}}
 {{- $ontario := index (where .Site.Data.canada_provinces.provinces "id" "on") 0 -}}
 {{- $ontarioPath := "" -}}
 {{- range $ontario.rings }}
   {{- range $i, $pt := . }}
     {{- $lat := index $pt 0 }}
     {{- $lng := index $pt 1 }}
-    {{- $x := add $caAnchorX (mul (sub $lng $caAnchorLon) $caXScale) }}
-    {{- $y := add $caAnchorY (mul (sub $caAnchorLat $lat) $caYScale) }}
+    {{- $x := add (mul $xSlope $lng) $xIntercept }}
+    {{- $y := add (mul $ySlope $lat) $yIntercept }}
     {{- if eq $i 0 }}
       {{- $ontarioPath = printf "%s M%.1f,%.1f" $ontarioPath $x $y }}
     {{- else }}
@@ -56,8 +73,8 @@
   {{- $state := .state }}
   {{- if eq $state "on" }}
     {{- $cityName := .city }}
-    {{- $x := add $caAnchorX (mul (sub .lng $caAnchorLon) $caXScale) }}
-    {{- $y := add $caAnchorY (mul (sub $caAnchorLat .lat) $caYScale) }}
+    {{- $x := add (mul $xSlope .lng) $xIntercept }}
+    {{- $y := add (mul $ySlope .lat) $yIntercept }}
     {{- $markers = $markers | append (dict "city" $cityName "venue" .venue "visited" .visited "date" .date "x" $x "y" $y) }}
   {{- else if and $state (isset $bboxData $state) }}
     {{- $cityName := .city }}
