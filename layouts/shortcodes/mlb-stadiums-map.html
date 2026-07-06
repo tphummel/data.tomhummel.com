@@ -17,25 +17,27 @@
   {{- end }}
 {{- end }}
 {{- $viewBox := printf "%.1f %.1f %.1f %.1f" (sub $minX $pad) (sub $minY $pad) (add (sub $maxX $minX) (mul $pad 2)) (add (sub $maxY $minY) (mul $pad 2)) -}}
-{{- $cities := slice -}}
+{{- $jitter := slice (dict "dx" 0.0 "dy" 0.0) (dict "dx" 8.0 "dy" 8.0) (dict "dx" -8.0 "dy" 8.0) (dict "dx" 8.0 "dy" -8.0) (dict "dx" -8.0 "dy" -8.0) -}}
+{{- $seenCities := slice -}}
+{{- $markers := slice -}}
 {{- range $stadiums }}
   {{- $state := .state }}
   {{- if and $state (isset $bboxData $state) }}
-    {{- $found := false }}
     {{- $cityName := .city }}
-    {{- range $cities }}
-      {{- if eq .name $cityName }}{{ $found = true }}{{ end }}
+    {{- $seenCount := 0 }}
+    {{- range $seenCities }}
+      {{- if eq . $cityName }}{{ $seenCount = add $seenCount 1 }}{{ end }}
     {{- end }}
-    {{- if not $found }}
-      {{- $b := index $bboxData $state }}
-      {{- $svg := $b.svgBBox }}
-      {{- $geo := $b.geoBBox }}
-      {{- $fx := div (sub .lng $geo.minLon) (sub $geo.maxLon $geo.minLon) }}
-      {{- $fy := div (sub $geo.maxLat .lat) (sub $geo.maxLat $geo.minLat) }}
-      {{- $x := add $svg.minX (mul $fx (sub $svg.maxX $svg.minX)) }}
-      {{- $y := add $svg.minY (mul $fy (sub $svg.maxY $svg.minY)) }}
-      {{- $cities = $cities | append (dict "name" $cityName "x" $x "y" $y) }}
-    {{- end }}
+    {{- $seenCities = $seenCities | append $cityName }}
+    {{- $b := index $bboxData $state }}
+    {{- $svg := $b.svgBBox }}
+    {{- $geo := $b.geoBBox }}
+    {{- $fx := div (sub .lng $geo.minLon) (sub $geo.maxLon $geo.minLon) }}
+    {{- $fy := div (sub $geo.maxLat .lat) (sub $geo.maxLat $geo.minLat) }}
+    {{- $x := add $svg.minX (mul $fx (sub $svg.maxX $svg.minX)) }}
+    {{- $y := add $svg.minY (mul $fy (sub $svg.maxY $svg.minY)) }}
+    {{- $offset := index $jitter (mod $seenCount (len $jitter)) }}
+    {{- $markers = $markers | append (dict "city" $cityName "venue" .venue "visited" .visited "date" .date "x" (add $x $offset.dx) "y" (add $y $offset.dy)) }}
   {{- end }}
 {{- end -}}
 <div class="mlb-stadiums-map">
@@ -46,19 +48,9 @@
     <path class="state" d="{{ .d }}"></path>
       {{- end }}
     {{- end }}
-    {{- range $cities }}
-      {{- $cityName := .name }}
-      {{- $matches := where $stadiums "city" $cityName }}
-      {{- $visited := false }}
-      {{- range $matches }}
-        {{- if .visited }}{{ $visited = true }}{{ end }}
-      {{- end }}
-      {{- $tooltip := slice }}
-      {{- range $matches }}
-        {{- $line := printf "%s (%s)" .venue (cond .visited (printf "visited %v" .date) "not visited") }}
-        {{- $tooltip = $tooltip | append $line }}
-      {{- end }}
-    <circle class="{{ if $visited }}is-visited{{ else }}is-not-visited{{ end }}" cx="{{ .x }}" cy="{{ .y }}" r="9"><title>{{ $cityName }}: {{ delimit $tooltip ", " }}</title></circle>
+    {{- range $markers }}
+      {{- $status := cond .visited (printf "visited %v" .date) "not visited" }}
+    <circle class="{{ if .visited }}is-visited{{ else }}is-not-visited{{ end }}" cx="{{ .x }}" cy="{{ .y }}" r="7"><title>{{ .city }}: {{ .venue }} ({{ $status }})</title></circle>
     {{- end }}
   </svg>
   <p class="mlb-stadiums-map-note">Toronto, ON (Rogers Centre) isn't shown &mdash; it's outside the US map.</p>
