@@ -18,10 +18,12 @@
 {{- end }}
 {{- $viewBox := printf "%.1f %.1f %.1f %.1f" (sub $minX $pad) (sub $minY $pad) (add (sub $maxX $minX) (mul $pad 2)) (add (sub $maxY $minY) (mul $pad 2)) -}}
 {{- /* Ontario isn't part of data/us_states.json (US states only), so it's read from
-   data/canada_provinces.json (raw lat/lng points) and projected into this map's SVG
-   space with a scale/anchor derived from New York's calibration in
-   data/us_states_bbox.json -- the nearest US neighbor, so Ontario's points line up
-   reasonably with the coastline across the lake. */ -}}
+   data/canada_provinces.json (the real boundary, as [lat,lng] rings) and projected
+   into this map's SVG space with a scale/anchor derived from New York's calibration
+   in data/us_states_bbox.json -- the nearest US neighbor, so Ontario's coastline
+   lines up reasonably across the lake. Ontario's real shape extends far north of
+   this map's viewBox (up to Hudson Bay); the SVG's default overflow:hidden clips
+   that away, so only the Great Lakes portion actually shows. */ -}}
 {{- $nyBBox := index $bboxData "ny" -}}
 {{- $nyGeo := $nyBBox.geoBBox -}}
 {{- $nySvg := $nyBBox.svgBBox -}}
@@ -33,18 +35,20 @@
 {{- $caAnchorY := $nySvg.minY -}}
 {{- $ontario := index (where .Site.Data.canada_provinces.provinces "id" "on") 0 -}}
 {{- $ontarioPath := "" -}}
-{{- range $i, $pt := $ontario.points }}
-  {{- $lat := index $pt 0 }}
-  {{- $lng := index $pt 1 }}
-  {{- $x := add $caAnchorX (mul (sub $lng $caAnchorLon) $caXScale) }}
-  {{- $y := add $caAnchorY (mul (sub $caAnchorLat $lat) $caYScale) }}
-  {{- if eq $i 0 }}
-    {{- $ontarioPath = printf "M%.1f,%.1f" $x $y }}
-  {{- else }}
-    {{- $ontarioPath = printf "%s L%.1f,%.1f" $ontarioPath $x $y }}
+{{- range $ontario.rings }}
+  {{- range $i, $pt := . }}
+    {{- $lat := index $pt 0 }}
+    {{- $lng := index $pt 1 }}
+    {{- $x := add $caAnchorX (mul (sub $lng $caAnchorLon) $caXScale) }}
+    {{- $y := add $caAnchorY (mul (sub $caAnchorLat $lat) $caYScale) }}
+    {{- if eq $i 0 }}
+      {{- $ontarioPath = printf "%s M%.1f,%.1f" $ontarioPath $x $y }}
+    {{- else }}
+      {{- $ontarioPath = printf "%s L%.1f,%.1f" $ontarioPath $x $y }}
+    {{- end }}
   {{- end }}
-{{- end }}
-{{- $ontarioPath = printf "%s Z" $ontarioPath -}}
+  {{- $ontarioPath = printf "%s Z" $ontarioPath }}
+{{- end -}}
 {{- $jitter := slice (dict "dx" 0.0 "dy" 0.0) (dict "dx" 8.0 "dy" 8.0) (dict "dx" -8.0 "dy" 8.0) (dict "dx" 8.0 "dy" -8.0) (dict "dx" -8.0 "dy" -8.0) -}}
 {{- $seenCities := slice -}}
 {{- $markers := slice -}}
