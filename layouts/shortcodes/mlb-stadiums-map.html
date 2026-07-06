@@ -17,24 +17,52 @@
   {{- end }}
 {{- end }}
 {{- $viewBox := printf "%.1f %.1f %.1f %.1f" (sub $minX $pad) (sub $minY $pad) (add (sub $maxX $minX) (mul $pad 2)) (add (sub $maxY $minY) (mul $pad 2)) -}}
-{{- /* Ontario isn't part of data/us_states.json (US states only), so this map-only
-   calibration places it in the blank space above Michigan/Ohio/New York within the
-   existing viewBox. It's schematic, not a real Ontario outline. */ -}}
-{{- $ontarioBBox := dict "svgBBox" (dict "minX" 880.0 "minY" 0.0 "maxX" 1150.0 "maxY" 80.0) "geoBBox" (dict "minLon" -83.0 "maxLon" -75.0 "minLat" 42.0 "maxLat" 47.0) -}}
-{{- $allBBox := merge $bboxData (dict "on" $ontarioBBox) -}}
+{{- /* Ontario isn't part of data/us_states.json (US states only), so it's read from
+   data/canada_provinces.json (raw lat/lng points) and projected into this map's SVG
+   space with a scale/anchor derived from New York's calibration in
+   data/us_states_bbox.json -- the nearest US neighbor, so Ontario's points line up
+   reasonably with the coastline across the lake. */ -}}
+{{- $nyBBox := index $bboxData "ny" -}}
+{{- $nyGeo := $nyBBox.geoBBox -}}
+{{- $nySvg := $nyBBox.svgBBox -}}
+{{- $caXScale := div (sub $nySvg.maxX $nySvg.minX) (sub $nyGeo.maxLon $nyGeo.minLon) -}}
+{{- $caYScale := div (sub $nySvg.maxY $nySvg.minY) (sub $nyGeo.maxLat $nyGeo.minLat) -}}
+{{- $caAnchorLon := $nyGeo.minLon -}}
+{{- $caAnchorLat := $nyGeo.maxLat -}}
+{{- $caAnchorX := $nySvg.minX -}}
+{{- $caAnchorY := $nySvg.minY -}}
+{{- $ontario := index (where .Site.Data.canada_provinces.provinces "id" "on") 0 -}}
+{{- $ontarioPath := "" -}}
+{{- range $i, $pt := $ontario.points }}
+  {{- $lat := index $pt 0 }}
+  {{- $lng := index $pt 1 }}
+  {{- $x := add $caAnchorX (mul (sub $lng $caAnchorLon) $caXScale) }}
+  {{- $y := add $caAnchorY (mul (sub $caAnchorLat $lat) $caYScale) }}
+  {{- if eq $i 0 }}
+    {{- $ontarioPath = printf "M%.1f,%.1f" $x $y }}
+  {{- else }}
+    {{- $ontarioPath = printf "%s L%.1f,%.1f" $ontarioPath $x $y }}
+  {{- end }}
+{{- end }}
+{{- $ontarioPath = printf "%s Z" $ontarioPath -}}
 {{- $jitter := slice (dict "dx" 0.0 "dy" 0.0) (dict "dx" 8.0 "dy" 8.0) (dict "dx" -8.0 "dy" 8.0) (dict "dx" 8.0 "dy" -8.0) (dict "dx" -8.0 "dy" -8.0) -}}
 {{- $seenCities := slice -}}
 {{- $markers := slice -}}
 {{- range $stadiums }}
   {{- $state := .state }}
-  {{- if and $state (isset $allBBox $state) }}
+  {{- if eq $state "on" }}
+    {{- $cityName := .city }}
+    {{- $x := add $caAnchorX (mul (sub .lng $caAnchorLon) $caXScale) }}
+    {{- $y := add $caAnchorY (mul (sub $caAnchorLat .lat) $caYScale) }}
+    {{- $markers = $markers | append (dict "city" $cityName "venue" .venue "visited" .visited "date" .date "x" $x "y" $y) }}
+  {{- else if and $state (isset $bboxData $state) }}
     {{- $cityName := .city }}
     {{- $seenCount := 0 }}
     {{- range $seenCities }}
       {{- if eq . $cityName }}{{ $seenCount = add $seenCount 1 }}{{ end }}
     {{- end }}
     {{- $seenCities = $seenCities | append $cityName }}
-    {{- $b := index $allBBox $state }}
+    {{- $b := index $bboxData $state }}
     {{- $svg := $b.svgBBox }}
     {{- $geo := $b.geoBBox }}
     {{- $fx := div (sub .lng $geo.minLon) (sub $geo.maxLon $geo.minLon) }}
@@ -48,7 +76,7 @@
 <div class="mlb-stadiums-map">
   <svg viewBox="{{ $viewBox }}" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mlb-stadiums-map-title">
     <title id="mlb-stadiums-map-title">Map of MLB stadiums visited</title>
-    <rect x="880" y="0" width="270" height="80" rx="20" class="state"></rect>
+    <path class="state" d="{{ $ontarioPath }}"></path>
     {{- range $mapData.states }}
       {{- if not (in $skipStates .id) }}
     <path class="state" d="{{ .d }}"></path>
