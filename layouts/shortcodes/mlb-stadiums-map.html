@@ -1,15 +1,36 @@
 {{- $stadiums := .Page.Params.stadiums -}}
 {{- $mapData := .Site.Data.us_states -}}
-{{- $locations := .Site.Data.mlb_stadium_locations.cities -}}
+{{- $bboxData := .Site.Data.us_states_bbox.states -}}
+{{- $cities := slice -}}
+{{- range $stadiums }}
+  {{- $state := .state }}
+  {{- if and $state (isset $bboxData $state) }}
+    {{- $found := false }}
+    {{- $cityName := .city }}
+    {{- range $cities }}
+      {{- if eq .name $cityName }}{{ $found = true }}{{ end }}
+    {{- end }}
+    {{- if not $found }}
+      {{- $b := index $bboxData $state }}
+      {{- $svg := $b.svgBBox }}
+      {{- $geo := $b.geoBBox }}
+      {{- $fx := div (sub .lng $geo.minLon) (sub $geo.maxLon $geo.minLon) }}
+      {{- $fy := div (sub $geo.maxLat .lat) (sub $geo.maxLat $geo.minLat) }}
+      {{- $x := add $svg.minX (mul $fx (sub $svg.maxX $svg.minX)) }}
+      {{- $y := add $svg.minY (mul $fy (sub $svg.maxY $svg.minY)) }}
+      {{- $cities = $cities | append (dict "name" $cityName "x" $x "y" $y) }}
+    {{- end }}
+  {{- end }}
+{{- end -}}
 <div class="mlb-stadiums-map">
   <svg viewBox="{{ $mapData.viewBox }}" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="mlb-stadiums-map-title">
     <title id="mlb-stadiums-map-title">Map of MLB stadiums visited</title>
     {{- range $mapData.states }}
     <path class="state" d="{{ .d }}"></path>
     {{- end }}
-    {{- range $locations }}
-      {{- $city := .id }}
-      {{- $matches := where $stadiums "city" $city }}
+    {{- range $cities }}
+      {{- $cityName := .name }}
+      {{- $matches := where $stadiums "city" $cityName }}
       {{- $visited := false }}
       {{- range $matches }}
         {{- if .visited }}{{ $visited = true }}{{ end }}
@@ -19,7 +40,7 @@
         {{- $line := printf "%s (%s)" .venue (cond .visited (printf "visited %v" .date) "not visited") }}
         {{- $tooltip = $tooltip | append $line }}
       {{- end }}
-    <circle class="{{ if $visited }}is-visited{{ else }}is-not-visited{{ end }}" cx="{{ .x }}" cy="{{ .y }}" r="9"><title>{{ .name }}: {{ delimit $tooltip ", " }}</title></circle>
+    <circle class="{{ if $visited }}is-visited{{ else }}is-not-visited{{ end }}" cx="{{ .x }}" cy="{{ .y }}" r="9"><title>{{ $cityName }}: {{ delimit $tooltip ", " }}</title></circle>
     {{- end }}
   </svg>
   <p class="mlb-stadiums-map-note">Toronto, ON (Rogers Centre) isn't shown &mdash; it's outside the US map.</p>
