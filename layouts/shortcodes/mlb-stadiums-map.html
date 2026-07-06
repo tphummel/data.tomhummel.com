@@ -48,18 +48,45 @@
     {{- $y := add (add $svg.minY (mul $fy (sub $svg.maxY $svg.minY))) $offset.dy }}
     {{- /* The state's bbox is a rectangle but its coastline isn't -- a point placed by
        fraction-of-bbox can land just outside the actual polygon (e.g. in a lake notch
-       or across a river bend). If so, nudge it toward the polygon's centroid in small
-       steps until it's actually inside the state's shape. */ -}}
+       or across a river bend). A state's landmass can also be split across separate
+       rings (Michigan's two peninsulas plus islands), so containment is checked
+       against all of them. If outside every ring, nudge toward a "local" centroid
+       (the k nearest vertices in the closest ring) so the fix stays near the point's
+       real location instead of drifting toward the far side of an oddly-shaped state;
+       a whole-state-centroid nudge is the fallback of last resort. */ -}}
     {{- if isset $polygons $state }}
-      {{- $poly := index $polygons $state }}
-      {{- $inside := partial "point-in-polygon.html" (dict "x" $x "y" $y "poly" $poly) }}
+      {{- $rings := index $polygons $state }}
+      {{- $inside := partial "in-any-ring.html" (dict "x" $x "y" $y "rings" $rings) }}
       {{- if not $inside }}
-        {{- $c := partial "polygon-centroid.html" (dict "poly" $poly) }}
+        {{- $ring := partial "nearest-ring.html" (dict "x" $x "y" $y "rings" $rings) }}
+        {{- $c := partial "local-centroid.html" (dict "x" $x "y" $y "ring" $ring "k" 15) }}
+        {{- $frac := 0.0 }}
         {{- range seq 20 }}
           {{- if not $inside }}
-            {{- $x = add $x (mul (sub $c.x $x) 0.15) }}
-            {{- $y = add $y (mul (sub $c.y $y) 0.15) }}
-            {{- $inside = partial "point-in-polygon.html" (dict "x" $x "y" $y "poly" $poly) }}
+            {{- $frac = add $frac 0.1 }}
+            {{- $tx := add $x (mul (sub $c.x $x) $frac) }}
+            {{- $ty := add $y (mul (sub $c.y $y) $frac) }}
+            {{- if partial "in-any-ring.html" (dict "x" $tx "y" $ty "rings" $rings) }}
+              {{- $x = $tx }}
+              {{- $y = $ty }}
+              {{- $inside = true }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+      {{- if not $inside }}
+        {{- $allPts := slice }}
+        {{- range $ring := $rings }}
+          {{- range $pt := $ring }}
+            {{- $allPts = $allPts | append (dict "x" (index $pt 0) "y" (index $pt 1)) }}
+          {{- end }}
+        {{- end }}
+        {{- $wc := partial "polygon-centroid.html" (dict "poly" $allPts) }}
+        {{- range seq 30 }}
+          {{- if not $inside }}
+            {{- $x = add $x (mul (sub $wc.x $x) 0.15) }}
+            {{- $y = add $y (mul (sub $wc.y $y) 0.15) }}
+            {{- $inside = partial "in-any-ring.html" (dict "x" $x "y" $y "rings" $rings) }}
           {{- end }}
         {{- end }}
       {{- end }}
