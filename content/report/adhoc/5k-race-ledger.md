@@ -250,13 +250,13 @@ history:
 
 
 ---
-5000 meters. Not 3 miles, not 2.95 miles. 5K.
-
 {{< summary.inline >}}
 <p>Total Races: {{ len .Page.Params.history }}</p>
 {{< /summary.inline >}}
 
 <!--more-->
+
+5000 meters. Not 3 miles, not 2.95 miles. 5K.
 
 {{< detail.inline >}}
 
