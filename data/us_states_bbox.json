@@ -1,0 +1,769 @@
+{
+  "states": {
+    "al": {
+      "name": "Alabama",
+      "svgBBox": {
+        "minX": 908.33,
+        "minY": 371.42,
+        "maxX": 977.36,
+        "maxY": 482.41
+      },
+      "geoBBox": {
+        "minLon": -88.473,
+        "maxLon": -84.889,
+        "minLat": 30.223,
+        "maxLat": 35.008
+      }
+    },
+    "ak": {
+      "name": "Alaska",
+      "svgBBox": {
+        "minX": 128.24,
+        "minY": 482.41,
+        "maxX": 543.69,
+        "maxY": 753.94
+      },
+      "geoBBox": {
+        "minLon": -179.148,
+        "maxLon": -129.99,
+        "minLat": 51.214,
+        "maxLat": 71.365
+      }
+    },
+    "az": {
+      "name": "Arizona",
+      "svgBBox": {
+        "minX": 411.67,
+        "minY": 305.87,
+        "maxX": 533.89,
+        "maxY": 446.26
+      },
+      "geoBBox": {
+        "minLon": -114.818,
+        "maxLon": -109.045,
+        "minLat": 31.332,
+        "maxLat": 37.004
+      }
+    },
+    "ar": {
+      "name": "Arkansas",
+      "svgBBox": {
+        "minX": 790.51,
+        "minY": 345.52,
+        "maxX": 879.81,
+        "maxY": 426.19
+      },
+      "geoBBox": {
+        "minLon": -94.618,
+        "maxLon": -89.645,
+        "minLat": 33.004,
+        "maxLat": 36.5
+      }
+    },
+    "ca": {
+      "name": "California",
+      "svgBBox": {
+        "minX": 291.0,
+        "minY": 154.41,
+        "maxX": 432.8,
+        "maxY": 397.06
+      },
+      "geoBBox": {
+        "minLon": -124.409,
+        "maxLon": -114.131,
+        "minLat": 32.534,
+        "maxLat": 42.009
+      }
+    },
+    "co": {
+      "name": "Colorado",
+      "svgBBox": {
+        "minX": 533.89,
+        "minY": 233.1,
+        "maxX": 664.25,
+        "maxY": 334.22
+      },
+      "geoBBox": {
+        "minLon": -109.06,
+        "maxLon": -102.042,
+        "minLat": 36.993,
+        "maxLat": 41.003
+      }
+    },
+    "ct": {
+      "name": "Connecticut",
+      "svgBBox": {
+        "minX": 1135.56,
+        "minY": 172.95,
+        "maxX": 1166.2,
+        "maxY": 202.89
+      },
+      "geoBBox": {
+        "minLon": -73.727,
+        "maxLon": -71.787,
+        "minLat": 40.98,
+        "maxLat": 42.05
+      }
+    },
+    "de": {
+      "name": "Delaware",
+      "svgBBox": {
+        "minX": 1109.83,
+        "minY": 235.18,
+        "maxX": 1128.76,
+        "maxY": 266.02
+      },
+      "geoBBox": {
+        "minLon": -75.789,
+        "maxLon": -75.049,
+        "minLat": 38.451,
+        "maxLat": 39.839
+      }
+    },
+    "fl": {
+      "name": "Florida",
+      "svgBBox": {
+        "minX": 927.54,
+        "minY": 454.6,
+        "maxX": 1090.8,
+        "maxY": 594.47
+      },
+      "geoBBox": {
+        "minLon": -87.635,
+        "maxLon": -80.031,
+        "minLat": 24.396,
+        "maxLat": 31.001
+      }
+    },
+    "ga": {
+      "name": "Georgia",
+      "svgBBox": {
+        "minX": 955.41,
+        "minY": 365.58,
+        "maxX": 1052.54,
+        "maxY": 465.12
+      },
+      "geoBBox": {
+        "minLon": -85.605,
+        "maxLon": -80.751,
+        "minLat": 30.356,
+        "maxLat": 35.001
+      }
+    },
+    "hi": {
+      "name": "Hawaii",
+      "svgBBox": {
+        "minX": 580.28,
+        "minY": 585.37,
+        "maxX": 617.89,
+        "maxY": 660.14
+      },
+      "geoBBox": {
+        "minLon": -160.247,
+        "maxLon": -154.808,
+        "minLat": 18.911,
+        "maxLat": 22.236
+      }
+    },
+    "id": {
+      "name": "Idaho",
+      "svgBBox": {
+        "minX": 419.79,
+        "minY": 33.84,
+        "maxX": 526.08,
+        "maxY": 205.96
+      },
+      "geoBBox": {
+        "minLon": -117.243,
+        "maxLon": -111.044,
+        "minLat": 41.988,
+        "maxLat": 49.001
+      }
+    },
+    "il": {
+      "name": "Illinois",
+      "svgBBox": {
+        "minX": 842.36,
+        "minY": 209.48,
+        "maxX": 912.97,
+        "maxY": 333.37
+      },
+      "geoBBox": {
+        "minLon": -91.513,
+        "maxLon": -87.495,
+        "minLat": 36.97,
+        "maxLat": 42.508
+      }
+    },
+    "in": {
+      "name": "Indiana",
+      "svgBBox": {
+        "minX": 904.78,
+        "minY": 220.48,
+        "maxX": 959.97,
+        "maxY": 314.11
+      },
+      "geoBBox": {
+        "minLon": -88.098,
+        "maxLon": -84.784,
+        "minLat": 37.771,
+        "maxLat": 41.761
+      }
+    },
+    "ia": {
+      "name": "Iowa",
+      "svgBBox": {
+        "minX": 755.41,
+        "minY": 191.12,
+        "maxX": 862.77,
+        "maxY": 260.73
+      },
+      "geoBBox": {
+        "minLon": -96.639,
+        "maxLon": -90.14,
+        "minLat": 40.375,
+        "maxLat": 43.501
+      }
+    },
+    "ks": {
+      "name": "Kansas",
+      "svgBBox": {
+        "minX": 658.58,
+        "minY": 267.67,
+        "maxX": 790.34,
+        "maxY": 337.77
+      },
+      "geoBBox": {
+        "minLon": -102.052,
+        "maxLon": -94.588,
+        "minLat": 36.993,
+        "maxLat": 40.003
+      }
+    },
+    "ky": {
+      "name": "Kentucky",
+      "svgBBox": {
+        "minX": 881.2,
+        "minY": 278.31,
+        "maxX": 1013.11,
+        "maxY": 344.78
+      },
+      "geoBBox": {
+        "minLon": -89.571,
+        "maxLon": -81.965,
+        "minLat": 36.497,
+        "maxLat": 39.147
+      }
+    },
+    "la": {
+      "name": "Louisiana",
+      "svgBBox": {
+        "minX": 802.54,
+        "minY": 424.1,
+        "maxX": 906.2,
+        "maxY": 512.17
+      },
+      "geoBBox": {
+        "minLon": -94.043,
+        "maxLon": -88.817,
+        "minLat": 28.929,
+        "maxLat": 33.02
+      }
+    },
+    "me": {
+      "name": "Maine",
+      "svgBBox": {
+        "minX": 1154.4,
+        "minY": 42.75,
+        "maxX": 1219.59,
+        "maxY": 145.75
+      },
+      "geoBBox": {
+        "minLon": -71.084,
+        "maxLon": -66.95,
+        "minLat": 43.058,
+        "maxLat": 47.46
+      }
+    },
+    "md": {
+      "name": "Maryland",
+      "svgBBox": {
+        "minX": 1047.78,
+        "minY": 238.85,
+        "maxX": 1128.9,
+        "maxY": 277.06
+      },
+      "geoBBox": {
+        "minLon": -79.487,
+        "maxLon": -75.049,
+        "minLat": 37.886,
+        "maxLat": 39.723
+      }
+    },
+    "ma": {
+      "name": "Massachusetts",
+      "svgBBox": {
+        "minX": 1134.98,
+        "minY": 150.21,
+        "maxX": 1196.58,
+        "maxY": 183.3
+      },
+      "geoBBox": {
+        "minLon": -73.508,
+        "maxLon": -69.858,
+        "minLat": 41.237,
+        "maxLat": 42.887
+      }
+    },
+    "mi": {
+      "name": "Michigan",
+      "svgBBox": {
+        "minX": 852.2,
+        "minY": 83.72,
+        "maxX": 987.06,
+        "maxY": 224.3
+      },
+      "geoBBox": {
+        "minLon": -90.418,
+        "maxLon": -82.413,
+        "minLat": 41.696,
+        "maxLat": 48.306
+      }
+    },
+    "mn": {
+      "name": "Minnesota",
+      "svgBBox": {
+        "minX": 747.49,
+        "minY": 61.35,
+        "maxX": 862.81,
+        "maxY": 193.2
+      },
+      "geoBBox": {
+        "minLon": -97.239,
+        "maxLon": -89.489,
+        "minLat": 43.499,
+        "maxLat": 49.384
+      }
+    },
+    "ms": {
+      "name": "Mississippi",
+      "svgBBox": {
+        "minX": 849.51,
+        "minY": 376.13,
+        "maxX": 913.41,
+        "maxY": 485.18
+      },
+      "geoBBox": {
+        "minLon": -91.655,
+        "maxLon": -88.098,
+        "minLat": 30.174,
+        "maxLat": 34.996
+      }
+    },
+    "mo": {
+      "name": "Missouri",
+      "svgBBox": {
+        "minX": 769.69,
+        "minY": 255.53,
+        "maxX": 888.41,
+        "maxY": 357.04
+      },
+      "geoBBox": {
+        "minLon": -95.774,
+        "maxLon": -89.099,
+        "minLat": 35.996,
+        "maxLat": 40.613
+      }
+    },
+    "mt": {
+      "name": "Montana",
+      "svgBBox": {
+        "minX": 464.86,
+        "minY": 37.14,
+        "maxX": 646.3,
+        "maxY": 154.08
+      },
+      "geoBBox": {
+        "minLon": -116.05,
+        "maxLon": -104.039,
+        "minLat": 44.358,
+        "maxLat": 49.001
+      }
+    },
+    "ne": {
+      "name": "Nebraska",
+      "svgBBox": {
+        "minX": 630.7,
+        "minY": 198.52,
+        "maxX": 776.87,
+        "maxY": 271.09
+      },
+      "geoBBox": {
+        "minLon": -104.053,
+        "maxLon": -95.308,
+        "minLat": 39.999,
+        "maxLat": 43.001
+      }
+    },
+    "nv": {
+      "name": "Nevada",
+      "svgBBox": {
+        "minX": 354.35,
+        "minY": 174.28,
+        "maxX": 468.05,
+        "maxY": 347.68
+      },
+      "geoBBox": {
+        "minLon": -120.006,
+        "maxLon": -114.039,
+        "minLat": 35.001,
+        "maxLat": 42.002
+      }
+    },
+    "nh": {
+      "name": "New Hampshire",
+      "svgBBox": {
+        "minX": 1144.72,
+        "minY": 99.49,
+        "maxX": 1173.46,
+        "maxY": 160.58
+      },
+      "geoBBox": {
+        "minLon": -72.557,
+        "maxLon": -70.61,
+        "minLat": 42.697,
+        "maxLat": 45.305
+      }
+    },
+    "nj": {
+      "name": "New Jersey",
+      "svgBBox": {
+        "minX": 1114.41,
+        "minY": 199.29,
+        "maxX": 1137.97,
+        "maxY": 252.42
+      },
+      "geoBBox": {
+        "minLon": -75.56,
+        "maxLon": -73.894,
+        "minLat": 38.928,
+        "maxLat": 41.357
+      }
+    },
+    "nm": {
+      "name": "New Mexico",
+      "svgBBox": {
+        "minX": 515.77,
+        "minY": 321.1,
+        "maxX": 641.0,
+        "maxY": 448.45
+      },
+      "geoBBox": {
+        "minLon": -109.05,
+        "maxLon": -103.002,
+        "minLat": 31.332,
+        "maxLat": 37.0
+      }
+    },
+    "ny": {
+      "name": "New York",
+      "svgBBox": {
+        "minX": 1032.84,
+        "minY": 104.44,
+        "maxX": 1166.67,
+        "maxY": 215.56
+      },
+      "geoBBox": {
+        "minLon": -79.762,
+        "maxLon": -71.856,
+        "minLat": 40.496,
+        "maxLat": 45.015
+      }
+    },
+    "nc": {
+      "name": "North Carolina",
+      "svgBBox": {
+        "minX": 979.08,
+        "minY": 307.89,
+        "maxX": 1136.53,
+        "maxY": 376.33
+      },
+      "geoBBox": {
+        "minLon": -84.322,
+        "maxLon": -75.46,
+        "minLat": 33.842,
+        "maxLat": 36.588
+      }
+    },
+    "nd": {
+      "name": "North Dakota",
+      "svgBBox": {
+        "minX": 640.59,
+        "minY": 64.64,
+        "maxX": 757.0,
+        "maxY": 138.56
+      },
+      "geoBBox": {
+        "minLon": -104.049,
+        "maxLon": -96.554,
+        "minLat": 45.935,
+        "maxLat": 49.001
+      }
+    },
+    "oh": {
+      "name": "Ohio",
+      "svgBBox": {
+        "minX": 952.11,
+        "minY": 205.01,
+        "maxX": 1026.65,
+        "maxY": 288.83
+      },
+      "geoBBox": {
+        "minLon": -84.82,
+        "maxLon": -80.518,
+        "minLat": 38.403,
+        "maxLat": 41.977
+      }
+    },
+    "ok": {
+      "name": "Oklahoma",
+      "svgBBox": {
+        "minX": 640.16,
+        "minY": 332.96,
+        "maxX": 794.15,
+        "maxY": 412.15
+      },
+      "geoBBox": {
+        "minLon": -103.003,
+        "maxLon": -94.431,
+        "minLat": 33.616,
+        "maxLat": 37.002
+      }
+    },
+    "or": {
+      "name": "Oregon",
+      "svgBBox": {
+        "minX": 303.26,
+        "minY": 65.79,
+        "maxX": 446.68,
+        "maxY": 186.43
+      },
+      "geoBBox": {
+        "minLon": -124.566,
+        "maxLon": -116.463,
+        "minLat": 41.992,
+        "maxLat": 46.292
+      }
+    },
+    "pa": {
+      "name": "Pennsylvania",
+      "svgBBox": {
+        "minX": 1021.57,
+        "minY": 187.87,
+        "maxX": 1125.15,
+        "maxY": 254.7
+      },
+      "geoBBox": {
+        "minLon": -80.519,
+        "maxLon": -74.69,
+        "minLat": 39.719,
+        "maxLat": 42.269
+      }
+    },
+    "ri": {
+      "name": "Rhode Island",
+      "svgBBox": {
+        "minX": 1162.79,
+        "minY": 171.24,
+        "maxX": 1174.84,
+        "maxY": 187.88
+      },
+      "geoBBox": {
+        "minLon": -71.862,
+        "maxLon": -71.121,
+        "minLat": 41.146,
+        "maxLat": 42.019
+      }
+    },
+    "sc": {
+      "name": "South Carolina",
+      "svgBBox": {
+        "minX": 997.5,
+        "minY": 356.49,
+        "maxX": 1087.93,
+        "maxY": 424.61
+      },
+      "geoBBox": {
+        "minLon": -83.354,
+        "maxLon": -78.499,
+        "minLat": 32.034,
+        "maxLat": 35.215
+      }
+    },
+    "sd": {
+      "name": "South Dakota",
+      "svgBBox": {
+        "minX": 634.51,
+        "minY": 133.06,
+        "maxX": 758.54,
+        "maxY": 215.22
+      },
+      "geoBBox": {
+        "minLon": -104.058,
+        "maxLon": -96.436,
+        "minLat": 42.48,
+        "maxLat": 45.945
+      }
+    },
+    "tn": {
+      "name": "Tennessee",
+      "svgBBox": {
+        "minX": 870.16,
+        "minY": 326.2,
+        "maxX": 1021.71,
+        "maxY": 378.97
+      },
+      "geoBBox": {
+        "minLon": -90.31,
+        "maxLon": -81.647,
+        "minLat": 34.983,
+        "maxLat": 36.678
+      }
+    },
+    "tx": {
+      "name": "Texas",
+      "svgBBox": {
+        "minX": 562.9,
+        "minY": 344.05,
+        "maxX": 813.35,
+        "maxY": 587.13
+      },
+      "geoBBox": {
+        "minLon": -106.646,
+        "maxLon": -93.508,
+        "minLat": 25.837,
+        "maxLat": 36.5
+      }
+    },
+    "ut": {
+      "name": "Utah",
+      "svgBBox": {
+        "minX": 446.17,
+        "minY": 196.95,
+        "maxX": 546.61,
+        "maxY": 321.1
+      },
+      "geoBBox": {
+        "minLon": -114.053,
+        "maxLon": -109.041,
+        "minLat": 36.998,
+        "maxLat": 42.002
+      }
+    },
+    "vt": {
+      "name": "Vermont",
+      "svgBBox": {
+        "minX": 1121.39,
+        "minY": 107.51,
+        "maxX": 1151.23,
+        "maxY": 163.36
+      },
+      "geoBBox": {
+        "minLon": -73.437,
+        "maxLon": -71.465,
+        "minLat": 42.727,
+        "maxLat": 45.017
+      }
+    },
+    "va": {
+      "name": "Virginia",
+      "svgBBox": {
+        "minX": 986.07,
+        "minY": 253.76,
+        "maxX": 1127.65,
+        "maxY": 331.59
+      },
+      "geoBBox": {
+        "minLon": -83.675,
+        "maxLon": -75.242,
+        "minLat": 36.541,
+        "maxLat": 39.466
+      }
+    },
+    "wa": {
+      "name": "Washington",
+      "svgBBox": {
+        "minX": 335.95,
+        "minY": 10.29,
+        "maxX": 455.38,
+        "maxY": 99.88
+      },
+      "geoBBox": {
+        "minLon": -124.848,
+        "maxLon": -116.916,
+        "minLat": 45.543,
+        "maxLat": 49.002
+      }
+    },
+    "dc": {
+      "name": "Washington, DC",
+      "svgBBox": {
+        "minX": 1090.97,
+        "minY": 258.91,
+        "maxX": 1094.47,
+        "maxY": 263.3
+      },
+      "geoBBox": {
+        "minLon": -77.119,
+        "maxLon": -76.909,
+        "minLat": 38.791,
+        "maxLat": 38.995
+      }
+    },
+    "wv": {
+      "name": "West Virginia",
+      "svgBBox": {
+        "minX": 998.81,
+        "minY": 234.45,
+        "maxX": 1078.91,
+        "maxY": 312.89
+      },
+      "geoBBox": {
+        "minLon": -82.644,
+        "maxLon": -77.719,
+        "minLat": 37.202,
+        "maxLat": 40.638
+      }
+    },
+    "wi": {
+      "name": "Wisconsin",
+      "svgBBox": {
+        "minX": 814.39,
+        "minY": 110.61,
+        "maxX": 909.69,
+        "maxY": 212.62
+      },
+      "geoBBox": {
+        "minLon": -92.889,
+        "maxLon": -86.805,
+        "minLat": 42.492,
+        "maxLat": 47.08
+      }
+    },
+    "wy": {
+      "name": "Wyoming",
+      "svgBBox": {
+        "minX": 513.25,
+        "minY": 139.93,
+        "maxX": 638.32,
+        "maxY": 242.9
+      },
+      "geoBBox": {
+        "minLon": -111.056,
+        "maxLon": -104.052,
+        "minLat": 40.998,
+        "maxLat": 45.006
+      }
+    }
+  }
+}

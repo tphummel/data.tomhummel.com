@@ -4,7 +4,7 @@ date: 2024-06-09T09:00:00Z
 tags: ["meta"]
 ---
 
-{{< om.inline >}}
+{{< summary.inline >}}
   {{ $pushupAnnualReports := where (index .Site.Taxonomies.tags "pushups-annual").Pages "Section" "report" }}
 
   {{ $allTimepushups := 0 }}
@@ -22,9 +22,14 @@ tags: ["meta"]
     {{ end }}
   {{ end }}
 
-
   <p>All Time: <strong>{{ $allTimepushups | lang.FormatNumber 0 }}</strong> pushups</p>
   <p>Years: {{ $minYear }} - {{ $maxYear }}</p>
+{{< /summary.inline >}}
+
+<!--more-->
+
+{{< detail.inline >}}
+  {{ $pushupAnnualReports := where (index .Site.Taxonomies.tags "pushups-annual").Pages "Section" "report" }}
   <table>
     <tr>
       <th>Year</th>
@@ -39,4 +44,4 @@ tags: ["meta"]
   </table>
 
   <p>* Partial Data</p>
-{{< /om.inline >}}
+{{< /detail.inline >}}

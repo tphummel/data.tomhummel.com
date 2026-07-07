@@ -4,7 +4,7 @@ date: 2022-04-13T09:00:00Z
 tags: ["meta"]
 ---
 
-{{< om.inline >}}
+{{< summary.inline >}}
   {{ $sneezeAnnualReports := where (index .Site.Taxonomies.tags "sneezes-annual").Pages "Section" "report" }}
 
   {{ $allTimeSneezes := 0 }}
@@ -22,9 +22,14 @@ tags: ["meta"]
     {{ end }}
   {{ end }}
 
-
   <p>All Time: <strong>{{ $allTimeSneezes | lang.FormatNumber 0 }}</strong> Sneezes</p>
   <p>Years: {{ $minYear }} - {{ $maxYear }}</p>
+{{< /summary.inline >}}
+
+<!--more-->
+
+{{< detail.inline >}}
+  {{ $sneezeAnnualReports := where (index .Site.Taxonomies.tags "sneezes-annual").Pages "Section" "report" }}
   <table>
     <tr>
       <th>Year</th>
@@ -39,4 +44,4 @@ tags: ["meta"]
   </table>
 
   <p>* Partial Data</p>
-{{< /om.inline >}}
+{{< /detail.inline >}}

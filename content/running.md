@@ -4,7 +4,7 @@ date: 2022-12-10T06:35:00Z
 tags: ["meta","running"]
 ---
 
-{{< om.inline >}}
+{{< summary.inline >}}
   {{ $runningAnnualReports := where (index .Site.Taxonomies.tags "running-annual").Pages "Section" "report" }}
 
   {{ $allTimeMilesRun := 0 }}
@@ -28,7 +28,6 @@ tags: ["meta","running"]
     {{ end }}
   {{ end }}
 
-
   <p>Total Runs: <strong>{{ $allTimeRunCount | lang.FormatNumber 0 }}</strong></p>
   <p>Total Miles: <strong>{{ $allTimeMilesRun | lang.FormatNumber 0 }}</strong></p>
   {{ $hours := math.Floor (float (div $allTimeMinutes 60)) }}
@@ -41,6 +40,12 @@ tags: ["meta","running"]
   {{ $milePaceSeconds := math.Floor (mul (sub $milePace $milePaceMinutes) 60) }}
   <p>Mile Pace: <strong>{{ $milePaceMinutes | lang.FormatNumber 0 }}:{{ printf "%02d" (int $milePaceSeconds) }}</strong></p>
   <p>Years: {{ $minYear }} - {{ $maxYear }}</p>
+{{< /summary.inline >}}
+
+<!--more-->
+
+{{< detail.inline >}}
+  {{ $runningAnnualReports := where (index .Site.Taxonomies.tags "running-annual").Pages "Section" "report" }}
 
   <h2>By Decade</h2>
   {{ $decades := dict "1990s" (slice) "2000s" (slice) "2010s" (slice) "2020s" (slice) }}
@@ -164,4 +169,4 @@ tags: ["meta","running"]
   </table>
 
   <p>* Partial Data</p>
-{{< /om.inline >}}
+{{< /detail.inline >}}

@@ -4,6 +4,10 @@ date: 2019-07-20T00:17:09-08:00
 tags: ["meta", "running", "birthday"]
 ---
 
+{{< summary.inline >}}
+<p>Count: 27</p>
+{{< /summary.inline >}}
+
 <!--more-->
 
 - 2025 - No workout. Push-ups only; see nomie
