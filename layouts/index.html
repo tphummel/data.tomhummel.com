@@ -7,10 +7,10 @@
 
   <h2>Maps</h2>
   <div class="index-maps-grid">
-    {{ with .Site.GetPage "/report/mlb-stadiums" }}
+    {{ with .Site.GetPage "/report/adhoc/cal-counties-running" }}
     <div class="index-map-card">
       <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-      {{ partial "maps/mlb-stadiums.html" (dict "stadiums" .Params.stadiums "maxWidth" "260px") }}
+      {{ partial "maps/ca-counties.html" (dict "byCounty" .Params.by_county "maxWidth" "260px") }}
     </div>
     {{ end }}
     {{ with .Site.GetPage "/report/adhoc/us-states-running" }}
@@ -19,16 +19,16 @@
       {{ partial "maps/us-states.html" (dict "byState" .Params.by_state "maxWidth" "260px") }}
     </div>
     {{ end }}
-    {{ with .Site.GetPage "/report/adhoc/cal-counties-running" }}
-    <div class="index-map-card">
-      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-      {{ partial "maps/ca-counties.html" (dict "byCounty" .Params.by_county "maxWidth" "260px") }}
-    </div>
-    {{ end }}
     {{ with .Site.GetPage "/report/adhoc/international-running" }}
     <div class="index-map-card">
       <a href="{{ .RelPermalink }}">{{ .Title }}</a>
       {{ partial "maps/world.html" (dict "byCountry" .Params.by_country "maxWidth" "260px") }}
+    </div>
+    {{ end }}
+    {{ with .Site.GetPage "/report/mlb-stadiums" }}
+    <div class="index-map-card">
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{ partial "maps/mlb-stadiums.html" (dict "stadiums" .Params.stadiums "maxWidth" "260px") }}
     </div>
     {{ end }}
   </div>
