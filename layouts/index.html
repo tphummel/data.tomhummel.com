@@ -5,6 +5,39 @@
 
   <p>The clearinghouse for data of and adjacent to <a href="https://tomhummel.com">tom hummel</a></p>
 
+  <h2>Maps</h2>
+  <div class="index-maps-grid">
+    {{ with .Site.GetPage "/report/mlb-stadiums" }}
+    <div class="index-map-card">
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{ partial "maps/mlb-stadiums.html" (dict "stadiums" .Params.stadiums "maxWidth" "260px") }}
+    </div>
+    {{ end }}
+    {{ with .Site.GetPage "/report/adhoc/us-states-running" }}
+    <div class="index-map-card">
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{ partial "maps/us-states.html" (dict "byState" .Params.by_state "maxWidth" "260px") }}
+    </div>
+    {{ end }}
+    {{ with .Site.GetPage "/report/adhoc/cal-counties-running" }}
+    <div class="index-map-card">
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{ partial "maps/ca-counties.html" (dict "byCounty" .Params.by_county "maxWidth" "260px") }}
+    </div>
+    {{ end }}
+  </div>
+  <style>
+    .index-maps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .index-map-card {
+      text-align: center;
+    }
+  </style>
+
   <h2>Meta Reports</h2>
   {{ $metaReports := .Site.Taxonomies.tags.meta.Pages }}
   <ul>

@@ -1,0 +1,44 @@
+{{- /* Params: byState (list), maxWidth (optional, default "720px") */ -}}
+{{- $byState := .byState -}}
+{{- $maxWidth := .maxWidth | default "720px" -}}
+{{- $mapData := site.Data.us_states -}}
+<div class="us-states-map">
+  <svg viewBox="{{ $mapData.viewBox }}" style="max-width: {{ $maxWidth }};" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="us-states-map-title">
+    <title id="us-states-map-title">Map of US states visited while running</title>
+    {{- range $mapData.states }}
+      {{- $stateName := .name }}
+      {{- $completed := false }}
+      {{- $visit := dict }}
+      {{- range $byState }}
+        {{- if and (eq .state $stateName) .completed }}
+          {{- $completed = true }}
+          {{- $visit = . }}
+        {{- end }}
+      {{- end }}
+      {{- $tooltip := $stateName }}
+      {{- if $completed }}
+        {{- if $visit.date }}{{ $tooltip = printf "%s (%s)" $stateName $visit.date }}{{ end }}
+      {{- end }}
+    <path id="{{ .id }}" class="{{ if $completed }}is-completed{{ else }}is-incomplete{{ end }}" d="{{ .d }}"><title>{{ $tooltip }}</title></path>
+    {{- end }}
+  </svg>
+</div>
+<style>
+  .us-states-map svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto 1.5rem;
+  }
+  .us-states-map path {
+    stroke: #949494;
+    stroke-width: 2;
+    stroke-linejoin: round;
+  }
+  .us-states-map path.is-completed {
+    fill: #7fbf8a;
+  }
+  .us-states-map path.is-incomplete {
+    fill: #efefef;
+  }
+</style>
