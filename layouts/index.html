@@ -25,6 +25,12 @@
       {{ partial "maps/ca-counties.html" (dict "byCounty" .Params.by_county "maxWidth" "260px") }}
     </div>
     {{ end }}
+    {{ with .Site.GetPage "/report/adhoc/international-running" }}
+    <div class="index-map-card">
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{ partial "maps/world.html" (dict "byCountry" .Params.by_country "maxWidth" "260px") }}
+    </div>
+    {{ end }}
   </div>
   <style>
     .index-maps-grid {
