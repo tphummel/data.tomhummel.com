@@ -254,13 +254,13 @@ by_state:
     notes: US-80. Either exit 260 or 255.
 
 ---
-{{< us-states-map >}}
-
 {{< summary.inline >}}
 <p>States Completed: {{ len (where .Page.Params.by_state "completed" true) }}/50</p>
 {{< /summary.inline >}}
 
 <!--more-->
+
+{{< us-states-map >}}
 
 {{< detail.inline >}}
 

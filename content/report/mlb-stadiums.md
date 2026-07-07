@@ -419,13 +419,13 @@ stadiums:
     note: 
 
 ---
-{{< mlb-stadiums-map >}}
-
 {{< summary.inline >}}
 <p>Stadiums Visited: {{ len (where .Page.Params.stadiums "visited" true) }}</p>
 {{< /summary.inline >}}
 
 <!--more-->
+
+{{< mlb-stadiums-map >}}
 
 {{< detail.inline >}}
 

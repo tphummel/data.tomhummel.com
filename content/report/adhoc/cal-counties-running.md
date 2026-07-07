@@ -294,13 +294,13 @@ by_county:
     notes: North Yuba Trail from Rocky Rest Campground, near Camptonville, CA
 
 ---
-{{< ca-counties-map >}}
-
 {{< summary.inline >}}
 <p>Counties Completed: {{ len (where .Page.Params.by_county "completed" true) }}/58</p>
 {{< /summary.inline >}}
 
 <!--more-->
+
+{{< ca-counties-map >}}
 
 {{< detail.inline >}}
 
