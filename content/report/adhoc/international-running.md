@@ -3,6 +3,9 @@ title: "International Running"
 date: 2023-06-11T05:30:00-08:00
 tags: ["running", "checklist", "travel", "meta"]
 by_country:
+  - name: United States
+    date: 1998-05-17
+    notes: Home country. See US States Running for detail.
   - name: France
     date: 2023-01-29
     notes: Paris
