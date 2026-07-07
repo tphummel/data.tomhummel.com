@@ -5,11 +5,12 @@ tags: ["meta", "running", "birthday"]
 ---
 
 {{< summary.inline >}}
-<p>Count: 27</p>
+<p>Count: 28</p>
 {{< /summary.inline >}}
 
 <!--more-->
 
+- 2026 - Beverlywood, Los Angeles, CA - 7.28 mi - 58:04 (495 ft climb) - [garmin](https://connect.garmin.com/modern/activity/23511129601)
 - 2025 - No workout. Push-ups only; see nomie
 - 2024 - Griffith Park, Los Angeles, CA - 10.35 mi - 1:37:12 (1,829 ft climb) - [garmin](https://connect.garmin.com/modern/activity/16291458055)
 - 2023 - Westridge Canyon, Los Angeles, CA - 6.27 mi - 1:01:54 (1,483 ft climb) - [garmin](https://connect.garmin.com/modern/activity/11508446457)
