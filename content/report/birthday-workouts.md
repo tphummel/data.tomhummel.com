@@ -5,7 +5,7 @@ tags: ["meta", "running", "birthday"]
 ---
 
 {{< summary.inline >}}
-<p>Birthday Workouts Logged: 27</p>
+<p>Count: 27</p>
 {{< /summary.inline >}}
 
 <!--more-->
