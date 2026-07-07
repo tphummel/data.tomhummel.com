@@ -18,6 +18,7 @@ by_country:
   - name: Hong Kong
     date: 2014-04-26
     notes: HK Island central coastline
+    map_iso: CN
   - name: Canada
     date: 2018-07-20
     notes: Edmonton, Alberta. 2026-05-05 Toronto, Ontario
@@ -33,6 +34,7 @@ by_country:
   - name: England
     date: 2024-07-29
     notes: London
+    map_iso: GB
   - name: Denmark
     date: 2024-08-03
     notes: Copenhagen
@@ -48,6 +50,8 @@ by_country:
 <p>Countries Completed: {{ len .Page.Params.by_country }}</p>
 {{< /summary.inline >}}
 <!--more-->
+
+{{< world-map >}}
 
 {{< detail.inline >}}
 
