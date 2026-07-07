@@ -1,0 +1,47 @@
+{{- /* Params: byCountry (list), maxWidth (optional, default "720px") */ -}}
+{{- $byCountry := .byCountry -}}
+{{- $maxWidth := .maxWidth | default "720px" -}}
+{{- $mapData := site.Data.world_countries -}}
+<div class="world-map">
+  <svg viewBox="{{ $mapData.viewBox }}" style="max-width: {{ $maxWidth }};" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="world-map-title">
+    <title id="world-map-title">Map of countries visited while running</title>
+    {{- range $mapData.countries }}
+      {{- $countryId := .id }}
+      {{- $countryName := .name }}
+      {{- $completed := false }}
+      {{- $visit := dict }}
+      {{- range $byCountry }}
+        {{- if or (eq .name $countryName) (eq .map_iso $countryId) }}
+          {{- $completed = true }}
+          {{- $visit = . }}
+        {{- end }}
+      {{- end }}
+      {{- $tooltip := $countryName }}
+      {{- if $completed }}
+        {{- if $visit.map_iso }}{{ $tooltip = printf "%s (%s)" $visit.name $visit.date }}
+        {{- else if $visit.date }}{{ $tooltip = printf "%s (%s)" $countryName $visit.date }}
+        {{- end }}
+      {{- end }}
+    <path id="{{ $countryId }}" class="{{ if $completed }}is-completed{{ else }}is-incomplete{{ end }}" d="{{ .d }}"><title>{{ $tooltip }}</title></path>
+    {{- end }}
+  </svg>
+</div>
+<style>
+  .world-map svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto 1.5rem;
+  }
+  .world-map path {
+    stroke: #1a1a1a;
+    stroke-width: 0.75;
+    stroke-linejoin: round;
+  }
+  .world-map path.is-completed {
+    fill: #7fbf8a;
+  }
+  .world-map path.is-incomplete {
+    fill: #efefef;
+  }
+</style>

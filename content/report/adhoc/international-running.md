@@ -3,6 +3,9 @@ title: "International Running"
 date: 2023-06-11T05:30:00-08:00
 tags: ["running", "checklist", "travel", "meta"]
 by_country:
+  - name: United States
+    date: 1998-05-17
+    notes: Home country. See US States Running for detail.
   - name: France
     date: 2023-01-29
     notes: Paris
@@ -15,9 +18,10 @@ by_country:
   - name: Thailand
     date: 2014-04-30
     notes: Koh Samui
-  - name: Hong Kong
+  - name: Hong Kong, China
     date: 2014-04-26
     notes: HK Island central coastline
+    map_iso: CN
   - name: Canada
     date: 2018-07-20
     notes: Edmonton, Alberta. 2026-05-05 Toronto, Ontario
@@ -30,9 +34,10 @@ by_country:
   - name: Belize
     date: 2014-11-13
     notes: San Pedro, Ambergris Caye
-  - name: England
+  - name: England, United Kingdom
     date: 2024-07-29
     notes: London
+    map_iso: GB
   - name: Denmark
     date: 2024-08-03
     notes: Copenhagen
@@ -48,6 +53,8 @@ by_country:
 <p>Countries Completed: {{ len .Page.Params.by_country }}</p>
 {{< /summary.inline >}}
 <!--more-->
+
+{{< world-map >}}
 
 {{< detail.inline >}}
 
