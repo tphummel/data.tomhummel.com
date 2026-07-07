@@ -15,7 +15,7 @@ by_country:
   - name: Thailand
     date: 2014-04-30
     notes: Koh Samui
-  - name: Hong Kong
+  - name: Hong Kong, China
     date: 2014-04-26
     notes: HK Island central coastline
     map_iso: CN
@@ -31,7 +31,7 @@ by_country:
   - name: Belize
     date: 2014-11-13
     notes: San Pedro, Ambergris Caye
-  - name: England
+  - name: England, United Kingdom
     date: 2024-07-29
     notes: London
     map_iso: GB

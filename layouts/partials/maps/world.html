@@ -18,7 +18,7 @@
       {{- end }}
       {{- $tooltip := $countryName }}
       {{- if $completed }}
-        {{- if ne $visit.name $countryName }}{{ $tooltip = printf "%s (%s, %s)" $countryName $visit.name $visit.date }}
+        {{- if $visit.map_iso }}{{ $tooltip = printf "%s (%s)" $visit.name $visit.date }}
         {{- else if $visit.date }}{{ $tooltip = printf "%s (%s)" $countryName $visit.date }}
         {{- end }}
       {{- end }}
