@@ -4,15 +4,8 @@ date: 2022-12-25T06:35:00Z
 tags: ["meta"]
 ---
 
-I'm not a triathlete. 
-
-{{< om.inline >}}
+{{< summary.inline >}}
   {{ $runningAnnualReports := where (index .Site.Taxonomies.tags "running-annual").Pages "Section" "report" }}
-  {{ $runMinutesByYear := dict }}
-  {{ range $runningAnnualReports }}
-    {{ $runMinutesByYear = $runMinutesByYear | merge (dict (string .Params.year) .Params.total_minutes) }}
-  {{ end }}
-
   {{ $swimmingAnnualReports := where (index .Site.Taxonomies.tags "swimming-annual").Pages "Section" "report" }}
   {{ $swimMinutesByYear := dict }}
   {{ range $swimmingAnnualReports }}
@@ -48,6 +41,24 @@ I'm not a triathlete.
   <p><strong>Swim Minutes: </strong>{{ $totalSwimMinutes | lang.FormatNumber 0 }}</p>
   <p><strong>Bike Minutes: </strong>{{ $totalBikeMinutes | lang.FormatNumber 0 }}</p>
   <p><strong>Run Minutes: </strong>{{ $totalRunMinutes | lang.FormatNumber 0 }}</p>
+{{< /summary.inline >}}
+
+<!--more-->
+
+{{< detail.inline >}}
+  {{ $runningAnnualReports := where (index .Site.Taxonomies.tags "running-annual").Pages "Section" "report" }}
+  {{ $swimmingAnnualReports := where (index .Site.Taxonomies.tags "swimming-annual").Pages "Section" "report" }}
+  {{ $swimMinutesByYear := dict }}
+  {{ range $swimmingAnnualReports }}
+    {{ $swimMinutesByYear = $swimMinutesByYear | merge (dict (string .Params.year) .Params.total_minutes) }}
+  {{ end }}
+
+  {{ $bikingAnnualReports := where (index .Site.Taxonomies.tags "biking-annual").Pages "Section" "report" }}
+  {{ $bikeMinutesByYear := dict }}
+  {{ range $bikingAnnualReports }}
+    {{ $bikeMinutesByYear = $bikeMinutesByYear | merge (dict (string .Params.year) .Params.total_minutes) }}
+  {{ end }}
+
   <table>
     <tr>
       <th>Year</th>
@@ -66,4 +77,4 @@ I'm not a triathlete.
   </table>
 
   <p>* Partial Data</p>
-{{< /om.inline >}}
+{{< /detail.inline >}}
