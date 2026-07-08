@@ -134,9 +134,9 @@ by_county:
     notes: First run in Mammoth Lakes, CA
 
   - county: Monterey
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 1998-09
+    notes: King City Cross Country meet, freshman year of high school (exact date unknown)
 
   - county: Napa
     completed: false
