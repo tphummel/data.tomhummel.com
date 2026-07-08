@@ -5,7 +5,7 @@ tags: ["running", "checklist", "travel", "meta"]
 by_country:
   - name: United States
     date: 1998-05-17
-    notes: Home country. See US States Running for detail.
+    notes: 'Home country. See <a href="/report/adhoc/us-states-running/">US States Running</a> for detail.'
   - name: France
     date: 2023-01-29
     notes: Paris
@@ -68,7 +68,7 @@ by_country:
     <tr>
       <td>{{ $country.name }}</td>
       <td>{{ $country.date }}</td>
-      <td>{{ $country.notes | default "" }}</td>
+      <td>{{ $country.notes | default "" | safeHTML }}</td>
     </tr>
   {{ end }}
 
