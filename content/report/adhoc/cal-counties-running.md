@@ -229,9 +229,9 @@ by_county:
     notes: 
 
   - county: Sierra
-    completed: false
-    date: 
-    notes: 
+    completed: true
+    date: 2002-07-23
+    notes: North Yuba Trail from Rocky Rest Campground, near Camptonville, CA
 
   - county: Siskiyou
     completed: false
@@ -289,9 +289,9 @@ by_county:
     notes: 
 
   - county: Yuba
-    completed: true
-    date: 2002-07-23
-    notes: North Yuba Trail from Rocky Rest Campground, near Camptonville, CA
+    completed: false
+    date: 
+    notes: 
 
 ---
 {{< summary.inline >}}
