@@ -271,8 +271,15 @@ def main():
     print(f"Segments: {len(segments)}")
 
     # --- Overview ---
+    # Trim to the official Ray Miller TH <-> Will Rogers SHP extent — the raw
+    # OSM relation continues past both ends into connector trail that isn't
+    # part of the 8 defined segments, which left the overview's line and
+    # terminus markers extending past the true trailheads.
     print("\nRendering overview...")
-    overview_lines = coverage_lines(bbt, all_gpx)
+    # Each segment slice is internally ordered east->west; reverse each one
+    # so consecutive segments chain start-to-end into one continuous line.
+    bbt_trimmed = [pt for seg in segments for pt in reversed(seg)]
+    overview_lines = coverage_lines(bbt_trimmed, all_gpx)
     render_map(overview_lines, OUT_DIR / "00-overview.png", width=1300, height=500)
 
     # --- Per-segment ---
