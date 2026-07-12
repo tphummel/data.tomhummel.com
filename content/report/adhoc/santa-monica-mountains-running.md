@@ -78,17 +78,17 @@ bbt_segments:
   elev_gain_ft: 211
 - name: "Segment 5: Latigo Canyon Road to Piuma TH"
   slug: 05-latigo-to-piuma
-  miles_approx: 5.5
+  miles_approx: 8.7
   miles_covered: 3.13
   touched: true
   complete: false
-  notes: 2010 run covered the Piuma-to-Latigo section. Castro Crest area. Total 4.21 mi split across segs 4/5/6. Passes Newton Canyon and Solstice Canyon watershed.
+  notes: 2010 run covered the Piuma-to-Latigo section. Castro Crest area. Total 4.21 mi split across segs 4/5. Passes Newton Canyon and Solstice Canyon watershed.
   trailheads:
   - name: Latigo Canyon Rd / Castro Crest
     address: End of Latigo Canyon Rd, Malibu, CA
     parking: Free
   - name: Piuma Trailhead
-    address: Piuma Rd, Malibu, CA
+    address: 700 Malibu Canyon Rd, Woodland Hills, CA 91302
     parking: ""
 
   runs:
@@ -99,35 +99,39 @@ bbt_segments:
   elev_gain_ft: 621
 - name: "Segment 6: Saddle Peak to Piuma TH"
   slug: 06-saddle-peak-to-piuma
-  miles_approx: 11.2
-  miles_covered: 0.87
+  miles_approx: 7.2
+  miles_covered: 5.28
   touched: true
   complete: false
-  notes: Lois Ewen Overlook and Saddle Peak summit. Descends via sandstone outcrops to Malibu Canyon. 2026 run clipped the Saddle Peak edge.
+  notes: Lois Ewen Overlook and Saddle Peak summit. Descends via sandstone outcrops to Malibu Canyon. 2026 runs cover the Saddle Peak descent to within ~1.9 mi of Piuma TH.
   trailheads:
   - name: Saddle Peak
-    address: Stunt Rd at Mulholland Hwy, Calabasas, CA
+    address: Saddle Peak Rd, Calabasas, CA
     parking: ""
   - name: Piuma Trailhead
-    address: Piuma Rd, Malibu, CA
+    address: 700 Malibu Canyon Rd, Woodland Hills, CA 91302
     parking: ""
 
   runs:
   - garmin_id: 23479461975
     date: '2026-07-04'
-    miles_this_seg: 0.87
-    miles_new: 0.87
-  elev_gain_ft: 244
+    miles_this_seg: 0.01
+    miles_new: 0.01
+  - garmin_id: 23572460073
+    date: '2026-07-12'
+    miles_this_seg: 5.28
+    miles_new: 5.27
+  elev_gain_ft: 371
 - name: "Segment 7: Saddle Peak to Trippet Ranch"
   slug: 07-saddle-peak-to-trippet
-  miles_approx: 5.1
-  miles_covered: 3.92
+  miles_approx: 5.9
+  miles_covered: 4.78
   touched: true
   complete: false
   notes: Approaches Topanga via Hondo Canyon, then Dead Horse Trail down to Trippet Ranch. 2026 run reached Dead Horse Trailhead; the Dead Horse Trail descent into Trippet Ranch remains uncovered.
   trailheads:
   - name: Saddle Peak
-    address: Stunt Rd at Mulholland Hwy, Calabasas, CA
+    address: Saddle Peak Rd, Calabasas, CA
     parking: ""
   - name: Trippet Ranch
     address: 20825 Entrada Rd, Topanga, CA 90290
@@ -136,9 +140,13 @@ bbt_segments:
   runs:
   - garmin_id: 23479461975
     date: '2026-07-04'
-    miles_this_seg: 3.92
-    miles_new: 3.92
-  elev_gain_ft: 1599
+    miles_this_seg: 4.78
+    miles_new: 4.78
+  - garmin_id: 23572460073
+    date: '2026-07-12'
+    miles_this_seg: 0.03
+    miles_new: 0.0
+  elev_gain_ft: 1847
 - name: "Segment 8: Trippet Ranch to Will Rogers State Park"
   slug: 08-trippet-to-will-rogers
   miles_approx: 10.4
@@ -190,6 +198,10 @@ bbt_ledger:
   name: Old Topanga to Saddle Peak 10
   garmin_id: 23479461975
   miles_new: 4.89
+- date: '2026-07-12'
+  name: Los Angeles County Running
+  garmin_id: 23572460073
+  miles_new: 5.27
 runs:
 - date: 2009-12-04
   name: Mulholland Drive East from Reseda Blvd
@@ -476,9 +488,18 @@ runs:
   miles: 10.01
   garmin_id: 23479461975
   bbt: true
-  notes: Confirmed 4.89 mi net-new on BBT across Segments 6 and 7 — Saddle Peak through Hondo Canyon to Dead Horse Trailhead, stopping short of the Dead Horse Trail descent into Trippet Ranch.
+  notes: Confirmed 4.89 mi net-new on BBT, almost entirely Segment 7 — Saddle Peak through Hondo Canyon to Dead Horse Trailhead, stopping short of the Dead Horse Trail descent into Trippet Ranch.
   elev_gain_ft: 2520
   elev_loss_ft: 2497
+- date: '2026-07-12'
+  name: Los Angeles County Running
+  area: bbt
+  miles: 10.8
+  elev_gain_ft: 2323
+  elev_loss_ft: 2337
+  garmin_id: 23572460073
+  bbt: true
+  notes: Out-and-back from Saddle Peak Rd into Malibu Canyon. Confirmed 5.27 mi net-new on Segment 6, extending coverage west from Saddle Peak to within ~1.9 mi of Piuma TH.
 ---
 
 {{< summary.inline >}}

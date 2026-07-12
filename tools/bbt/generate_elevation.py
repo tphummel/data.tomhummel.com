@@ -50,8 +50,8 @@ SEGMENT_SPLITS = [
     ("Mishe Mokwa TH",       34.0805, -118.8505),
     ("Encinal Canyon Rd",    34.0815, -118.8200),
     ("Latigo Canyon Rd",     34.0820, -118.7910),
-    ("Piuma TH",             34.0721, -118.7232),
-    ("Saddle Peak",          34.0843, -118.6350),
+    ("Piuma TH",             34.0799, -118.7037),
+    ("Saddle Peak",          34.0819, -118.6441),
     ("Trippet Ranch",        34.0934, -118.5878),
     ("Will Rogers SHP",      34.0540, -118.5245),
 ]
