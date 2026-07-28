@@ -1,7 +1,10 @@
 """Shared TCX parsing helpers for the Lahaina Pali Trail running page."""
 
+import io
 import math
 import xml.etree.ElementTree as ET
+
+from PIL import Image
 
 NS = {"t": "http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2"}
 
@@ -149,3 +152,16 @@ def format_duration(total_seconds):
     if h:
         return f"{h}:{m:02d}:{s:02d}"
     return f"{m}:{s:02d}"
+
+
+def savefig_webp(fig, out_path):
+    """Save a matplotlib figure as lossless WebP instead of PNG.
+
+    These charts are mostly flat color + text/lines, where lossless WebP
+    runs consistently 2.5-3x smaller than PNG at identical quality (no
+    compression artifacts on the text), so there's no tradeoff to make.
+    """
+    buf = io.BytesIO()
+    fig.savefig(buf, format="png", facecolor=fig.get_facecolor())
+    buf.seek(0)
+    Image.open(buf).convert("RGB").save(out_path, "WEBP", lossless=True, method=6)

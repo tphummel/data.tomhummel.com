@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # /// script
 # requires-python = ">=3.9"
-# dependencies = ["matplotlib"]
+# dependencies = ["matplotlib", "pillow"]
 # ///
 """
 Render an elevation-vs-distance profile PNG (full + thumbnail) for each run
@@ -21,7 +21,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 sys.path.insert(0, str(Path(__file__).parent))
-from lib import TRAILHEADS, load_tcx  # noqa: E402
+from lib import TRAILHEADS, load_tcx, savefig_webp  # noqa: E402
 
 BUNDLE_DIR = Path(__file__).parent.parent  # content/report/adhoc/lahaina-pali-trail-running/
 TCX_DIR = Path.home() / "Documents" / "lahaina pali trail running"
@@ -86,7 +86,7 @@ def make_chart(run, out_path, thumb=False):
         ax.set_title(f"{name} — {run['date']}", fontsize=11, loc="left")
 
     fig.tight_layout()
-    fig.savefig(out_path, facecolor=fig.get_facecolor())
+    savefig_webp(fig, out_path)
     plt.close(fig)
     print(f"Wrote {out_path.relative_to(BUNDLE_DIR)}")
 
@@ -101,8 +101,8 @@ def main():
     for path in tcx_files:
         run = load_tcx(path)
         slug = slug_for(run)
-        make_chart(run, OUT_DIR / f"{slug}-elev.png", thumb=False)
-        make_chart(run, OUT_DIR / f"{slug}-elev-thumb.png", thumb=True)
+        make_chart(run, OUT_DIR / f"{slug}-elev.webp", thumb=False)
+        make_chart(run, OUT_DIR / f"{slug}-elev-thumb.webp", thumb=True)
 
 
 if __name__ == "__main__":

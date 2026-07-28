@@ -6,8 +6,9 @@
 """
 Import geotagged photos into the Lahaina Pali Trail page: reads GPS +
 DateTimeOriginal from each photo's EXIF, matches it to the run it was taken
-on (by date), converts it to a web-friendly JPEG, and writes a `photos:`
-entry into the page front matter.
+on (by date), converts it to a web-sized WebP (resized for how it's
+actually displayed — a 280px-wide gallery thumbnail, not full camera
+resolution), and writes a `photos:` entry into the page front matter.
 
 Drop photos (HEIC or JPEG, with GPS + timestamp intact) in the source
 directory, then run:
@@ -42,7 +43,8 @@ OUT_DIR = BUNDLE_DIR / "images" / "photos"
 SOURCE_DIR = Path.home() / "Documents" / "lahaina pali trail running" / "photos"
 TCX_DIR = Path.home() / "Documents" / "lahaina pali trail running"
 
-MAX_DIMENSION = 1600
+MAX_DIMENSION = 900  # displayed at 280px CSS width in the gallery; covers 3x retina
+WEBP_QUALITY = 78
 GPS_IFD, EXIF_IFD = 0x8825, 0x8769
 DATETIME_ORIGINAL_TAG = 36867
 
@@ -117,10 +119,10 @@ def save_page(data, body):
     PAGE_PATH.write_text(f"---\n{stream.getvalue()}---{body}")
 
 
-def save_web_jpeg(img, out_path):
+def save_web_image(img, out_path):
     img = ImageOps.exif_transpose(img)  # bake in orientation; we're stripping EXIF
     img.thumbnail((MAX_DIMENSION, MAX_DIMENSION))
-    img.convert("RGB").save(out_path, "JPEG", quality=85)
+    img.convert("RGB").save(out_path, "WEBP", quality=WEBP_QUALITY, method=6)
 
 
 def main():
@@ -140,7 +142,7 @@ def main():
         p for p in SOURCE_DIR.iterdir()
         if p.suffix.lower() in (".heic", ".heif", ".jpg", ".jpeg")
     )
-    new_files = [p for p in source_files if f"{p.stem.lower()}.jpg" not in existing_files]
+    new_files = [p for p in source_files if f"{p.stem.lower()}.webp" not in existing_files]
 
     if not new_files:
         print("No new photos found. Nothing to do.")
@@ -160,8 +162,8 @@ def main():
         tcx = tcx_by_trailhead.get(trailhead)
         mile = nearest_mile(tcx, taken_at) if tcx and taken_at else None
 
-        out_name = f"{path.stem.lower()}.jpg"
-        save_web_jpeg(img, OUT_DIR / out_name)
+        out_name = f"{path.stem.lower()}.webp"
+        save_web_image(img, OUT_DIR / out_name)
 
         entry = {
             "file": out_name,

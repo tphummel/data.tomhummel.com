@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # /// script
 # requires-python = ">=3.9"
-# dependencies = ["matplotlib", "ruamel.yaml"]
+# dependencies = ["matplotlib", "ruamel.yaml", "pillow"]
 # ///
 """
 Render two maps for the Lahaina Pali Trail page from the recorded TCX
@@ -29,7 +29,7 @@ import matplotlib.pyplot as plt
 from ruamel.yaml import YAML
 
 sys.path.insert(0, str(Path(__file__).parent))
-from lib import load_tcx  # noqa: E402
+from lib import load_tcx, savefig_webp  # noqa: E402
 
 BUNDLE_DIR = Path(__file__).parent.parent  # content/report/adhoc/lahaina-pali-trail-running/
 PAGE_PATH = BUNDLE_DIR / "index.md"
@@ -122,7 +122,7 @@ def make_map(out_path, islands, runs, lon_scale, lon_mid, lat_mid, lon_span, lat
     ax.set_title(title, fontsize=14, fontweight="bold", pad=14)
     ax.legend(loc=legend_loc, frameon=False, fontsize=9)
 
-    fig.savefig(out_path, facecolor=fig.get_facecolor())
+    savefig_webp(fig, out_path)
     plt.close(fig)
     print(f"Wrote {out_path.relative_to(BUNDLE_DIR)}")
 
@@ -155,7 +155,7 @@ def main():
     isl_lat_mid = (max(maui_lats) + min(maui_lats)) / 2
 
     make_map(
-        OUT_DIR / "overview-island.png", islands, runs, lon_scale,
+        OUT_DIR / "overview-island.webp", islands, runs, lon_scale,
         isl_lon_mid, isl_lat_mid, isl_lon_span, isl_lat_span,
         title="Lahaina Pali Trail — Maui", track_linewidth=3.5, legend_loc="lower right",
     )
@@ -170,7 +170,7 @@ def main():
     trail_lat_mid = (max(trail_lats) + min(trail_lats)) / 2
 
     make_map(
-        OUT_DIR / "overview-trail.png", islands, runs, lon_scale,
+        OUT_DIR / "overview-trail.webp", islands, runs, lon_scale,
         trail_lon_mid, trail_lat_mid, trail_lon_span, trail_lat_span,
         title="Lahaina Pali Trail — Detail", track_linewidth=2.5, legend_loc="lower center",
         photos=photos,

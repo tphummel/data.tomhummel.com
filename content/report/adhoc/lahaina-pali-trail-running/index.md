@@ -134,7 +134,7 @@ runs:
     calories: 31
   notes: ''
 photos:
-- file: img_7967.jpg
+- file: img_7967.webp
   taken_at: '2026-07-27T06:07:26-10:00'
   lat: 20.79192
   lon: -156.56375
@@ -142,7 +142,7 @@ photos:
   trailhead: west
   mile: 0.0
   caption: Trailhead sign at the Ukumehame (West) end, right at the start.
-- file: img_7991.jpg
+- file: img_7991.webp
   taken_at: '2026-07-27T07:03:20-10:00'
   lat: 20.79928
   lon: -156.53795
@@ -150,7 +150,7 @@ photos:
   trailhead: west
   mile: 2.89
   caption: Kaheawa Wind Farm turbines along the ridge, looking down the West Maui coast.
-- file: img_7992.jpg
+- file: img_7992.webp
   taken_at: '2026-07-27T07:03:23-10:00'
   lat: 20.79929
   lon: -156.53795
@@ -158,7 +158,7 @@ photos:
   trailhead: west
   mile: 2.89
   caption: Same spot, turned the other way — central Maui isthmus under low clouds.
-- file: img_7993.jpg
+- file: img_7993.webp
   taken_at: '2026-07-27T07:04:19-10:00'
   lat: 20.79831
   lon: -156.53851
@@ -166,7 +166,7 @@ photos:
   trailhead: west
   mile: 2.96
   caption: The wind farm's gravel access road along the ridgeline.
-- file: img_7995.jpg
+- file: img_7995.webp
   taken_at: '2026-07-27T07:18:43-10:00'
   lat: 20.79367
   lon: -156.54823
@@ -190,8 +190,8 @@ photos:
 
 <p>The <a href="https://dlnr.hawaii.gov/dtoh/trails/na-ala-hele/">Nā Ala Hele</a> Lahaina Pali Trail crosses the West Maui Mountains between Māʻalaea and Ukumehame, {{ .Page.Params.trail.length_mi }} mi one-way with about {{ .Page.Params.trail.elev_gain_ft | lang.FormatNumber 0 }} ft of gain and {{ .Page.Params.trail.elev_loss_ft | lang.FormatNumber 0 }} ft of loss between trailheads, both near sea level. Ran as two out-and-back trips, one from each end, meeting near the same mid-trail high point — in aggregate, every mile of the trail covered.</p>
 
-<img src="images/overview-island.png" alt="Lahaina Pali Trail location on Maui" style="width:100%;max-width:900px;">
-<img src="images/overview-trail.png" alt="Lahaina Pali Trail detail map" style="width:100%;max-width:900px;margin-top:4px;">
+<img src="images/overview-island.webp" alt="Lahaina Pali Trail location on Maui" style="width:100%;max-width:900px;">
+<img src="images/overview-trail.webp" alt="Lahaina Pali Trail detail map" style="width:100%;max-width:900px;margin-top:4px;">
 
 <table>
   <tr><th>Trailhead</th><th>Access</th></tr>
@@ -221,7 +221,7 @@ photos:
 
 {{ range $runs }}
 <h3>{{ .name }} — {{ .date }}</h3>
-<img src="images/{{ .date }}-{{ .trailhead }}-elev.png" alt="Elevation profile: {{ .name }}" style="width:100%;max-width:900px;">
+<img src="images/{{ .date }}-{{ .trailhead }}-elev.webp" alt="Elevation profile: {{ .name }}" style="width:100%;max-width:900px;">
 
 <table>
   <tr>
@@ -263,7 +263,7 @@ photos:
 <div style="display:flex;flex-wrap:wrap;gap:16px;">
   {{ range . }}
   <figure style="width:280px;margin:0;">
-    <img src="images/photos/{{ .file }}" alt="{{ .caption }}" style="width:100%;height:auto;border-radius:4px;">
+    <img src="images/photos/{{ .file }}" alt="{{ .caption }}" loading="lazy" decoding="async" style="width:100%;height:auto;border-radius:4px;">
     <figcaption style="font-size:0.85em;margin-top:4px;">
       {{ .caption }}<br>
       <span style="opacity:.6;">mile {{ .mile }} &middot; {{ .elev_ft | lang.FormatNumber 0 }} ft &middot; {{ dateFormat "3:04 PM" .taken_at }}</span>
