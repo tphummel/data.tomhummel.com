@@ -9,7 +9,7 @@ Lahaina Pali Trail running page: computes per-run stats and mile splits from
 Garmin Lap/Trackpoint data and writes them into the page front matter.
 
 Drop a new TCX file in the source directory, then run:
-    uv run tools/lahaina-pali/import_tcx.py
+    uv run content/report/adhoc/lahaina-pali-trail-running/tools/import_tcx.py
 
 Unlike the Santa Monica Mountains (BBT) tooling, this does not fetch any
 official trail geometry or basemap tiles — the map/elevation images are
@@ -34,8 +34,8 @@ from lib import (  # noqa: E402
     turnaround_point,
 )
 
-REPO_ROOT = Path(__file__).parent.parent.parent
-PAGE_PATH = REPO_ROOT / "content" / "report" / "adhoc" / "lahaina-pali-trail-running.md"
+BUNDLE_DIR = Path(__file__).parent.parent  # content/report/adhoc/lahaina-pali-trail-running/
+PAGE_PATH = BUNDLE_DIR / "index.md"
 TCX_DIR = Path.home() / "Documents" / "lahaina pali trail running"
 
 TRAILHEAD_ROUTE_NAME = {
@@ -173,10 +173,10 @@ def main():
     data["date"] = f"{runs[-1]['date']}T00:00:00Z"  # most recent run date
 
     save_page(data, body)
-    print(f"\nUpdated: {PAGE_PATH.relative_to(REPO_ROOT)}")
+    print(f"\nUpdated: {PAGE_PATH.relative_to(BUNDLE_DIR)}")
     print(f"  {len(new_files)} run(s) added")
-    print("\nNext: uv run tools/lahaina-pali/generate_maps.py")
-    print("      uv run tools/lahaina-pali/generate_elevation.py")
+    print("\nNext: uv run content/report/adhoc/lahaina-pali-trail-running/tools/generate_maps.py")
+    print("      uv run content/report/adhoc/lahaina-pali-trail-running/tools/generate_elevation.py")
 
 
 def _gid(path):

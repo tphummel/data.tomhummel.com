@@ -10,12 +10,12 @@ trail itself.
 
 Unlike the BBT maps (tools/bbt/generate_maps.py), this does not fetch OSM
 tiles or an official trail relation at generation time — the island outline
-is a small pre-extracted GeoJSON checked into tools/lahaina-pali/data/ (see
+is a small pre-extracted GeoJSON checked into content/report/adhoc/lahaina-pali-trail-running/tools/data/ (see
 that directory's README for provenance), and the trail lines are the actual
 recorded tracks. That keeps this script network-free.
 
 Run after adding new runs via import_tcx.py:
-    uv run tools/lahaina-pali/generate_maps.py
+    uv run content/report/adhoc/lahaina-pali-trail-running/tools/generate_maps.py
 """
 
 import json
@@ -30,9 +30,9 @@ import matplotlib.pyplot as plt
 sys.path.insert(0, str(Path(__file__).parent))
 from lib import load_tcx  # noqa: E402
 
-REPO_ROOT = Path(__file__).parent.parent.parent
+BUNDLE_DIR = Path(__file__).parent.parent  # content/report/adhoc/lahaina-pali-trail-running/
 TCX_DIR = Path.home() / "Documents" / "lahaina pali trail running"
-OUT_DIR = REPO_ROOT / "static" / "images" / "lahaina-pali"
+OUT_DIR = BUNDLE_DIR / "images"
 ISLANDS_PATH = Path(__file__).parent / "data" / "maui-county.geojson"
 
 COLORS = {
@@ -104,7 +104,7 @@ def make_map(out_path, islands, runs, lon_scale, lon_mid, lat_mid, lon_span, lat
 
     fig.savefig(out_path, facecolor=fig.get_facecolor())
     plt.close(fig)
-    print(f"Wrote {out_path.relative_to(REPO_ROOT)}")
+    print(f"Wrote {out_path.relative_to(BUNDLE_DIR)}")
 
 
 def main():

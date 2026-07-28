@@ -10,7 +10,7 @@ stream (the Forerunner's barometric altimeter) — no SRTM/network lookup
 needed, unlike tools/bbt/generate_elevation.py.
 
 Run after adding new runs via import_tcx.py:
-    uv run tools/lahaina-pali/generate_elevation.py
+    uv run content/report/adhoc/lahaina-pali-trail-running/tools/generate_elevation.py
 """
 
 import sys
@@ -23,9 +23,9 @@ import matplotlib.pyplot as plt
 sys.path.insert(0, str(Path(__file__).parent))
 from lib import TRAILHEADS, load_tcx  # noqa: E402
 
-REPO_ROOT = Path(__file__).parent.parent.parent
+BUNDLE_DIR = Path(__file__).parent.parent  # content/report/adhoc/lahaina-pali-trail-running/
 TCX_DIR = Path.home() / "Documents" / "lahaina pali trail running"
-OUT_DIR = REPO_ROOT / "static" / "images" / "lahaina-pali"
+OUT_DIR = BUNDLE_DIR / "images"
 
 COLORS = {
     "east": "#c1440e",
@@ -88,7 +88,7 @@ def make_chart(run, out_path, thumb=False):
     fig.tight_layout()
     fig.savefig(out_path, facecolor=fig.get_facecolor())
     plt.close(fig)
-    print(f"Wrote {out_path.relative_to(REPO_ROOT)}")
+    print(f"Wrote {out_path.relative_to(BUNDLE_DIR)}")
 
 
 def main():

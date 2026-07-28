@@ -19,26 +19,27 @@ Save to: `~/Documents/lahaina pali trail running/activity_XXXXXXXXX.tcx`
 ### 2. Run the import
 
 ```
-uv run tools/lahaina-pali/import_tcx.py
+uv run content/report/adhoc/lahaina-pali-trail-running/tools/import_tcx.py
 ```
 
 Review the output — computed distance, elevation gain/loss, duration, pace,
 and average HR per run. It writes a new entry into the `runs:` list in
-`content/report/adhoc/lahaina-pali-trail-running.md`, classifying the run's
+`content/report/adhoc/lahaina-pali-trail-running/index.md`, classifying the run's
 trailhead (`east`/`west`) by proximity to the two recorded starting points in
 `lib.py`'s `TRAILHEADS`.
 
 ### 3. Regenerate images
 
 ```
-uv run tools/lahaina-pali/generate_maps.py
-uv run tools/lahaina-pali/generate_elevation.py
+uv run content/report/adhoc/lahaina-pali-trail-running/tools/generate_maps.py
+uv run content/report/adhoc/lahaina-pali-trail-running/tools/generate_elevation.py
 ```
 
-`generate_maps.py` re-plots the overview map (`static/images/lahaina-pali/overview.png`)
-from every TCX file in the source directory, one line per run colored by
-trailhead. `generate_elevation.py` writes a full + thumbnail elevation
-profile PNG per run (`static/images/lahaina-pali/{date}-{trailhead}-elev[-thumb].png`).
+`generate_maps.py` re-plots the whole-island map (`images/overview-island.png`)
+and the trail close-up (`images/overview-trail.png`) from every TCX file in
+the source directory, one line per run colored by trailhead.
+`generate_elevation.py` writes a full + thumbnail elevation profile PNG per
+run (`images/{date}-{trailhead}-elev[-thumb].png`).
 
 ### 4. Visual check
 
@@ -52,10 +53,16 @@ Garmin activity.
 ### 5. Commit and push
 
 ```
-git add content/report/adhoc/lahaina-pali-trail-running.md static/images/lahaina-pali/
+git add content/report/adhoc/lahaina-pali-trail-running/index.md content/report/adhoc/lahaina-pali-trail-running/images/
 git commit -m "Add YYYY-MM-DD Lahaina Pali Trail run"
 git push
 ```
+
+Everything for this post — the page, its images, and this tooling — lives
+together under `content/report/adhoc/lahaina-pali-trail-running/`. The
+`tools/` and `tools/data/` subdirectories are excluded from the Hugo build
+(see `ignoreFiles` in `config.toml`), so only `index.md` and `images/` are
+published.
 
 ---
 
