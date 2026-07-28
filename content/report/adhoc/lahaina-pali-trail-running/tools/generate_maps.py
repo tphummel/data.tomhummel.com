@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # /// script
 # requires-python = ">=3.9"
-# dependencies = ["matplotlib"]
+# dependencies = ["matplotlib", "ruamel.yaml"]
 # ///
 """
 Render two maps for the Lahaina Pali Trail page from the recorded TCX
@@ -26,11 +26,13 @@ from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from ruamel.yaml import YAML
 
 sys.path.insert(0, str(Path(__file__).parent))
 from lib import load_tcx  # noqa: E402
 
 BUNDLE_DIR = Path(__file__).parent.parent  # content/report/adhoc/lahaina-pali-trail-running/
+PAGE_PATH = BUNDLE_DIR / "index.md"
 TCX_DIR = Path.home() / "Documents" / "lahaina pali trail running"
 OUT_DIR = BUNDLE_DIR / "images"
 ISLANDS_PATH = Path(__file__).parent / "data" / "maui-county.geojson"
@@ -49,6 +51,14 @@ LAND_EDGE_COLOR = "#b9ae95"
 
 TITLE_ALLOWANCE_IN = 0.7
 FIG_W = 9.0
+
+
+def load_photos():
+    yaml = YAML()
+    text = PAGE_PATH.read_text()
+    _, fm_text, _ = text.split("---", 2)
+    data = yaml.load(fm_text)
+    return data.get("photos", [])
 
 
 def load_islands():
@@ -81,8 +91,17 @@ def draw_tracks(ax, runs, lon_scale, linewidth):
                    zorder=4, edgecolor="white", linewidth=1.2)
 
 
+def draw_photos(ax, photos, lon_scale):
+    if not photos:
+        return
+    lons = [p["lon"] * lon_scale for p in photos]
+    lats = [p["lat"] for p in photos]
+    ax.scatter(lons, lats, marker="o", s=55, facecolor="white", edgecolor="#222222",
+               linewidth=1.3, zorder=5, label="Photo")
+
+
 def make_map(out_path, islands, runs, lon_scale, lon_mid, lat_mid, lon_span, lat_span,
-             title, track_linewidth, legend_loc):
+             title, track_linewidth, legend_loc, photos=None):
     fig_h = FIG_W * (lat_span / lon_span) + TITLE_ALLOWANCE_IN
     fig, ax = plt.subplots(figsize=(FIG_W, fig_h), dpi=150)
     fig.subplots_adjust(top=1 - TITLE_ALLOWANCE_IN / fig_h, bottom=0, left=0, right=1)
@@ -91,6 +110,7 @@ def make_map(out_path, islands, runs, lon_scale, lon_mid, lat_mid, lon_span, lat
 
     draw_islands(ax, islands, lon_scale)
     draw_tracks(ax, runs, lon_scale, linewidth=track_linewidth)
+    draw_photos(ax, photos, lon_scale)
 
     ax.set_xlim(lon_mid - lon_span / 2, lon_mid + lon_span / 2)
     ax.set_ylim(lat_mid - lat_span / 2, lat_mid + lat_span / 2)
@@ -116,6 +136,7 @@ def main():
 
     runs = [load_tcx(p) for p in tcx_files]
     islands = load_islands()
+    photos = load_photos()
 
     all_lats = [p["lat"] for r in runs for p in r["points"]]
     all_lons = [p["lon"] for r in runs for p in r["points"]]
@@ -152,6 +173,7 @@ def main():
         OUT_DIR / "overview-trail.png", islands, runs, lon_scale,
         trail_lon_mid, trail_lat_mid, trail_lon_span, trail_lat_span,
         title="Lahaina Pali Trail — Detail", track_linewidth=2.5, legend_loc="lower center",
+        photos=photos,
     )
 
 

@@ -133,6 +133,47 @@ runs:
     max_hr: 125
     calories: 31
   notes: ''
+photos:
+- file: img_7967.jpg
+  taken_at: '2026-07-27T06:07:26-10:00'
+  lat: 20.79192
+  lon: -156.56375
+  elev_ft: 36
+  trailhead: west
+  mile: 0.0
+  caption: Trailhead sign at the Ukumehame (West) end, right at the start.
+- file: img_7991.jpg
+  taken_at: '2026-07-27T07:03:20-10:00'
+  lat: 20.79928
+  lon: -156.53795
+  elev_ft: 1591
+  trailhead: west
+  mile: 2.89
+  caption: Kaheawa Wind Farm turbines along the ridge, looking down the West Maui coast.
+- file: img_7992.jpg
+  taken_at: '2026-07-27T07:03:23-10:00'
+  lat: 20.79929
+  lon: -156.53795
+  elev_ft: 1590
+  trailhead: west
+  mile: 2.89
+  caption: Same spot, turned the other way — central Maui isthmus under low clouds.
+- file: img_7993.jpg
+  taken_at: '2026-07-27T07:04:19-10:00'
+  lat: 20.79831
+  lon: -156.53851
+  elev_ft: 1580
+  trailhead: west
+  mile: 2.96
+  caption: The wind farm's gravel access road along the ridgeline.
+- file: img_7995.jpg
+  taken_at: '2026-07-27T07:18:43-10:00'
+  lat: 20.79367
+  lon: -156.54823
+  elev_ft: 1124
+  trailhead: west
+  mile: 3.94
+  caption: Heading back down the rocky ridge trail toward the coast.
 ---
 
 {{< summary.inline >}}
@@ -215,6 +256,21 @@ runs:
   </tr>
   {{ end }}
 </table>
+{{ end }}
+
+{{ with .Page.Params.photos }}
+<h2>Photos</h2>
+<div style="display:flex;flex-wrap:wrap;gap:16px;">
+  {{ range . }}
+  <figure style="width:280px;margin:0;">
+    <img src="images/photos/{{ .file }}" alt="{{ .caption }}" style="width:100%;height:auto;border-radius:4px;">
+    <figcaption style="font-size:0.85em;margin-top:4px;">
+      {{ .caption }}<br>
+      <span style="opacity:.6;">mile {{ .mile }} &middot; {{ .elev_ft | lang.FormatNumber 0 }} ft &middot; {{ dateFormat "3:04 PM" .taken_at }}</span>
+    </figcaption>
+  </figure>
+  {{ end }}
+</div>
 {{ end }}
 
 {{< /detail.inline >}}
