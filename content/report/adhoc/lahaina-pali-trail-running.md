@@ -149,7 +149,8 @@ runs:
 
 <p>The <a href="https://dlnr.hawaii.gov/dtoh/trails/na-ala-hele/">Nā Ala Hele</a> Lahaina Pali Trail crosses the West Maui Mountains between Māʻalaea and Ukumehame, {{ .Page.Params.trail.length_mi }} mi one-way with about {{ .Page.Params.trail.elev_gain_ft | lang.FormatNumber 0 }} ft of gain and {{ .Page.Params.trail.elev_loss_ft | lang.FormatNumber 0 }} ft of loss between trailheads, both near sea level. Ran as two out-and-back trips, one from each end, meeting near the same mid-trail high point — in aggregate, every mile of the trail covered.</p>
 
-<img src="/images/lahaina-pali/overview.png" alt="Lahaina Pali Trail overview map" style="width:100%;max-width:900px;">
+<img src="/images/lahaina-pali/overview-island.png" alt="Lahaina Pali Trail location on Maui" style="width:100%;max-width:900px;">
+<img src="/images/lahaina-pali/overview-trail.png" alt="Lahaina Pali Trail detail map" style="width:100%;max-width:900px;margin-top:4px;">
 
 <table>
   <tr><th>Trailhead</th><th>Access</th></tr>
