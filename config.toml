@@ -6,6 +6,10 @@ uglyurls      = false
 enableInlineShortcodes = true
 enableGitInfo = true
 ignoreLogs = ['warning-goldmark-raw-html']
+# Post-adjacent build tooling (e.g. content/report/adhoc/*/tools/) is source
+# for regenerating a post's data/images, not site content — keep it out of
+# the content pipeline and published output entirely.
+ignoreFiles = ['/tools/']
 
 [taxonomies]
   tag = "tags"
