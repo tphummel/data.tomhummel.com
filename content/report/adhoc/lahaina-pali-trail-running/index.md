@@ -308,16 +308,24 @@ photos:
 
 {{ with .Page.Params.photos }}
 <h2>Photos</h2>
-<div style="display:flex;flex-wrap:wrap;gap:16px;">
-  {{ range . }}
+{{ $lastDate := "" }}
+{{ range $i, $p := . }}
+  {{ $date := slicestr $p.taken_at 0 10 }}
+  {{ if ne $date $lastDate }}
+    {{ if gt $i 0 }}</div>{{ end }}
+    {{ $run := index (where $runs "date" $date) 0 }}
+    <h3>{{ dateFormat "Monday, January 2, 2006" $p.taken_at }}{{ with $run }} &mdash; {{ .name }}{{ end }}</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;">
+    {{ $lastDate = $date }}
+  {{ end }}
   <figure style="width:280px;margin:0;">
-    <img src="images/photos/{{ .file }}" alt="{{ .caption }}" loading="lazy" decoding="async" style="width:100%;height:auto;border-radius:4px;">
+    <img src="images/photos/{{ $p.file }}" alt="{{ $p.caption }}" loading="lazy" decoding="async" style="width:100%;height:auto;border-radius:4px;">
     <figcaption style="font-size:0.85em;margin-top:4px;">
-      {{ .caption }}<br>
-      <span style="opacity:.6;">mile {{ .mile }} &middot; {{ .elev_ft | lang.FormatNumber 0 }} ft &middot; {{ dateFormat "3:04 PM" .taken_at }}</span>
+      {{ $p.caption }}<br>
+      <span style="opacity:.6;">mile {{ $p.mile }} &middot; {{ $p.elev_ft | lang.FormatNumber 0 }} ft &middot; {{ dateFormat "3:04 PM" $p.taken_at }}</span>
     </figcaption>
   </figure>
-  {{ end }}
+{{ end }}
 </div>
 {{ end }}
 
