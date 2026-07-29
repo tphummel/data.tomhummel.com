@@ -4,7 +4,7 @@ date: '2026-07-27T00:00:00Z'
 tags: ["running", "trail", "maui", "hawaii"]
 trail:
   name: Lahaina Pali Trail
-  system: "Nā Ala Hele — Hawaiʻi Trail & Access System"
+  system: "Nā Ala Hele: Hawaiʻi Trail & Access System"
   length_mi: 4.8
   elev_gain_ft: 1630
   elev_loss_ft: 1407
@@ -149,7 +149,7 @@ photos:
   elev_ft: 193
   trailhead: east
   mile: 4.02
-  caption: Trail info post at the East trailhead — distance/elevation to the West Trailhead.
+  caption: Trail info post at the East trailhead, with distance and elevation to the West Trailhead.
 - file: img_7928.webp
   taken_at: '2026-07-25T06:30:23-10:00'
   lat: 20.8075
@@ -165,7 +165,7 @@ photos:
   elev_ft: 37
   trailhead: west
   mile: 0.0
-  caption: Historical plaques at the Ukumehame (West) trailhead — trail map and the road's carriage-era history.
+  caption: Historical plaques at the Ukumehame (West) trailhead, with a trail map and the road's carriage-era history.
 - file: img_7967.webp
   taken_at: '2026-07-27T06:07:26-10:00'
   lat: 20.79192
@@ -205,7 +205,7 @@ photos:
   elev_ft: 1590
   trailhead: west
   mile: 2.89
-  caption: Same spot, turned the other way — central Maui isthmus under low clouds.
+  caption: Same spot, turned the other way, looking at the central Maui isthmus under low clouds.
 - file: img_7993.webp
   taken_at: '2026-07-27T07:04:19-10:00'
   lat: 20.79831
@@ -227,7 +227,7 @@ photos:
 {{< summary.inline >}}
 {{ $runs := .Page.Params.runs }}
 {{ $miles := 0.0 }}{{ range $runs }}{{ $miles = add $miles .miles }}{{ end }}
-<p>Lahaina Pali Trail (Maui): <strong>complete</strong> — {{ len $runs }} runs, {{ $miles | lang.FormatNumber 1 }} mi, one from each trailhead, meeting near the mid-trail high point.</p>
+<p>Lahaina Pali Trail (Maui): <strong>complete</strong>, {{ len $runs }} runs, {{ $miles | lang.FormatNumber 1 }} mi, one from each trailhead, meeting near the mid-trail high point.</p>
 {{< /summary.inline >}}
 
 <!--more-->
@@ -236,7 +236,7 @@ photos:
 
 <h2>Lahaina Pali Trail</h2>
 
-<p>The <a href="https://dlnr.hawaii.gov/dtoh/trails/na-ala-hele/">Nā Ala Hele</a> Lahaina Pali Trail crosses the West Maui Mountains between Māʻalaea and Ukumehame, {{ .Page.Params.trail.length_mi }} mi one-way with about {{ .Page.Params.trail.elev_gain_ft | lang.FormatNumber 0 }} ft of gain and {{ .Page.Params.trail.elev_loss_ft | lang.FormatNumber 0 }} ft of loss between trailheads, both near sea level. Ran as two out-and-back trips, one from each end, meeting near the same mid-trail high point — in aggregate, every mile of the trail covered.</p>
+<p>The <a href="https://dlnr.hawaii.gov/dtoh/trails/na-ala-hele/">Nā Ala Hele</a> Lahaina Pali Trail crosses the West Maui Mountains between Māʻalaea and Ukumehame, {{ .Page.Params.trail.length_mi }} mi one-way with about {{ .Page.Params.trail.elev_gain_ft | lang.FormatNumber 0 }} ft of gain and {{ .Page.Params.trail.elev_loss_ft | lang.FormatNumber 0 }} ft of loss between trailheads, both near sea level. Ran as two out-and-back trips, one from each end, meeting near the same mid-trail high point. In aggregate, every mile of the trail is covered.</p>
 
 <img src="images/overview-island.webp" alt="Lahaina Pali Trail location on Maui" style="width:100%;max-width:900px;">
 <img src="images/overview-trail.webp" alt="Lahaina Pali Trail detail map" style="width:100%;max-width:900px;margin-top:4px;">
@@ -268,28 +268,22 @@ photos:
 </table>
 
 {{ range $runs }}
-<h3>{{ .name }} — {{ .date }}</h3>
+<h3>{{ .name }} &middot; {{ .date }}</h3>
 <img src="images/{{ .date }}-{{ .trailhead }}-elev.webp" alt="Elevation profile: {{ .name }}" style="width:100%;max-width:900px;">
 
 <table>
-  <tr>
-    <th>Miles</th><th>Time</th><th>Avg Pace</th><th>Elev Gain</th><th>Elev Loss</th>
-    <th>Elev Range</th><th>Avg HR</th><th>Max HR</th><th>Calories</th>
-  </tr>
-  <tr>
-    <td>{{ .miles }}</td>
-    <td>{{ .duration }}</td>
-    <td>{{ .avg_pace }}</td>
-    <td>{{ .elev_gain_ft | lang.FormatNumber 0 }} ft</td>
-    <td>{{ .elev_loss_ft | lang.FormatNumber 0 }} ft</td>
-    <td>{{ .elev_min_ft | lang.FormatNumber 0 }}&ndash;{{ .elev_max_ft | lang.FormatNumber 0 }} ft</td>
-    <td>{{ .avg_hr }} bpm</td>
-    <td>{{ .max_hr }} bpm</td>
-    <td>{{ .calories }}</td>
-  </tr>
+  <tr><th>Miles</th><td>{{ .miles }}</td></tr>
+  <tr><th>Time</th><td>{{ .duration }}</td></tr>
+  <tr><th>Avg Pace</th><td>{{ .avg_pace }}</td></tr>
+  <tr><th>Elev Gain</th><td>{{ .elev_gain_ft | lang.FormatNumber 0 }} ft</td></tr>
+  <tr><th>Elev Loss</th><td>{{ .elev_loss_ft | lang.FormatNumber 0 }} ft</td></tr>
+  <tr><th>Elev Range</th><td>{{ .elev_min_ft | lang.FormatNumber 0 }}&ndash;{{ .elev_max_ft | lang.FormatNumber 0 }} ft</td></tr>
+  <tr><th>Avg HR</th><td>{{ .avg_hr }} bpm</td></tr>
+  <tr><th>Max HR</th><td>{{ .max_hr }} bpm</td></tr>
+  <tr><th>Calories</th><td>{{ .calories }}</td></tr>
 </table>
 
-<p>Splits — <a href="https://connect.garmin.com/modern/activity/{{ .garmin_id }}">Garmin activity {{ .garmin_id }}</a>{{ with .notes }}. {{ . }}{{ end }}</p>
+<p>Splits: <a href="https://connect.garmin.com/modern/activity/{{ .garmin_id }}">Garmin activity {{ .garmin_id }}</a>{{ with .notes }}. {{ . }}{{ end }}</p>
 <table>
   <tr><th>Mile</th><th>Distance</th><th>Time</th><th>Pace</th><th>Avg HR</th><th>Max HR</th><th>Calories</th></tr>
   {{ range .laps }}
@@ -297,7 +291,7 @@ photos:
     <td>{{ .mile }}</td>
     <td>{{ .distance_mi }} mi</td>
     <td>{{ .time }}</td>
-    <td>{{ .pace | default "—" }}</td>
+    <td>{{ .pace | default "N/A" }}</td>
     <td>{{ .avg_hr }} bpm</td>
     <td>{{ .max_hr }} bpm</td>
     <td>{{ .calories }}</td>
@@ -314,7 +308,7 @@ photos:
   {{ if ne $date $lastDate }}
     {{ if gt $i 0 }}</div>{{ end }}
     {{ $run := index (where $runs "date" $date) 0 }}
-    <h3>{{ dateFormat "Monday, January 2, 2006" $p.taken_at }}{{ with $run }} &mdash; {{ .name }}{{ end }}</h3>
+    <h3>{{ dateFormat "Monday, January 2, 2006" $p.taken_at }}{{ with $run }}: {{ .name }}{{ end }}</h3>
     <div style="display:flex;flex-wrap:wrap;gap:16px;">
     {{ $lastDate = $date }}
   {{ end }}
