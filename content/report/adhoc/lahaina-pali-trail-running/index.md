@@ -134,6 +134,38 @@ runs:
     calories: 31
   notes: ''
 photos:
+- file: img_7923.webp
+  taken_at: '2026-07-25T06:27:38-10:00'
+  lat: 20.80758
+  lon: -156.5128
+  elev_ft: 192
+  trailhead: east
+  mile: 4.02
+  caption: Māʻalaea (East) trailhead sign, taken just after finishing this run.
+- file: img_7924.webp
+  taken_at: '2026-07-25T06:27:55-10:00'
+  lat: 20.80748
+  lon: -156.51288
+  elev_ft: 193
+  trailhead: east
+  mile: 4.02
+  caption: Trail info post at the East trailhead — distance/elevation to the West Trailhead.
+- file: img_7928.webp
+  taken_at: '2026-07-25T06:30:23-10:00'
+  lat: 20.8075
+  lon: -156.51286
+  elev_ft: 195
+  trailhead: east
+  mile: 4.02
+  caption: Looking up the trail from the East trailhead parking area, ocean behind.
+- file: img_7966.webp
+  taken_at: '2026-07-27T06:07:21-10:00'
+  lat: 20.79189
+  lon: -156.56375
+  elev_ft: 37
+  trailhead: west
+  mile: 0.0
+  caption: Historical plaques at the Ukumehame (West) trailhead — trail map and the road's carriage-era history.
 - file: img_7967.webp
   taken_at: '2026-07-27T06:07:26-10:00'
   lat: 20.79192
@@ -142,6 +174,22 @@ photos:
   trailhead: west
   mile: 0.0
   caption: Trailhead sign at the Ukumehame (West) end, right at the start.
+- file: img_7982.webp
+  taken_at: '2026-07-27T06:55:20-10:00'
+  lat: 20.79835
+  lon: -156.53847
+  elev_ft: 1575
+  trailhead: west
+  mile: 2.36
+  caption: Kaheawa Pastures Wind Farm information sign along the access road, turbines in the mist.
+- file: img_7984.webp
+  taken_at: '2026-07-27T06:57:52-10:00'
+  lat: 20.80125
+  lon: -156.53772
+  elev_ft: 1565
+  trailhead: west
+  mile: 2.57
+  caption: Manawainui Gulch trail marker, with a turbine visible on the ridge above.
 - file: img_7991.webp
   taken_at: '2026-07-27T07:03:20-10:00'
   lat: 20.79928
