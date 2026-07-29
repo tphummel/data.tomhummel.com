@@ -56,6 +56,8 @@ by_state:
   - state: Hawaii
     completed: true
     date: 2002-12-15
+    date2: 2026
+    date2_link: /report/adhoc/lahaina-pali-trail-running/
     notes: Maui
 
   - state: Idaho
@@ -275,7 +277,7 @@ by_state:
     <tr>
       <td>{{ $state.state }}</td>
       <td>{{ cond $state.completed "✅" "❌" }}</td>
-      <td>{{ $state.date }}</td>
+      <td>{{ $state.date }}{{ with $state.date2 }}, <a href="{{ relref $ $state.date2_link }}">{{ . }}</a>{{ end }}</td>
       <td>{{ $state.notes | default "-" }}</td>
     </tr>
   {{ end }}
