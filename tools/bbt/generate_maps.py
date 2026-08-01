@@ -52,7 +52,7 @@ SEGMENT_SPLITS = [
     ("Danielson Ranch",      34.125433, -118.994933),  # Danielson Ranch on Big Sycamore Canyon, south end of pavement
     ("Mishe Mokwa TH",       34.114317, -118.918183),  # Yerba Buena Rd at Mishe Mokwa Trailhead
     ("Encinal Canyon Rd",    34.085050, -118.861383),  # Trancas Canyon Trail at Encinal Canyon Rd
-    ("Latigo Canyon Rd",     34.0820, -118.7910),
+    ("Latigo Canyon Rd",     34.077917, -118.793900),  # Newton Canyon Trail at Latigo Canyon Rd
     ("Piuma TH",             34.0799, -118.7037),
     ("Saddle Peak",          34.0819, -118.6441),
     ("Trippet Ranch",        34.0934, -118.5878),

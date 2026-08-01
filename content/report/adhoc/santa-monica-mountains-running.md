@@ -57,7 +57,7 @@ bbt_segments:
   elev_gain_ft:
 - name: "Segment 4: Encinal Canyon Road to Latigo Canyon Road"
   slug: 04-encinal-to-latigo
-  miles_approx: 4.0
+  miles_approx: 7.1
   miles_covered: 1.08
   touched: true
   complete: false
@@ -78,7 +78,7 @@ bbt_segments:
   elev_gain_ft: 211
 - name: "Segment 5: Latigo Canyon Road to Piuma TH"
   slug: 05-latigo-to-piuma
-  miles_approx: 8.7
+  miles_approx: 9.7
   miles_covered: 3.13
   touched: true
   complete: false
