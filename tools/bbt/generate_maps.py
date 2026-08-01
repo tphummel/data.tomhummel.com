@@ -48,10 +48,10 @@ COLOR_UNCOVERED = "#0066cc" # blue   — miles remaining
 # Segments 1-2 share Danielson Ranch; 2-3 share Mishe Mokwa; 5-6 share Piuma; 6-7 share Saddle Peak.
 # We use a single linear split for map purposes, treating each shared trailhead once.
 SEGMENT_SPLITS = [
-    ("Ray Miller TH",        34.0788, -119.0255),  # west terminus
-    ("Danielson Ranch",      34.0753, -118.9200),
-    ("Mishe Mokwa TH",       34.0805, -118.8505),
-    ("Encinal Canyon Rd",    34.0815, -118.8200),
+    ("Ray Miller TH",        34.086333, -119.036700),  # west terminus
+    ("Danielson Ranch",      34.125433, -118.994933),  # Danielson Ranch on Big Sycamore Canyon, south end of pavement
+    ("Mishe Mokwa TH",       34.114317, -118.918183),  # Yerba Buena Rd at Mishe Mokwa Trailhead
+    ("Encinal Canyon Rd",    34.085050, -118.861383),  # Trancas Canyon Trail at Encinal Canyon Rd
     ("Latigo Canyon Rd",     34.0820, -118.7910),
     ("Piuma TH",             34.0799, -118.7037),
     ("Saddle Peak",          34.0819, -118.6441),
@@ -284,7 +284,11 @@ def main():
 
     # --- Per-segment ---
     for i, (seg_coords, slug) in enumerate(zip(segments, SEGMENT_SLUGS)):
-        print(f"\nRendering {slug} ({len(seg_coords)} pts)")
+        seg_len_mi = sum(
+            haversine_m(*seg_coords[j], *seg_coords[j + 1])
+            for j in range(len(seg_coords) - 1)
+        ) / 1609.34
+        print(f"\nRendering {slug} ({len(seg_coords)} pts, {seg_len_mi:.2f} mi)")
         lines = coverage_lines(seg_coords, all_gpx)
         render_map(lines, OUT_DIR / f"{slug}.png", width=900, height=500)
 

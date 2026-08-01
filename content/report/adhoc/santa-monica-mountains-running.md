@@ -5,7 +5,7 @@ tags: ["running", "checklist", "meta"]
 bbt_segments:
 - name: "Segment 1: Ray Miller TH to Danielson Ranch"
   slug: 01-ray-miller-to-danielson
-  miles_approx: 16.6
+  miles_approx: 7.9
   miles_covered: 0.0
   direction: west terminus
   touched: false
@@ -23,7 +23,7 @@ bbt_segments:
   elev_gain_ft:
 - name: "Segment 2: Mishe Mokwa TH to Danielson Ranch"
   slug: 02-mishe-mokwa-to-danielson
-  miles_approx: 9.1
+  miles_approx: 8.4
   miles_covered: 0.0
   touched: false
   complete: false
@@ -40,7 +40,7 @@ bbt_segments:
   elev_gain_ft:
 - name: "Segment 3: Mishe Mokwa TH to Encinal Canyon Road"
   slug: 03-mishe-mokwa-to-encinal
-  miles_approx: 2.9
+  miles_approx: 10.2
   miles_covered: 0.0
   touched: false
   complete: false
