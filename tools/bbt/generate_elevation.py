@@ -201,6 +201,7 @@ def make_chart(bbt, seg_idxs, covered_set, elev_data, out_path, thumb=False):
     else:
         ax.set_xlabel("miles", fontsize=8)
         ax.set_ylabel("elevation (ft)", fontsize=8)
+        ax.set_xticks(range(0, math.ceil(dists[-1]) + 1))
         ax.tick_params(labelsize=7)
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
