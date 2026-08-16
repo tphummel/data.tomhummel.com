@@ -34,15 +34,15 @@ BBT_THRESH_M = 50
 EXCLUDED_WAY_IDS = {13340743, 122087883, 204589613, 1216972055}
 
 SEGMENT_SPLITS = [
-    ("Ray Miller TH",        34.0788, -119.0255),
-    ("Danielson Ranch",      34.0753, -118.9200),
-    ("Mishe Mokwa TH",       34.0805, -118.8505),
-    ("Encinal Canyon Rd",    34.0815, -118.8200),
-    ("Latigo Canyon Rd",     34.0820, -118.7910),
+    ("Ray Miller TH",        34.086333, -119.036700),  # west terminus
+    ("Danielson Ranch",      34.125433, -118.994933),  # Danielson Ranch on Big Sycamore Canyon, south end of pavement
+    ("Mishe Mokwa TH",       34.114317, -118.918183),  # Yerba Buena Rd at Mishe Mokwa Trailhead
+    ("Encinal Canyon Rd",    34.085050, -118.861383),  # Trancas Canyon Trail at Encinal Canyon Rd
+    ("Latigo Canyon Rd",     34.077917, -118.793900),  # Newton Canyon Trail at Latigo Canyon Rd
     ("Piuma TH",             34.0799, -118.7037),
     ("Saddle Peak",          34.0819, -118.6441),
     ("Trippet Ranch",        34.0934, -118.5878),
-    ("Will Rogers SHP",      34.0540, -118.5245),
+    ("Will Rogers SHP",      34.0540, -118.5245),  # east terminus
 ]
 
 SEGMENT_SLUGS = [

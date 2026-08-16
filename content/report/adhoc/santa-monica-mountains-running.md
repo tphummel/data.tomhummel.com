@@ -58,7 +58,7 @@ bbt_segments:
 - name: "Segment 4: Encinal Canyon Road to Latigo Canyon Road"
   slug: 04-encinal-to-latigo
   miles_approx: 7.1
-  miles_covered: 1.08
+  miles_covered: 0.03
   touched: true
   complete: false
   notes: 2010 run clipped the eastern edge past Latigo Canyon Rd. Passes through Trancas Canyon with first perennial water on the BBT.
@@ -73,13 +73,13 @@ bbt_segments:
   runs:
   - garmin_id: 21534025
     date: &id001 2010-01-02
-    miles_this_seg: 1.08
-    miles_new: 1.08
-  elev_gain_ft: 211
+    miles_this_seg: 0.03
+    miles_new: 0.03
+  elev_gain_ft: 0
 - name: "Segment 5: Latigo Canyon Road to Piuma TH"
   slug: 05-latigo-to-piuma
   miles_approx: 9.7
-  miles_covered: 3.13
+  miles_covered: 4.19
   touched: true
   complete: false
   notes: 2010 run covered the Piuma-to-Latigo section. Castro Crest area. Total 4.21 mi split across segs 4/5. Passes Newton Canyon and Solstice Canyon watershed.
@@ -94,9 +94,9 @@ bbt_segments:
   runs:
   - garmin_id: 21534025
     date: *id001
-    miles_this_seg: 3.13
-    miles_new: 3.13
-  elev_gain_ft: 621
+    miles_this_seg: 4.19
+    miles_new: 4.19
+  elev_gain_ft: 832
 - name: "Segment 6: Saddle Peak to Piuma TH"
   slug: 06-saddle-peak-to-piuma
   miles_approx: 7.2
