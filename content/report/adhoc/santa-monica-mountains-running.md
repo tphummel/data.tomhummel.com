@@ -79,7 +79,7 @@ bbt_segments:
 - name: "Segment 5: Latigo Canyon Road to Piuma TH"
   slug: 05-latigo-to-piuma
   miles_approx: 9.7
-  miles_covered: 4.19
+  miles_covered: 6.89
   touched: true
   complete: false
   notes: 2010 run covered the Piuma-to-Latigo section. Castro Crest area. Total 4.21 mi split across segs 4/5. Passes Newton Canyon and Solstice Canyon watershed.
@@ -96,11 +96,15 @@ bbt_segments:
     date: *id001
     miles_this_seg: 4.19
     miles_new: 4.19
-  elev_gain_ft: 832
+  - garmin_id: 23999963929
+    date: '2026-08-16'
+    miles_this_seg: 2.7
+    miles_new: 2.7
+  elev_gain_ft: 2433
 - name: "Segment 6: Saddle Peak to Piuma TH"
   slug: 06-saddle-peak-to-piuma
   miles_approx: 7.2
-  miles_covered: 5.28
+  miles_covered: 5.3
   touched: true
   complete: false
   notes: Lois Ewen Overlook and Saddle Peak summit. Descends via sandstone outcrops to Malibu Canyon. 2026 runs cover the Saddle Peak descent to within ~1.9 mi of Piuma TH.
@@ -121,6 +125,10 @@ bbt_segments:
     date: '2026-07-12'
     miles_this_seg: 5.28
     miles_new: 5.27
+  - garmin_id: 23999963929
+    date: '2026-08-16'
+    miles_this_seg: 0.02
+    miles_new: 0.02
   elev_gain_ft: 371
 - name: "Segment 7: Saddle Peak to Trippet Ranch"
   slug: 07-saddle-peak-to-trippet
@@ -500,6 +508,15 @@ runs:
   garmin_id: 23572460073
   bbt: true
   notes: Out-and-back from Saddle Peak Rd into Malibu Canyon. Confirmed 5.27 mi net-new on Segment 6, extending coverage west from Saddle Peak to within ~1.9 mi of Piuma TH.
+- date: '2026-08-16'
+  name: BBT - Piuma to Puerco Cyn Rd
+  area: bbt
+  miles: 5.5
+  elev_gain_ft: 1441
+  elev_loss_ft: 1446
+  garmin_id: 23999963929
+  bbt: true
+  notes: Confirmed BBT. Extended Segment 5 coverage 2.7 mi net-new west from Piuma TH, plus a 0.02 mi clip of Segment 6 at the Piuma boundary.
 ---
 
 {{< summary.inline >}}
