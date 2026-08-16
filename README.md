@@ -1,27 +1,22 @@
 # data.tomhummel.com
-[![Build Status](https://travis-ci.org/tphummel/data.tomhummel.com.svg?branch=master)](https://travis-ci.org/tphummel/data.tomhummel.com)
 
-## what? why?
+Code and content behind [data.tomhummel.com](https://data.tomhummel.com) — personal data publishing and analysis.
 
-This repo is the code and content behind [data.tomhummel.com](https://data.tomhummel.com). This blog exists to publish data of and adjacent to [Tom Hummel](https://tomhummel.com). And more generally, it exists to publish techniques for exfiltrating and analyzing personal data.
+## Setup
 
-## setup
-
-1. download [Hugo 0.34](https://github.com/gohugoio/hugo/releases/download/v0.34/hugo_0.34_macOS-64bit.tar.gz)
-1. expand the downloaded tar.gz
-1. move it to a directory in your $PATH
+Install [Hugo](https://gohugo.io/installation/) (tested with v0.148+).
 
 ```
 git clone git@github.com:tphummel/data.tomhummel.com.git
 ```
 
-## dev
+## Dev
 
 ```
 hugo server -D -w
 ```
 
-## publish
+## Publish
 
 ```
 rm -rf public/
