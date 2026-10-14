@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nomie 5 Daily Counts</title>
+  <link rel="stylesheet" href="/water.light.min.css">
+  <style>
+    #out { overflow-x: auto; }
+    th, td { white-space: nowrap; }
+    td.n, th.n { text-align: right; }
+    td.zero { opacity: 0.25; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Nomie 5 Daily Counts</h1>
+  <p>Select a Nomie 5 JSON export. Counts of events per type (#tracker, @person, +context) for each day. Everything runs in your browser; nothing is uploaded.</p>
+  <input type="file" id="file" accept=".json,application/json">
+  <p id="msg"></p>
+  <div id="out"></div>
+</div>
+<script>
+(function () {
+  var TAG = /(^|[^\w])([#@+])([A-Za-z0-9_\-]+)/g;
+
+  // Find every array of nomie-style note objects anywhere in the export.
+  function findNotes(node, acc) {
+    if (Array.isArray(node)) {
+      node.forEach(function (x) {
+        if (x && typeof x === 'object' && typeof x.note === 'string' && (x.end || x.date)) acc.push(x);
+        else findNotes(x, acc);
+      });
+    } else if (node && typeof node === 'object') {
+      Object.keys(node).forEach(function (k) { findNotes(node[k], acc); });
+    }
+    return acc;
+  }
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  // Day in the timezone the event was logged in (offset = getTimezoneOffset minutes), else UTC.
+  function dayOf(ev) {
+    var t = new Date(ev.end || ev.date).getTime();
+    if (isNaN(t)) return null;
+    if (typeof ev.offset === 'number') t -= ev.offset * 60000;
+    var d = new Date(t);
+    return d.getUTCFullYear() + '-' + pad(d.getUTCMonth() + 1) + '-' + pad(d.getUTCDate());
+  }
+
+  function analyze(json) {
+    var events = findNotes(json, []);
+    var days = {}, types = {}, skipped = 0;
+    events.forEach(function (ev) {
+      var day = dayOf(ev);
+      if (!day) { skipped++; return; }
+      var m, seen = {};
+      TAG.lastIndex = 0;
+      while ((m = TAG.exec(ev.note))) {
+        var key = m[2] + m[3].toLowerCase();
+        if (seen[key]) continue; // one count per event per type
+        seen[key] = 1;
+        types[key] = (types[key] || 0) + 1;
+        (days[day] = days[day] || {})[key] = (days[day][key] || 0) + 1;
+      }
+    });
+    return { events: events.length, skipped: skipped, days: days, types: types };
+  }
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  function render(r) {
+    var cols = Object.keys(r.types).sort(function (a, b) { return r.types[b] - r.types[a] || (a < b ? -1 : 1); });
+    var days = Object.keys(r.days).sort().reverse();
+    var h = '<table><thead><tr><th>Day</th>' +
+      cols.map(function (c) { return '<th class="n">' + esc(c) + '</th>'; }).join('') + '</tr></thead><tbody>';
+    days.forEach(function (d) {
+      h += '<tr><td>' + d + '</td>' + cols.map(function (c) {
+        var v = r.days[d][c] || 0;
+        return '<td class="n' + (v ? '' : ' zero') + '">' + v + '</td>';
+      }).join('') + '</tr>';
+    });
+    h += '</tbody></table>';
+    document.getElementById('out').innerHTML = days.length ? h : '';
+    document.getElementById('msg').textContent = r.events + ' events, ' + cols.length + ' types, ' + days.length + ' days' +
+      (r.skipped ? ' (' + r.skipped + ' skipped: bad date)' : '') + (days.length ? '' : ' - no tagged events found');
+  }
+
+  document.getElementById('file').addEventListener('change', function (e) {
+    var f = e.target.files[0];
+    if (!f) return;
+    var rd = new FileReader();
+    rd.onload = function () {
+      try { render(analyze(JSON.parse(rd.result))); }
+      catch (err) { document.getElementById('out').innerHTML = ''; document.getElementById('msg').textContent = 'Could not read file: ' + err.message; }
+    };
+    rd.readAsText(f);
+  });
+})();
+</script>
+</body>
+</html>
