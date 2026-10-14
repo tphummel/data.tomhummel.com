@@ -10,6 +10,8 @@
     th, td { white-space: nowrap; }
     td.n, th.n { text-align: right; }
     td.zero { opacity: 0.25; }
+    tr.week td, tr.week th { background: rgba(127,127,127,0.12); font-weight: 600; }
+    tr.month td, tr.month th { background: rgba(127,127,127,0.25); font-weight: 700; }
   </style>
 </head>
 <body>
@@ -80,13 +82,37 @@
       Object.keys(r.days[d]).forEach(function (k) { totals[k] = (totals[k] || 0) + r.days[d][k]; });
     });
     var cols = Object.keys(totals).sort(function (a, b) { return totals[b] - totals[a] || (a < b ? -1 : 1); });
-    var h = '<table><thead><tr><th>Day</th>' +
-      cols.map(function (c) { return '<th class="n">' + esc(c) + '</th>'; }).join('') + '</tr></thead><tbody>';
-    days.forEach(function (d) {
-      h += '<tr><td>' + d + '</td>' + cols.map(function (c) {
-        var v = r.days[d][c] || 0;
+    // Monday of the week containing a YYYY-MM-DD day (weeks run Mon-Sun).
+    function weekOf(d) {
+      var t = new Date(d + 'T00:00:00Z');
+      t.setUTCDate(t.getUTCDate() - ((t.getUTCDay() + 6) % 7));
+      return t.getUTCFullYear() + '-' + pad(t.getUTCMonth() + 1) + '-' + pad(t.getUTCDate());
+    }
+    function sum(list) {
+      var t = {};
+      list.forEach(function (d) { cols.forEach(function (c) { t[c] = (t[c] || 0) + (r.days[d][c] || 0); }); });
+      return t;
+    }
+    function row(cls, label, counts) {
+      return '<tr' + (cls ? ' class="' + cls + '"' : '') + '><td>' + label + '</td>' + cols.map(function (c) {
+        var v = counts[c] || 0;
         return '<td class="n' + (v ? '' : ' zero') + '">' + v + '</td>';
       }).join('') + '</tr>';
+    }
+    var byMonth = {}, byWeek = {};
+    days.forEach(function (d) {
+      (byMonth[d.slice(0, 7)] = byMonth[d.slice(0, 7)] || []).push(d);
+      (byWeek[weekOf(d)] = byWeek[weekOf(d)] || []).push(d);
+    });
+    // Newest first: a period's total row sits above its first (newest) day.
+    var h = '<table><thead><tr><th>Day</th>' +
+      cols.map(function (c) { return '<th class="n">' + esc(c) + '</th>'; }).join('') + '</tr></thead><tbody>';
+    var lastMonth = null, lastWeek = null;
+    days.forEach(function (d) {
+      var m = d.slice(0, 7), w = weekOf(d);
+      if (m !== lastMonth) { h += row('month', 'Month ' + m, sum(byMonth[m])); lastMonth = m; }
+      if (w !== lastWeek) { h += row('week', 'Week of ' + w, sum(byWeek[w])); lastWeek = w; }
+      h += row('', d, r.days[d]);
     });
     h += '</tbody></table>';
     document.getElementById('out').innerHTML = days.length ? h : '';
