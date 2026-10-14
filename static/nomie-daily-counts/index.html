@@ -17,6 +17,7 @@
   <h1>Nomie 5 Daily Counts</h1>
   <p>Select a Nomie 5 JSON export. Counts of events per type (#tracker, @person, +context) for each day. Everything runs in your browser; nothing is uploaded.</p>
   <input type="file" id="file" accept=".json,application/json">
+  <p><label>Year <select id="year" disabled></select></label></p>
   <p id="msg"></p>
   <div id="out"></div>
 </div>
@@ -69,9 +70,16 @@
 
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
-  function render(r) {
-    var cols = Object.keys(r.types).sort(function (a, b) { return r.types[b] - r.types[a] || (a < b ? -1 : 1); });
-    var days = Object.keys(r.days).sort().reverse();
+  var result = null;
+
+  function render() {
+    var r = result, yr = document.getElementById('year').value;
+    var days = Object.keys(r.days).filter(function (d) { return yr === 'all' || d.slice(0, 4) === yr; }).sort().reverse();
+    var totals = {};
+    days.forEach(function (d) {
+      Object.keys(r.days[d]).forEach(function (k) { totals[k] = (totals[k] || 0) + r.days[d][k]; });
+    });
+    var cols = Object.keys(totals).sort(function (a, b) { return totals[b] - totals[a] || (a < b ? -1 : 1); });
     var h = '<table><thead><tr><th>Day</th>' +
       cols.map(function (c) { return '<th class="n">' + esc(c) + '</th>'; }).join('') + '</tr></thead><tbody>';
     days.forEach(function (d) {
@@ -82,16 +90,33 @@
     });
     h += '</tbody></table>';
     document.getElementById('out').innerHTML = days.length ? h : '';
-    document.getElementById('msg').textContent = r.events + ' events, ' + cols.length + ' types, ' + days.length + ' days' +
+    document.getElementById('msg').textContent = r.events + ' events in file; showing ' + cols.length + ' types, ' + days.length + ' days' +
       (r.skipped ? ' (' + r.skipped + ' skipped: bad date)' : '') + (days.length ? '' : ' - no tagged events found');
   }
+
+  function load(r) {
+    result = r;
+    var years = {};
+    Object.keys(r.days).forEach(function (d) { years[d.slice(0, 4)] = 1; });
+    var list = Object.keys(years).sort().reverse();
+    var current = String(new Date().getFullYear());
+    var sel = document.getElementById('year');
+    sel.innerHTML = list.concat('all').map(function (y) {
+      return '<option value="' + y + '">' + (y === 'all' ? 'All years' : y) + '</option>';
+    }).join('');
+    sel.value = years[current] ? current : (list[0] || 'all');
+    sel.disabled = false;
+    render();
+  }
+
+  document.getElementById('year').addEventListener('change', render);
 
   document.getElementById('file').addEventListener('change', function (e) {
     var f = e.target.files[0];
     if (!f) return;
     var rd = new FileReader();
     rd.onload = function () {
-      try { render(analyze(JSON.parse(rd.result))); }
+      try { load(analyze(JSON.parse(rd.result))); }
       catch (err) { document.getElementById('out').innerHTML = ''; document.getElementById('msg').textContent = 'Could not read file: ' + err.message; }
     };
     rd.readAsText(f);
