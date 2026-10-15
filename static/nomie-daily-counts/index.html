@@ -6,12 +6,21 @@
   <title>Nomie 5 Daily Counts</title>
   <link rel="stylesheet" href="/water.light.min.css">
   <style>
-    #out { overflow-x: auto; }
-    th, td { white-space: nowrap; }
-    td.n, th.n { text-align: right; }
-    td.zero { opacity: 0.25; }
-    tr.week td, tr.week th { background: rgba(127,127,127,0.12); font-weight: 600; }
-    tr.month td, tr.month th { background: rgba(127,127,127,0.25); font-weight: 700; }
+    /* water.css forces table-layout:fixed; width:100%, which crushes wide tables. */
+    #out { overflow: auto; max-height: 80vh; margin-bottom: 1rem; }
+    #out table { table-layout: auto; width: max-content; min-width: 100%; margin: 0; font-size: 0.8rem; border-collapse: separate; border-spacing: 0; }
+    #out th, #out td { white-space: nowrap; padding: 3px 6px; text-align: right; background: var(--background-body, #fff); }
+    #out thead th { position: sticky; top: 0; z-index: 2; vertical-align: bottom; height: 9rem; }
+    #out thead th.n span { writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block; }
+    #out th:first-child, #out td:first-child { position: sticky; left: 0; z-index: 1; text-align: left; border-right: 1px solid var(--border, #dbdbdb); }
+    #out thead th:first-child { z-index: 3; }
+    #out td.zero { color: rgba(127,127,127,0.5); font-weight: 400; }
+    #out tr.week td { background: #ececec; font-weight: 600; }
+    #out tr.month td { background: #d8d8d8; font-weight: 700; }
+    @media (prefers-color-scheme: dark) {
+      #out tr.week td { background: #2a2a2a; }
+      #out tr.month td { background: #3a3a3a; }
+    }
   </style>
 </head>
 <body>
@@ -19,6 +28,7 @@
   <h1>Nomie 5 Daily Counts</h1>
   <p>Select a Nomie 5 JSON export. Counts of events per type (#tracker, @person, +context) for each day. Everything runs in your browser; nothing is uploaded.</p>
   <input type="file" id="file" accept=".json,application/json">
+  <p><small>Rows: <b>Mo</b> = month total, <b>Wk</b> = week total (Mon-Sun, labeled by Monday). Scroll the table sideways for more types.</small></p>
   <p><label>Year <select id="year" disabled></select></label></p>
   <p id="msg"></p>
   <div id="out"></div>
@@ -106,12 +116,12 @@
     });
     // Newest first: a period's total row sits above its first (newest) day.
     var h = '<table><thead><tr><th>Day</th>' +
-      cols.map(function (c) { return '<th class="n">' + esc(c) + '</th>'; }).join('') + '</tr></thead><tbody>';
+      cols.map(function (c) { return '<th class="n"><span>' + esc(c) + '</span></th>'; }).join('') + '</tr></thead><tbody>';
     var lastMonth = null, lastWeek = null;
     days.forEach(function (d) {
       var m = d.slice(0, 7), w = weekOf(d);
-      if (m !== lastMonth) { h += row('month', 'Month ' + m, sum(byMonth[m])); lastMonth = m; }
-      if (w !== lastWeek) { h += row('week', 'Week of ' + w, sum(byWeek[w])); lastWeek = w; }
+      if (m !== lastMonth) { h += row('month', 'Mo ' + m, sum(byMonth[m])); lastMonth = m; }
+      if (w !== lastWeek) { h += row('week', 'Wk ' + w, sum(byWeek[w])); lastWeek = w; }
       h += row('', d, r.days[d]);
     });
     h += '</tbody></table>';
