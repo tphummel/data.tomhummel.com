@@ -4,7 +4,7 @@ date: 2026-10-14T09:00:00-07:00
 tags: ["data-exfil", "analysis-recipe"]
 ---
 
-Count how often you logged each [Nomie 5](https://nomie.app) tracker, per day, week and month.
+Count how often you logged each [Nomie 5](https://nomie5.pages.dev/) tracker, per day, week and month.
 
 <!--more-->
 
