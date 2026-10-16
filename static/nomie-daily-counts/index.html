@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nomie 5 Daily Counts</title>
+  <link rel="stylesheet" href="/water.light.min.css">
+  <style>
+    /* water.css forces table-layout:fixed; width:100%, which crushes wide tables. */
+    #out { overflow: auto; max-height: 80vh; margin-bottom: 1rem; }
+    #out table { table-layout: auto; width: max-content; min-width: 100%; margin: 0; font-size: 0.8rem; border-collapse: separate; border-spacing: 0; }
+    #out th, #out td { white-space: nowrap; padding: 3px 6px; text-align: right; background: var(--background-body, #fff); }
+    #out thead th { position: sticky; top: 0; z-index: 2; vertical-align: bottom; height: 9rem; }
+    #out thead th.n span { writing-mode: vertical-rl; transform: rotate(180deg); display: inline-block; }
+    #out th:first-child, #out td:first-child { position: sticky; left: 0; z-index: 1; text-align: left; border-right: 1px solid var(--border, #dbdbdb); }
+    #out thead th:first-child { z-index: 3; }
+    #out td.zero { color: rgba(127,127,127,0.5); font-weight: 400; }
+    #out tr.week td { background: #f5f5f5; font-weight: 600; }
+    #out tr.month td { background: #e8e8e8; font-weight: 700; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Nomie 5 Daily Counts</h1>
+  <p>Select a Nomie 5 JSON export. Counts of events per type (#tracker, @person, +context) for each day. Everything runs in your browser; nothing is uploaded.</p>
+  <input type="file" id="file" accept=".json,application/json">
+  <p><small>Rows: <b>Mo</b> = month total, <b>Wk</b> = week total (Mon-Sun, labeled by Monday). Scroll the table sideways for more types.</small></p>
+  <p><label>Year <select id="year" disabled></select></label></p>
+  <p id="msg"></p>
+  <div id="out"></div>
+</div>
+<script>
+(function () {
+  var TAG = /(^|[^\w])([#@+])([A-Za-z0-9_\-]+)/g;
+
+  // Find every array of nomie-style note objects anywhere in the export.
+  function findNotes(node, acc) {
+    if (Array.isArray(node)) {
+      node.forEach(function (x) {
+        if (x && typeof x === 'object' && typeof x.note === 'string' && (x.end || x.date)) acc.push(x);
+        else findNotes(x, acc);
+      });
+    } else if (node && typeof node === 'object') {
+      Object.keys(node).forEach(function (k) { findNotes(node[k], acc); });
+    }
+    return acc;
+  }
+
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+  // Day in the timezone the event was logged in (offset = getTimezoneOffset minutes), else UTC.
+  function dayOf(ev) {
+    var t = new Date(ev.end || ev.date).getTime();
+    if (isNaN(t)) return null;
+    if (typeof ev.offset === 'number') t -= ev.offset * 60000;
+    var d = new Date(t);
+    return d.getUTCFullYear() + '-' + pad(d.getUTCMonth() + 1) + '-' + pad(d.getUTCDate());
+  }
+
+  function analyze(json) {
+    var events = findNotes(json, []);
+    var days = {}, types = {}, skipped = 0;
+    events.forEach(function (ev) {
+      var day = dayOf(ev);
+      if (!day) { skipped++; return; }
+      var m, seen = {};
+      TAG.lastIndex = 0;
+      while ((m = TAG.exec(ev.note))) {
+        var key = m[2] + m[3].toLowerCase();
+        if (seen[key]) continue; // one count per event per type
+        seen[key] = 1;
+        types[key] = (types[key] || 0) + 1;
+        (days[day] = days[day] || {})[key] = (days[day][key] || 0) + 1;
+      }
+    });
+    return { events: events.length, skipped: skipped, days: days, types: types };
+  }
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  var result = null;
+
+  function render() {
+    var r = result, yr = document.getElementById('year').value;
+    var days = Object.keys(r.days).filter(function (d) { return yr === 'all' || d.slice(0, 4) === yr; }).sort().reverse();
+    var totals = {};
+    days.forEach(function (d) {
+      Object.keys(r.days[d]).forEach(function (k) { totals[k] = (totals[k] || 0) + r.days[d][k]; });
+    });
+    var cols = Object.keys(totals).sort(function (a, b) { return totals[b] - totals[a] || (a < b ? -1 : 1); });
+    // Monday of the week containing a YYYY-MM-DD day (weeks run Mon-Sun).
+    function weekOf(d) {
+      var t = new Date(d + 'T00:00:00Z');
+      t.setUTCDate(t.getUTCDate() - ((t.getUTCDay() + 6) % 7));
+      return t.getUTCFullYear() + '-' + pad(t.getUTCMonth() + 1) + '-' + pad(t.getUTCDate());
+    }
+    function sum(list) {
+      var t = {};
+      list.forEach(function (d) { cols.forEach(function (c) { t[c] = (t[c] || 0) + (r.days[d][c] || 0); }); });
+      return t;
+    }
+    function row(cls, label, counts) {
+      return '<tr' + (cls ? ' class="' + cls + '"' : '') + '><td>' + label + '</td>' + cols.map(function (c) {
+        var v = counts[c] || 0;
+        return '<td class="n' + (v ? '' : ' zero') + '">' + v + '</td>';
+      }).join('') + '</tr>';
+    }
+    var byMonth = {}, byWeek = {};
+    days.forEach(function (d) {
+      (byMonth[d.slice(0, 7)] = byMonth[d.slice(0, 7)] || []).push(d);
+      (byWeek[weekOf(d)] = byWeek[weekOf(d)] || []).push(d);
+    });
+    // Newest first: a period's total row sits above its first (newest) day.
+    var h = '<table><thead><tr><th>Day</th>' +
+      cols.map(function (c) { return '<th class="n"><span>' + esc(c) + '</span></th>'; }).join('') + '</tr></thead><tbody>';
+    var lastMonth = null, lastWeek = null;
+    days.forEach(function (d) {
+      var m = d.slice(0, 7), w = weekOf(d);
+      if (m !== lastMonth) { h += row('month', 'Mo ' + m, sum(byMonth[m])); lastMonth = m; }
+      if (w !== lastWeek) { h += row('week', 'Wk ' + w, sum(byWeek[w])); lastWeek = w; }
+      h += row('', d, r.days[d]);
+    });
+    h += '</tbody></table>';
+    document.getElementById('out').innerHTML = days.length ? h : '';
+    document.getElementById('msg').textContent = r.events + ' events in file; showing ' + cols.length + ' types, ' + days.length + ' days' +
+      (r.skipped ? ' (' + r.skipped + ' skipped: bad date)' : '') + (days.length ? '' : ' - no tagged events found');
+  }
+
+  function load(r) {
+    result = r;
+    var years = {};
+    Object.keys(r.days).forEach(function (d) { years[d.slice(0, 4)] = 1; });
+    var list = Object.keys(years).sort().reverse();
+    var current = String(new Date().getFullYear());
+    var sel = document.getElementById('year');
+    sel.innerHTML = list.concat('all').map(function (y) {
+      return '<option value="' + y + '">' + (y === 'all' ? 'All years' : y) + '</option>';
+    }).join('');
+    sel.value = years[current] ? current : (list[0] || 'all');
+    sel.disabled = false;
+    render();
+  }
+
+  document.getElementById('year').addEventListener('change', render);
+
+  document.getElementById('file').addEventListener('change', function (e) {
+    var f = e.target.files[0];
+    if (!f) return;
+    var rd = new FileReader();
+    rd.onload = function () {
+      try { load(analyze(JSON.parse(rd.result))); }
+      catch (err) { document.getElementById('out').innerHTML = ''; document.getElementById('msg').textContent = 'Could not read file: ' + err.message; }
+    };
+    rd.readAsText(f);
+  });
+})();
+</script>
+</body>
+</html>
