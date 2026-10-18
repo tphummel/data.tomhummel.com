@@ -82,7 +82,7 @@
 
   function render() {
     var r = result, yr = document.getElementById('year').value;
-    var days = Object.keys(r.days).filter(function (d) { return yr === 'all' || d.slice(0, 4) === yr; }).sort().reverse();
+    var days = Object.keys(r.days).filter(function (d) { return yr === 'all' || d.slice(0, 4) === yr; }).sort();
     var totals = {};
     days.forEach(function (d) {
       Object.keys(r.days[d]).forEach(function (k) { totals[k] = (totals[k] || 0) + r.days[d][k]; });
@@ -110,7 +110,7 @@
       (byMonth[d.slice(0, 7)] = byMonth[d.slice(0, 7)] || []).push(d);
       (byWeek[weekOf(d)] = byWeek[weekOf(d)] || []).push(d);
     });
-    // Newest first: a period's total row sits above its first (newest) day.
+    // Oldest first: a period's total row sits above its first (oldest) day.
     var h = '<table><thead><tr><th>Day</th>' +
       cols.map(function (c) { return '<th class="n"><span>' + esc(c) + '</span></th>'; }).join('') + '</tr></thead><tbody>';
     var lastMonth = null, lastWeek = null;
